@@ -33,40 +33,44 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="about">
-                       @Html.ActionLink("About", "Index", "About")
+                    <li id="skills">
+                        @Html.ActionLink("Skills", "FullWidth", "Other")
                     </li>
-                    
-                    <li id="contact">
-                        @Html.ActionLink("Contact", "Index", "Contact")
-                    </li>
+
                     <li id="portfolio" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            
-                            <li id="2columnportfolio">
-                                @Html.ActionLink("2 Column Portfolio", "TwoColumn", "Portfolio")
+
+                            <li id="ProjectOne">
+                                @Html.ActionLink("Library Database", "LibraryDatabase", "Portfolio")
                             </li>
                             
-                            
-                            <li id="singleportfolioitem">
-                                @Html.ActionLink("Single Portfolio Item", "SingleItem", "Portfolio")
+                            <li id="Archive">
+                                @Html.ActionLink("Archive", "Archive", "Portfolio")
                             </li>
+                            
+                            <li id="EatSomePizza">
+                                @Html.ActionLink("Eat Some Pizza", "EatSomePizza", "Portfolio")
+                            </li>
+
+                            <li id="InsuranceQuote">
+                                @Html.ActionLink("Insurance Quote", "InsuranceQuote", "Portfolio")
+                            </li>
+
+                            <li id="SlotMachine">
+                                @Html.ActionLink("Slot Machine", "SlotMachine", "Portfolio")
+                            </li>
+
+                            <li id="SurveyToService">
+                                @Html.ActionLink("Survey To Service", "SurveyToService", "Portfolio")
+                            </li>
+
+                            <li id="contact">
+                                @Html.ActionLink("Contact", "Index", "Contact")
+                            </li>
+
                         </ul>
                     </li>
-                    
-                    @*<li id="other" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li id="fullwidthpage">
-                                @Html.ActionLink("Full Width Page", "FullWidth", "Other")
-                            </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </li*@>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -83,7 +87,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Company 2013</p>
+                    <p style="position: absolute; bottom: 10px;">Copyright &copy; Nathan Hering 2017</p>
                 </div>
             </div>
         </footer>

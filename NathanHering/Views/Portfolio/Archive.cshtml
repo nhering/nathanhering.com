@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Single Portfolio Item";
+    ViewBag.Title = "Projects";
 }
 <div class="container">
     <div class="row">
@@ -9,9 +9,9 @@
                 <small>Explain Your Work</small>
             </h1>
             <ol class="breadcrumb">
-                <li>
+                @*<li>
                     @Html.ActionLink("Home", "Index", "Home")
-                </li>
+                </li>*@
                 <li class="active">Single Portfolio Item</li>
             </ol>
         </div>
@@ -32,29 +32,5 @@
             </ul>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header">Related Projects</h3>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img src="http://placehold.it/500x300" class="img-responsive img-customer">
-            </a>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img src="http://placehold.it/500x300" class="img-responsive img-customer">
-            </a>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img src="http://placehold.it/500x300" class="img-responsive img-customer">
-            </a>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img src="http://placehold.it/500x300" class="img-responsive img-customer">
-            </a>
-        </div>
-    </div>
+    @Html.Partial("OtherProjects")
 </div>

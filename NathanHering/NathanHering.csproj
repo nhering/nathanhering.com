@@ -219,16 +219,18 @@
     <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Portfolio\TwoColumn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Portfolio\SingleItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Other\FullWidth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\nathanhering.com - Web Deploy.pubxml" />
+    <Content Include="Views\Portfolio\Index.cshtml" />
+    <Content Include="Views\Portfolio\LibraryDatabase.cshtml" />
+    <Content Include="Views\Portfolio\OtherProjects.cshtml" />
+    <Content Include="Views\Portfolio\Archive.cshtml" />
+    <Content Include="Views\Portfolio\EatSomePizza.cshtml" />
+    <Content Include="Views\Portfolio\InsuranceQuote.cshtml" />
+    <Content Include="Views\Portfolio\SlotMachine.cshtml" />
+    <Content Include="Views\Portfolio\SurveyToService.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
