@@ -41,14 +41,14 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
-                            <li id="ProjectOne">
+                            <li id="LibraryDatabase">
                                 @Html.ActionLink("Library Database", "LibraryDatabase", "Portfolio")
                             </li>
-                            
+
                             <li id="Archive">
                                 @Html.ActionLink("Archive", "Archive", "Portfolio")
                             </li>
-                            
+
                             <li id="EatSomePizza">
                                 @Html.ActionLink("Eat Some Pizza", "EatSomePizza", "Portfolio")
                             </li>
@@ -64,11 +64,28 @@
                             <li id="SurveyToService">
                                 @Html.ActionLink("Survey To Service", "SurveyToService", "Portfolio")
                             </li>
+                        </ul>
+                    </li>
 
-                            <li id="contact">
-                                @Html.ActionLink("Contact", "Index", "Contact")
+                    <li id="contact">
+                        @Html.ActionLink("Contact", "Index", "Contact")
+                    </li>
+
+                    <li id="resume" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resume <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li id="PDF">
+                                PDF
                             </li>
 
+                            <li id="TXT">
+                                TXT
+                            </li>
+
+                            <li id="SurveyToService">
+                                @Html.ActionLink("HTML", "HTML", "Portfolio")
+                            </li>
                         </ul>
                     </li>
                 </ul>

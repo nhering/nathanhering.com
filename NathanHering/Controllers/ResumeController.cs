@@ -5,10 +5,10 @@ namespace NathanHering.Controllers
 {
     
     
-    public class OtherController : Controller
+    public class ResumeController : Controller
     {
         
-        public ActionResult FullWidth()
+        public ActionResult HTML()
         {
             return View();
         }
