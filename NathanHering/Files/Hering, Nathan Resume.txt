@@ -1,0 +1,84 @@
+Nathan Hering | Vancouver WA
+
+CONTACT -------------------------------------------------------
+360.852.3563
+NHering1@gmail.com
+github.com/nhering
+linkedin.com/in/nathanhering
+
+TOOLS ---------------------------------------------------------
+* ASP.NET MVC
+* Python
+* C#
+* JavaScript
+* SQL
+* MS Excel
+* HTML5
+* CSS3
+* Visual Studio
+* NetBeans
+* Java
+
+PROJECTS ------------------------------------------------------
+Over the course of the past few months I have learned a great deal about software development by applying that knowledge in various projects. Here is a list of the diverse experiences I’ve had.
+* SQL – Relational database creation via stored procedure. Database emulated a library of users, authors, publishers, library branches, and books. Created multiple stored procedures to query based on joining the tables. GitHub link
+* Python – Created a file transfer application that filters files to copy based on modify date of the selected files. Functionality also includes database creation to save recently selected folders and creates ‘profiles’ that can be reused and updated. GitHub link
+* JavaScript – Designed a dynamic web page emulating an ordering process for a pizza restaurant. Features include real-time tabulation of price based on selections made by the user. GitHub link
+* ASP.NET MVC – Constructed a mock insurance company web application. Features included a quote generator, and CRUD operations on a database, and user login functionality.
+* C# – Made a simple slot machine game which randomized images, calculated jackpot based on combination, and tracked user winnings/losses using view state.
+* MS Excel – Developed an application designed to mitigate inconsistency in core business processes at a Portland based internet provider. The application combines department efforts from customer discovery, to engineering, and through to bidding on projects. It also provides a place for executives to adjust overhead costs and know that it will be effectively reflected when sales representatives build quotes.
+
+EXPERIENCE ----------------------------------------------------
+----Junior Developer Intern	
+----The Tech Academy
+----Portland OR
+----2017
+During my internship, I contributed to an ASP.NET MVC project called Job Board PDX. Which is an application that brings tech company job offerings and available talent together in one place. I worked on multiple user stories in an agile work environment. 
+* Modified existing form fields including binding to a database
+* Performed code first data-migration to modify an existing table
+* Implemented JavaScript to dynamically change input layout based on user events
+* Added a tool-tip that displays text from a database
+* Implemented current user recognition to modify the view based on their personal information
+* Added functionality to a search result to display based on current users saved information
+
+----Field Operations Manager
+----Freewire Broadband LLC
+----Beaverton OR
+----2012 - 2017
+My roll required that I work closely with other department leaders and ensured open and accurate communication. I was available 24/7/365 for emergency issues. I conducted weekly update meetings with department heads to keep everyone aware of current projects status.
+* Lead and developed field crew
+* Instituted employee lifecycle tools including performance appraisal standards and incentive tools
+* Manage customer and internal projects
+* Prioritize resources for emergency maintenance
+I also took on the additional task of migrating the company from existing systems to a consolidated system for managing ticketing, CRM, inventory management, invoicing, and project management.
+* Reformatted existing database information
+* Configured the new system to align with the company’s business logic
+* Designed and presented training materials to all staff to facilitate a smooth transition
+
+----District Auditor
+----FedEx Office
+----NW OR, SW WA
+----2005 - 2011
+While working with the management teams of 18 to 30+ centers I developed systems to promote compliance while easing the strain of running a center. I assisted in root cause analysis, action plan development, and implementations through one on one and group training.
+* Improve audit compliance from an ‘At Risk’ rating to ‘Exceeds Expectation’ over a 12-month period
+* Inspect and measure key performance indicators at a branch and district level 
+* Develop root cause analysis for improvement plans at a branch and district level
+* Train entry to manager level team members in one on one and group settings
+
+EDUCATION -----------------------------------------------------
+----Software Development
+----The Tech Academy
+----Portland OR
+----2017
+A programming boot-camp located in downtown Portland OR. I learned multiple software technologies and had the opportunity to implement them in multiple projects. Here are the primary areas of focus.
+* Version Control – Focused on fundamental concepts and practices of VCS
+* HTML5, CSS3 & Bootstrap – Built a website from scratch and troubleshoot existing layouts
+* Database & SQL – Covered relational databases, query structure, and stored procedures
+* JavaScript – Dynamic responsive web design
+* Python – Object oriented programming and user interface using Tkinter
+* C# – Object oriented programming with Visual Studio IDE
+* ASP.NET MVC – Architecture of web applications and Entity Framework
+* Agile PM – Experience on an MVC web application in a real-world environment
+
+
+

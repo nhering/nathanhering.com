@@ -159,13 +159,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Context\ApplicationDataContext.cs" />
-    <Compile Include="Controllers\AboutController.cs" />
-    <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
-    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +176,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\modern-business.css" />
+    <Content Include="Files\Hering, Nathan Resume.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\favicon.ico" />
@@ -215,12 +212,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\About\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Contact\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Resume\HTML.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +225,6 @@
     <Content Include="Views\Portfolio\InsuranceQuote.cshtml" />
     <Content Include="Views\Portfolio\SlotMachine.cshtml" />
     <Content Include="Views\Portfolio\SurveyToService.cshtml" />
-    <Content Include="Views\Skills\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
