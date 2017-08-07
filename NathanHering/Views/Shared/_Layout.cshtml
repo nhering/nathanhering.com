@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li id="skills">
-                        @Html.ActionLink("Skills", "FullWidth", "Other")
+                        @Html.ActionLink("Skills", "Index", "Skills")
                     </li>
 
                     <li id="portfolio" class="dropdown">
@@ -76,15 +76,15 @@
                         <ul class="dropdown-menu">
 
                             <li id="PDF">
-                                PDF
+                                <a href="~/Files/Hering, Nathan Resume.pdf" target="_blank">PDF</a>
                             </li>
 
                             <li id="TXT">
-                                TXT
+                                <a>TXT</a>
                             </li>
 
                             <li id="SurveyToService">
-                                @Html.ActionLink("HTML", "HTML", "Portfolio")
+                                @Html.ActionLink("HTML", "HTML", "Resume")
                             </li>
                         </ul>
                     </li>
