@@ -7,6 +7,11 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 */
 
 /* Global Styles */
+hr {
+    display: block;
+    border-color: #448ad7;
+    border-width: 1px;
+}
 
 html, body {
   height: 100%;
