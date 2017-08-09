@@ -180,7 +180,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\favicon.ico" />
-    <Content Include="images\Python.png" />
+    <Content Include="images\GitHub.png" />
+    <Content Include="images\LinkedIn.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="Web.config" />
