@@ -1,4 +1,12 @@
 ﻿<!DOCTYPE html>
+
+<style>
+    .menu-icon{
+        height: 17px;
+        padding: 0px 5px 3px 0px;
+    }
+</style>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,6 +23,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,27 +48,33 @@
                         <ul class="dropdown-menu">
 
                             <li id="Archive">
-                                @Html.ActionLink("Archive", "Archive", "Portfolio")
+                                <a href="~/Portfolio/Archive"><img src="~/images/Python.png" class="menu-icon" /> Archive</a>
+                                @*@Html.ActionLink("Archive", "Archive", "Portfolio")*@
                             </li>
 
                             <li id="EatSomePizza">
-                                @Html.ActionLink("Eat Some Pizza", "EatSomePizza", "Portfolio")
+                                <a href="~/Portfolio/EatSomePizza"><img src="~/images/JavaScript.png" class="menu-icon" /> Eat Some Pizza</a>
+                                @*@Html.ActionLink("Eat Some Pizza", "EatSomePizza", "Portfolio")*@
                             </li>
 
                             <li id="InsuranceQuote">
-                                @Html.ActionLink("Insurance Quote", "InsuranceQuote", "Portfolio")
+                                <a href="~/Portfolio/InsuranceQuote"><img src="~/images/Microsoft.png" class="menu-icon" /> Insurance Quote</a>
+                                @*@Html.ActionLink("Insurance Quote", "InsuranceQuote", "Portfolio")*@
                             </li>
 
                             <li id="LibraryDatabase">
-                                @Html.ActionLink("Library Database", "LibraryDatabase", "Portfolio")
+                                <a href="~/Portfolio/LibraryDatabase"><img src="~/images/SQL.png" class="menu-icon" /> Library Database</a>
+                                @*@Html.ActionLink("Library Database", "LibraryDatabase", "Portfolio")*@
                             </li>
 
                             <li id="SlotMachine">
-                                @Html.ActionLink("Slot Machine", "SlotMachine", "Portfolio")
+                                <a href="~/Portfolio/SlotMachine"><img src="~/images/Cs.png" class="menu-icon" /> Slot Machine</a>
+                                @*@Html.ActionLink("Slot Machine", "SlotMachine", "Portfolio")*@
                             </li>
 
                             <li id="SurveyToService">
-                                @Html.ActionLink("Survey To Service", "SurveyToService", "Portfolio")
+                                <a href="~/Portfolio/SurveyToService"><img src="~/images/Excel.png" class="menu-icon" /> Survey To Service</a>
+                                @*@Html.ActionLink("Survey To Service", "SurveyToService", "Portfolio")*@
                             </li>
                         </ul>
                     </li>
@@ -69,15 +84,15 @@
                         <ul class="dropdown-menu">
 
                             <li id="PDF">
-                                <a href="~/Files/Hering, Nathan Resume.pdf" target="_blank">PDF</a>
+                                <a href="~/Files/Hering, Nathan Resume.pdf" target="_blank"><img src="~/images/PDF.png" class="menu-icon" /> PDF</a>
                             </li>
 
                             <li id="TXT">
-                                <a href="~/Files/Hering, Nathan Resume.txt" target="_blank">TXT</a>
+                                <a href="~/Files/Hering, Nathan Resume.txt" target="_blank"><img src="~/images/Txt.png" class="menu-icon" /> TXT</a>
                             </li>
 
                             <li id="HTML">
-                                @Html.ActionLink("HTML", "HTML", "Resume")
+                                <a href="~/Resume/HTML"><img src="~/images/HTML5.png" class="menu-icon" /> HTML</a>
                             </li>
                         </ul>
                     </li>
@@ -87,11 +102,11 @@
                         <ul class="dropdown-menu">
 
                             <li id="GitHub">
-                                <a href="https://github.com/nhering" target="_blank" class=""><img src="~/images/GitHub.png" height="15" style="padding: 0px 5px 3px 0px;" /> GitHub</a>
+                                <a href="https://github.com/nhering" target="_blank"><img src="~/images/GitHub.png" class="menu-icon" /> GitHub</a>
                             </li>
 
                             <li id="LinkedIn">
-                                <a href="https://www.linkedin.com/in/nathanhering" target="_blank" class=""><img src="~/images/LinkedIn.png" height="15" style="padding: 0px 5px 3px 0px;" /> LinkedIn</a>
+                                <a href="https://www.linkedin.com/in/nathanhering" target="_blank"><img src="~/images/LinkedIn.png" class="menu-icon" /> LinkedIn</a>
                             </li>
 
                         </ul>
