@@ -7,12 +7,15 @@
         margin: 0px;
         color: #17406d;
     }
-    h5{
+    h4{
         margin: 5px;
         color: #17406d;
     }
     hr{
         margin: 5px;
+    }
+    .hr{
+        margin: 0px 20px 5px 20px;
     }
     .link{
         color: #448ad7;
@@ -20,16 +23,27 @@
     .small-caps{
         font-size: 27px;
     }
+    .section{
+        color: black;
+    }
+    .section-spacer{
+        margin-top: 45px;
+    }
     .section-header{
+        display: inline;
         font-weight: 600;
-        margin-top: 30px;
-        float: left;
+        padding-left: 15px;
+        margin-right: 0px;
     }
     .section-divider{
-        float: right;
-        display: block;
+        margin: 0px;
+        display: inline;
         border-color: #448ad7;
         border-width: 1px;
+    }
+    p{
+        margin-left: 20px;
+        margin-right: 20%;
     }
 </style>
 
@@ -37,57 +51,79 @@
     <div class="container">
         <div class="row text-center">
             <h1>N<span class="small-caps">ATHAN</span> H<span class="small-caps">ERING</span></h1>
-            <h5>Vancouver WA</h5>
+            <h4>Vancouver WA</h4>
         </div>
         <hr />
         <div class="row text-center">
-            <div class="col-lg-3"></div>
-                    <div class="col-lg-2"><a class="link" href="https://github.com/nhering" target="_blank">GitHub</a></div>
-                    <div class="col-lg-2"><a class="link" href="mailto:nhering1@gmail.com">Gmail</a></div>
-                    <div class="col-lg-2"><a class="link" href="https://linkedin.com/in/nathanhering" target="_blank">LinkedIn</a></div>
-            <div class="col-lg-3"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4"><a class="link" href="https://github.com/nhering" target="_blank">GitHub</a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4"><a class="link" href="mailto:nhering1@gmail.com">Gmail</a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4"><a class="link" href="https://linkedin.com/in/nathanhering" target="_blank">LinkedIn</a></div>
         </div>
         <hr />
     </div>
+
     <div class="container">
         <div class="row">
-            <h5 class="section-header">Tools</h5>
-            <p class="section-divider"> </p>
+            <div class="section-spacer">
+                <h4 class="section-header">Tools</h4>
+                <p class="section-divider"></p>
+                <hr class="hr"/>
+            </div>
         </div>
-            <ul>
-                <li class="col-lg-3">ASP.NET MVC</li>
-                <li class="col-lg-3">Python</li>
-                <li class="col-lg-3">C#</li>
-                <li class="col-lg-3">JavaScript</li>
-                <li class="col-lg-3">SQL</li>
-                <li class="col-lg-3">MS Excel</li>
-                <li class="col-lg-3">HTML5</li>
-                <li class="col-lg-3">CSS3</li>
-                <li class="col-lg-3">Visual Studio</li>
-                <li class="col-lg-3">NetBeans</li>
-                <li class="col-lg-3">Java</li>
-                <li class="col-lg-3">Git</li>
-            </ul>
+        <ul>
+            <li class="col-sm-3 col-xs-5">ASP.NET MVC</li>
+            <li class="col-sm-3 col-xs-5">Python</li>
+            <li class="col-sm-3 col-xs-5">C#</li>
+            <li class="col-sm-3 col-xs-5">JavaScript</li>
+            <li class="col-sm-3 col-xs-5">SQL</li>
+            <li class="col-sm-3 col-xs-5">MS Excel</li>
+            <li class="col-sm-3 col-xs-5">HTML5</li>
+            <li class="col-sm-3 col-xs-5">CSS3</li>
+            <li class="col-sm-3 col-xs-5">Visual Studio</li>
+            <li class="col-sm-3 col-xs-5">NetBeans</li>
+            <li class="col-sm-3 col-xs-5">Java</li>
+            <li class="col-sm-3 col-xs-5">Git</li>
+        </ul>
     </div>
-Projects
-Over the course of the past few months I have learned a great deal about software development by applying that knowledge in various projects. Here is a list of the diverse experiences I’ve had.
-•	SQL – Relational database creation via stored procedure. Database emulated a library of users, authors, publishers, library branches, and books. Created multiple stored procedures to query based on joining the tables. GitHub link
-•	Python – Created a file transfer application that filters files to copy based on modify date of the selected files. Functionality also includes database creation to save recently selected folders and creates ‘profiles’ that can be reused and updated. GitHub link
-•	JavaScript – Designed a dynamic web page emulating an ordering process for a pizza restaurant. Features include real-time tabulation of price based on selections made by the user. GitHub link
-•	ASP.NET MVC – Constructed a mock insurance company web application. Features included a quote generator, and CRUD operations on a database, and user login functionality.
-•	C# – Made a simple slot machine game which randomized images, calculated jackpot based on combination, and tracked user winnings/losses using view state.
-•	MS Excel – Developed an application designed to mitigate inconsistency in core business processes at a Portland based internet provider. The application combines department efforts from customer discovery, to engineering, and through to bidding on projects. It also provides a place for executives to adjust overhead costs and know that it will be effectively reflected when sales representatives build quotes.
-Experience
-Junior Developer Intern
-The Tech Academy	Portland OR	2017
-During my internship, I contributed to an ASP.NET MVC project called Job Board PDX. Which is an application that brings tech company job offerings and available talent together in one place. I worked on multiple user stories in an agile work environment.
-•	Modified existing form fields including binding to a database
-•	Performed code first data-migration to modify an existing table
-•	Implemented JavaScript to dynamically change input layout based on user events
-•	Added a tool-tip that displays text from a database
-•	Implemented current user recognition to modify the view based on their personal information
-•	Added functionality to a search result to display based on current users saved information
 
+    <div class="container">
+        <div class="row">
+            <div class="section-spacer">
+                <h4 class="section-header">Projects</h4>
+                <p class="section-divider"></p>
+                <hr class="hr" />
+            </div>
+            <p>Over the course of the past few months I have learned a great deal about software development by applying that knowledge in various projects. Here is a list of the diverse experiences I’ve had.</p>
+            <ul>
+                <li class="col-lg-10">SQL – Relational database creation via stored procedure. Database emulated a library of users, authors, publishers, library branches, and books. Created multiple stored procedures to query based on joining the tables. GitHub link</li>
+                <li class="col-lg-10">Python – Created a file transfer application that filters files to copy based on modify date of the selected files. Functionality also includes database creation to save recently selected folders and creates ‘profiles’ that can be reused and updated. GitHub link</li>
+                <li class="col-lg-10">JavaScript – Designed a dynamic web page emulating an ordering process for a pizza restaurant. Features include real-time tabulation of price based on selections made by the user. GitHub link</li>
+                <li class="col-lg-10">ASP.NET MVC – Constructed a mock insurance company web application. Features included a quote generator, and CRUD operations on a database, and user login functionality.</li>
+                <li class="col-lg-10">C# – Made a simple slot machine game which randomized images, calculated jackpot based on combination, and tracked user winnings/losses using view state.</li>
+                <li class="col-lg-10">MS Excel – Developed an application designed to mitigate inconsistency in core business processes at a Portland based internet provider. The application combines department efforts from customer discovery, to engineering, and through to bidding on projects. It also provides a place for executives to adjust overhead costs and know that it will be effectively reflected when sales representatives build quotes.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="section-spacer">
+                <h4 class="section-header">Experience</h4>
+                <p class="section-divider"></p>
+                <hr class="hr" />
+            </div>
+            Junior Developer Intern
+            The Tech Academy	Portland OR	2017
+            During my internship, I contributed to an ASP.NET MVC project called Job Board PDX. Which is an application that brings tech company job offerings and available talent together in one place. I worked on multiple user stories in an agile work environment.
+            •	Modified existing form fields including binding to a database
+            •	Performed code first data-migration to modify an existing table
+            •	Implemented JavaScript to dynamically change input layout based on user events
+            •	Added a tool-tip that displays text from a database
+            •	Implemented current user recognition to modify the view based on their personal information
+            •	Added functionality to a search result to display based on current users saved information
+        </div>
+    </div>
 Field Operations Manager
 Freewire Broadband LLC	Beaverton OR	2012 - 2016
 My roll required that I work closely with other department leaders and ensured open and accurate communication. I was available 24/7/365 for emergency issues. I conducted weekly update meetings with department heads to keep everyone aware of current projects status.
