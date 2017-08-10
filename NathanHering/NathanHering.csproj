@@ -179,7 +179,9 @@
     <Content Include="Files\Hering, Nathan Resume.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\Archive_lg.jpg" />
     <Content Include="images\Cs.png" />
+    <Content Include="images\EatSomePizza_lg.jpg" />
     <Content Include="images\Excel.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\GitHub.png" />
