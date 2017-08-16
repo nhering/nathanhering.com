@@ -158,17 +158,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\SlotMachine\Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="SlotMachine.aspx.cs">
+    <Compile Include="Areas\SlotMachine\SlotMachine.aspx.cs">
       <DependentUpon>SlotMachine.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SlotMachine.aspx.designer.cs">
+    <Compile Include="Areas\SlotMachine\SlotMachine.aspx.designer.cs">
       <DependentUpon>SlotMachine.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\SlotMachine\SlotMachineAreaRegistration.cs" />
     <Compile Include="Context\ApplicationDataContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
@@ -189,7 +185,6 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SlotMachine\Global.asax" />
     <Content Include="Areas\SlotMachine\Images\Bar.png" />
     <Content Include="Areas\SlotMachine\Images\Bell.png" />
     <Content Include="Areas\SlotMachine\Images\Cherry.png" />
@@ -202,7 +197,7 @@
     <Content Include="Areas\SlotMachine\Images\Seven.png" />
     <Content Include="Areas\SlotMachine\Images\Strawberry.png" />
     <Content Include="Areas\SlotMachine\Images\Watermellon.png" />
-    <Content Include="SlotMachine.aspx" />
+    <Content Include="Areas\SlotMachine\SlotMachine.aspx" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -244,9 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\SlotMachine\Controllers\" />
-    <Folder Include="Areas\SlotMachine\Models\" />
-    <Folder Include="Areas\SlotMachine\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -266,15 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\Hering, Nathan Resume.pdf" />
-    <Content Include="Areas\SlotMachine\Views\web.config" />
-    <Content Include="Areas\SlotMachine\packages.config" />
-    <Content Include="Areas\SlotMachine\Web.config" />
-    <None Include="Areas\SlotMachine\Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Areas\SlotMachine\Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Properties\PublishProfiles\nathanhering.com - Web Deploy.pubxml" />
     <Content Include="Views\Portfolio\Index.cshtml" />
     <Content Include="Views\Portfolio\LibraryDatabase.cshtml" />

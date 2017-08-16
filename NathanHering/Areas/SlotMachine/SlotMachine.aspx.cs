@@ -128,9 +128,9 @@ namespace Slot_Machine
         //Display phase
         private void displayReels(string[] reels)
         {
-            Reel1.ImageUrl = "/Images/" + reels[0] + ".png";
-            Reel2.ImageUrl = "/Images/" + reels[1] + ".png";
-            Reel3.ImageUrl = "/Images/" + reels[2] + ".png";
+            Reel1.ImageUrl = "~/Areas/SlotMachine/Images/" + reels[0] + ".png";
+            Reel2.ImageUrl = "~/Areas/SlotMachine/Images/" + reels[1] + ".png";
+            Reel3.ImageUrl = "~/Areas/SlotMachine/Images/" + reels[2] + ".png";
         }
 
         private void displayResult(int bet, int winnings)
