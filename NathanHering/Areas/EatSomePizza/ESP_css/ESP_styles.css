@@ -29,7 +29,7 @@
 	margin: auto;
 }
 .selection-divider {
-	background-image: url('../images/selectionDividor.png');
+	background-image: url('../ESP_images/selectionDividor.png');
 	background-position: bottom;
 	background-color: rgba(185, 0, 0, 1);
 	background-repeat: repeat-x repeat-y;

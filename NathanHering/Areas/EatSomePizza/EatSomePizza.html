@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="ESP_css/ESP_bootstrap.min.css">
+	<link rel="stylesheet" href="ESP_css/ESP_styles.css">
 	<title>Eat Some Pizza!</title>
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="ESP_images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 | 	HEADER						    |
 /----------------------------------->
 <div class="header">
-		<img class="header-logo" src="images/logo.png">
+		<img class="header-logo" src="ESP_images/logo.png">
 </div>
 
 <div>
@@ -36,7 +36,7 @@
 		|	MENU SELECTIONS - SIZE			|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection01Size.png">
+			<img class="menu-selection-image" src="ESP_images/Selection01Size.png">
 			<div class="menu-selection-description">How many mouths are we feeding?
 				<br><input type="radio" name="size" value="0" onclick="UpdateSize();">  $6 - Personal</input>
 				<br><input type="radio" name="size" value="1" onclick="UpdateSize();">  $10 - Medium</input>
@@ -50,7 +50,7 @@
 		|	MENU SELECTIONS - CRUST			|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection02Crust.png">
+			<img class="menu-selection-image" src="ESP_images/Selection02Crust.png">
 			<div class="menu-selection-description">What kind of crust do you like?
 				<br><input type="radio" name="crust" value="0" onclick="UpdateCrust();"> Plain</input>
 				<br><input type="radio" name="crust" value="1" onclick="UpdateCrust();"> Garlic</input>
@@ -65,7 +65,7 @@
 		|	MENU SELECTIONS - SAUCE			|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection03Sauce.png">
+			<img class="menu-selection-image" src="ESP_images/Selection03Sauce.png">
 			<div class="menu-selection-description">Would you like us to sauce it up? <br>There's no charge.
 				<br><input type="radio" name="sauce" value="0" onclick="UpdateSauce();"> Marinara</input>
 				<br><input type="radio" name="sauce" value="1" onclick="UpdateSauce();"> White</input>
@@ -78,7 +78,7 @@
 		|	MENU SELECTIONS - CHEESE		|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection04Cheese.png">
+			<img class="menu-selection-image" src="ESP_images/Selection04Cheese.png">
 			<div class="menu-selection-description">How about some cheese?<br>How much would you like?
 				<br><input type="radio" name="cheese" value="0" onclick="UpdateCheese();"> Regular</input>
 				<br><input type="radio" name="cheese" value="1" onclick="UpdateCheese();"> Extra (add $3)</input>
@@ -91,7 +91,7 @@
 		|	MENU SELECTIONS - VEGGIES		|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection05Veggies.png">
+			<img class="menu-selection-image" src="ESP_images/Selection05Veggies.png">
 			<div class="menu-selection-description">Let's load it up.<br>The first topping is on the house.<br>(add $1 each after the first)
 				<br><input type="checkbox" id="to" onclick="UpdateVeggies();"> Tomato</input>
 				<br><input type="checkbox" id="on" onclick="UpdateVeggies();"> Onion</input>
@@ -109,7 +109,7 @@
 		|	MENU SELECTIONS - MEAT			|
 		/----------------------------------->
 		<div>
-			<img class="menu-selection-image" src="images/Selection06Meat.png">
+			<img class="menu-selection-image" src="ESP_images/Selection06Meat.png">
 			<div class="menu-selection-description">A hearty portion of meaty toppings!<br>We'll give you one for free.<br>(add $1 each after the first)
 				<br><input type="checkbox" id="pe" onclick="UpdateMeat();"> Pepperoni</input>
 				<br><input type="checkbox" id="sa" onclick="UpdateMeat();"> Sausage</input>
@@ -127,7 +127,7 @@
 		<div>
 
 			<div class="menu-selection-description">
-			<h1 class="menu-selection-image">Your order</h1>
+			<h1 class="ESP_menu-selection-image">Your order</h1>
 				<ul class="your_order">
 					<li id="size"></li>
 					<li id="crust"></li>
@@ -150,7 +150,7 @@
 
 
 </body>
-	<script src="js/jquery-3.1.1.slim.min.js"></script>	
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/script.js"></script>
 </html>
+<script src="ESP_js/jquery-3.1.1.slim.min.js"></script>
+<script src="ESP_js/bootstrap.min.js"></script>
+<script src="ESP_js/script.js"></script>
