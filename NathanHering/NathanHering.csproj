@@ -236,6 +236,7 @@
     <Content Include="images\Microsoft.png" />
     <Content Include="images\PDF.png" />
     <Content Include="images\Python.png" />
+    <Content Include="images\SlotMachine_lg.jpg" />
     <Content Include="images\SQL.png" />
     <Content Include="images\SurveyToService_lg.jpg" />
     <Content Include="images\Txt.png" />
