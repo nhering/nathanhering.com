@@ -158,6 +158,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\SlotMachine\Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="SlotMachine.aspx.cs">
+      <DependentUpon>SlotMachine.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SlotMachine.aspx.designer.cs">
+      <DependentUpon>SlotMachine.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\SlotMachine\SlotMachineAreaRegistration.cs" />
     <Compile Include="Context\ApplicationDataContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
@@ -167,10 +178,31 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SlotMachine.Master.cs">
+      <DependentUpon>SlotMachine.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SlotMachine.Master.designer.cs">
+      <DependentUpon>SlotMachine.Master</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SlotMachine\Global.asax" />
+    <Content Include="Areas\SlotMachine\Images\Bar.png" />
+    <Content Include="Areas\SlotMachine\Images\Bell.png" />
+    <Content Include="Areas\SlotMachine\Images\Cherry.png" />
+    <Content Include="Areas\SlotMachine\Images\Clover.png" />
+    <Content Include="Areas\SlotMachine\Images\Diamond.png" />
+    <Content Include="Areas\SlotMachine\Images\HorseShoe.png" />
+    <Content Include="Areas\SlotMachine\Images\Lemon.png" />
+    <Content Include="Areas\SlotMachine\Images\Orange.png" />
+    <Content Include="Areas\SlotMachine\Images\Plum.png" />
+    <Content Include="Areas\SlotMachine\Images\Seven.png" />
+    <Content Include="Areas\SlotMachine\Images\Strawberry.png" />
+    <Content Include="Areas\SlotMachine\Images\Watermellon.png" />
+    <Content Include="SlotMachine.aspx" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -212,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\SlotMachine\Controllers\" />
+    <Folder Include="Areas\SlotMachine\Models\" />
+    <Folder Include="Areas\SlotMachine\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -231,6 +266,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\Hering, Nathan Resume.pdf" />
+    <Content Include="Areas\SlotMachine\Views\web.config" />
+    <Content Include="Areas\SlotMachine\packages.config" />
+    <Content Include="Areas\SlotMachine\Web.config" />
+    <None Include="Areas\SlotMachine\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Areas\SlotMachine\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\nathanhering.com - Web Deploy.pubxml" />
     <Content Include="Views\Portfolio\Index.cshtml" />
     <Content Include="Views\Portfolio\LibraryDatabase.cshtml" />
@@ -240,6 +284,7 @@
     <Content Include="Views\Portfolio\InsuranceQuote.cshtml" />
     <Content Include="Views\Portfolio\SlotMachine.cshtml" />
     <Content Include="Views\Portfolio\SurveyToService.cshtml" />
+    <Content Include="SlotMachine.Master" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
