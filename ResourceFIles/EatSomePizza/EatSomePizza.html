@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<title>Eat Some Pizza!</title>
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!----------------------------------|
+| 	HEADER						    |
+/----------------------------------->
+<div class="header">
+		<img class="header-logo" src="images/logo.png">
+</div>
+
+<div>
+<!----------------------------------|
+|									|
+| 			LEFT SIDE				|
+|									|
+/----------------------------------->
+	<div>
+
+	<!----------------------------------|
+	| 	MENU SELECTIONS				    |
+	/----------------------------------->
+	<div class="selections">
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - SIZE			|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection01Size.png">
+			<div class="menu-selection-description">How many mouths are we feeding?
+				<br><input type="radio" name="size" value="0" onclick="UpdateSize();">  $6 - Personal</input>
+				<br><input type="radio" name="size" value="1" onclick="UpdateSize();">  $10 - Medium</input>
+				<br><input type="radio" name="size" value="2" onclick="UpdateSize();">  $14 - Large</input>
+				<br><input type="radio" name="size" value="3" onclick="UpdateSize();">  $16 - Extra Large</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - CRUST			|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection02Crust.png">
+			<div class="menu-selection-description">What kind of crust do you like?
+				<br><input type="radio" name="crust" value="0" onclick="UpdateCrust();"> Plain</input>
+				<br><input type="radio" name="crust" value="1" onclick="UpdateCrust();"> Garlic</input>
+				<br><input type="radio" name="crust" value="2" onclick="UpdateCrust();"> Cheese Stuffed (add $3)</input>
+				<br><input type="radio" name="crust" value="3" onclick="UpdateCrust();"> Spicy</input>
+				<br><input type="radio" name="crust" value="4" onclick="UpdateCrust();"> House Special</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - SAUCE			|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection03Sauce.png">
+			<div class="menu-selection-description">Would you like us to sauce it up? <br>There's no charge.
+				<br><input type="radio" name="sauce" value="0" onclick="UpdateSauce();"> Marinara</input>
+				<br><input type="radio" name="sauce" value="1" onclick="UpdateSauce();"> White</input>
+				<br><input type="radio" name="sauce" value="2" onclick="UpdateSauce();"> No Sauce</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - CHEESE		|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection04Cheese.png">
+			<div class="menu-selection-description">How about some cheese?<br>How much would you like?
+				<br><input type="radio" name="cheese" value="0" onclick="UpdateCheese();"> Regular</input>
+				<br><input type="radio" name="cheese" value="1" onclick="UpdateCheese();"> Extra (add $3)</input>
+				<br><input type="radio" name="cheese" value="2" onclick="UpdateCheese();"> No cheese</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - VEGGIES		|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection05Veggies.png">
+			<div class="menu-selection-description">Let's load it up.<br>The first topping is on the house.<br>(add $1 each after the first)
+				<br><input type="checkbox" id="to" onclick="UpdateVeggies();"> Tomato</input>
+				<br><input type="checkbox" id="on" onclick="UpdateVeggies();"> Onion</input>
+				<br><input type="checkbox" id="ol" onclick="UpdateVeggies();"> Olives</input>
+				<br><input type="checkbox" id="gp" onclick="UpdateVeggies();"> Green Peppers</input>
+				<br><input type="checkbox" id="mu" onclick="UpdateVeggies();"> Mushrooms</input>
+				<br><input type="checkbox" id="pi" onclick="UpdateVeggies();"> Pineapple</input>
+				<br><input type="checkbox" id="sp" onclick="UpdateVeggies();"> Spinach</input>
+				<br><input type="checkbox" id="ja" onclick="UpdateVeggies();"> Jalapeno</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+		
+		<!----------------------------------|
+		|	MENU SELECTIONS - MEAT			|
+		/----------------------------------->
+		<div>
+			<img class="menu-selection-image" src="images/Selection06Meat.png">
+			<div class="menu-selection-description">A hearty portion of meaty toppings!<br>We'll give you one for free.<br>(add $1 each after the first)
+				<br><input type="checkbox" id="pe" onclick="UpdateMeat();"> Pepperoni</input>
+				<br><input type="checkbox" id="sa" onclick="UpdateMeat();"> Sausage</input>
+				<br><input type="checkbox" id="cb" onclick="UpdateMeat();"> Canadian Bacon</input>
+				<br><input type="checkbox" id="gb" onclick="UpdateMeat();"> Ground Beef</input>
+				<br><input type="checkbox" id="an" onclick="UpdateMeat();"> Anchovy</input>
+				<br><input type="checkbox" id="ch" onclick="UpdateMeat();"> Chicken</input>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+
+	<!----------------------------------|
+	| 	YOUR ORDER					    |
+	/----------------------------------->
+		<div>
+
+			<div class="menu-selection-description">
+			<h1 class="menu-selection-image">Your order</h1>
+				<ul class="your_order">
+					<li id="size"></li>
+					<li id="crust"></li>
+					<li id="sauce"></li>
+					<li id="cheese"></li>
+
+					<li id="veggiesPrice"></li>
+					<li id="veggiesOrdered"></li>
+
+					<li id="meatPrice"></li>
+					<li id="meatOrdered"></li>
+					
+					<li id="total">TOTAL - - $0</li>
+				</ul>
+			</div>
+		</div>
+		<div class="selection-divider"></div>
+
+</div>
+
+
+</body>
+	<script src="js/jquery-3.1.1.slim.min.js"></script>	
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/script.js"></script>
+</html>

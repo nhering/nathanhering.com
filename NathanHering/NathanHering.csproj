@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\EatSomePizza\EatSomePizza.html" />
     <Content Include="Areas\SlotMachine\Images\Bar.png" />
     <Content Include="Areas\SlotMachine\Images\Bell.png" />
     <Content Include="Areas\SlotMachine\Images\Cherry.png" />
@@ -239,6 +240,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\EatSomePizza\css\" />
+    <Folder Include="Areas\EatSomePizza\fonts\" />
+    <Folder Include="Areas\EatSomePizza\images\" />
+    <Folder Include="Areas\EatSomePizza\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
