@@ -5,6 +5,11 @@
         height: 17px;
         padding: 0px 5px 3px 0px;
     }
+    .header-icon{
+        height: 22px;
+        padding: 0px 10px 0px 10px;
+        margin-top: 15px;
+    }
 </style>
 
 <html lang="en">
@@ -15,13 +20,9 @@
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
     <title>Nathan Hering - @ViewBag.Title</title>
     
-    <!-- Bootstrap -->
+
     <link href="@Url.Content("/css/bootstrap.css")" rel="stylesheet">
     <link href="@Url.Content("/css/modern-business.css")" rel="stylesheet">
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -35,11 +36,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
                 @Html.ActionLink("Nathan Hering", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
+                <a href="https://github.com/nhering" target="_blank"><img src="~/images/GitHub.png" class="header-icon" /></a>
+                <a href="https://www.linkedin.com/in/nathanhering" target="_blank"><img src="~/images/LinkedIn.png" class="header-icon" /></a>
+                </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
 
@@ -49,32 +49,26 @@
 
                             <li id="Archive">
                                 <a href="~/Portfolio/Archive"><img src="~/images/Python.png" class="menu-icon" /> Archive</a>
-                                @*@Html.ActionLink("Archive", "Archive", "Portfolio")*@
                             </li>
 
                             <li id="EatSomePizza">
                                 <a href="~/Portfolio/EatSomePizza"><img src="~/images/JavaScript.png" class="menu-icon" /> Eat Some Pizza</a>
-                                @*@Html.ActionLink("Eat Some Pizza", "EatSomePizza", "Portfolio")*@
                             </li>
 
                             <li id="InsuranceQuote">
                                 <a href="~/Portfolio/InsuranceQuote"><img src="~/images/ASPNET_MVC.png" class="menu-icon" /> Insurance Quote</a>
-                                @*@Html.ActionLink("Insurance Quote", "InsuranceQuote", "Portfolio")*@
                             </li>
 
                             <li id="LibraryDatabase">
                                 <a href="~/Portfolio/LibraryDatabase"><img src="~/images/SQL.png" class="menu-icon" /> Library Database</a>
-                                @*@Html.ActionLink("Library Database", "LibraryDatabase", "Portfolio")*@
                             </li>
 
                             <li id="SlotMachine">
                                 <a href="~/Portfolio/SlotMachine"><img src="~/images/Cs.png" class="menu-icon" /> Slot Machine</a>
-                                @*@Html.ActionLink("Slot Machine", "SlotMachine", "Portfolio")*@
                             </li>
 
                             <li id="SurveyToService">
                                 <a href="~/Portfolio/SurveyToService"><img src="~/images/Excel.png" class="menu-icon" /> Survey To Service</a>
-                                @*@Html.ActionLink("Survey To Service", "SurveyToService", "Portfolio")*@
                             </li>
                         </ul>
                     </li>
@@ -97,26 +91,9 @@
                         </ul>
                     </li>
 
-                    <li id="social" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Social <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-
-                            <li id="GitHub">
-                                <a href="https://github.com/nhering" target="_blank"><img src="~/images/GitHub.png" class="menu-icon" /> GitHub</a>
-                            </li>
-
-                            <li id="LinkedIn">
-                                <a href="https://www.linkedin.com/in/nathanhering" target="_blank"><img src="~/images/LinkedIn.png" class="menu-icon" /> LinkedIn</a>
-                            </li>
-
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
 
     @RenderBody()
