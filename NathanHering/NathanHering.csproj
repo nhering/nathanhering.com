@@ -218,7 +218,9 @@
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\layout.css" />
     <Content Include="css\modern-business.css" />
+    <Content Include="css\resume.css" />
     <Content Include="Files\Hering, Nathan Resume.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
