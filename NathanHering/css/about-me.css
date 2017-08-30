@@ -6,4 +6,8 @@
     background-size: auto;
     background-repeat: no-repeat;
     min-height: 700px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #448ad7;
+    border-width: 1px;
 }
