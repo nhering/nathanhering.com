@@ -1,0 +1,10 @@
+﻿.AboutMeText {
+    padding: 20px;
+}
+.AboutMeImage{
+    background-image: url('../../images/AboutMe1.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 500px;
+}
