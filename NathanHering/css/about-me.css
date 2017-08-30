@@ -3,8 +3,7 @@
 }
 .AboutMeImage{
     background-image: url('../../images/AboutMe1.jpg');
-    background-size: 100%;
+    background-size: auto;
     background-repeat: no-repeat;
-    position: relative;
-    min-height: 500px;
+    min-height: 700px;
 }
