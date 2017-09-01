@@ -236,6 +236,7 @@
     <Content Include="images\favicon.ico" />
     <Content Include="images\GitHub.png" />
     <Content Include="images\HTML5.png" />
+    <Content Include="images\InsuranceQuote_lg.jpg" />
     <Content Include="images\InsuranceQuote_sm.jpg" />
     <Content Include="images\JavaScript.png" />
     <Content Include="images\LibraryDatabase_lg.jpg" />
