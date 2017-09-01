@@ -1,6 +1,10 @@
 ﻿.AboutMeText {
     padding: 20px;
 }
+.AboutMeParagraph {
+    text-align: justify;
+    line-height: 150%;
+}
 .AboutMeImage{
     background-image: url('../../images/AboutMe1.jpg');
     background-size: auto;
