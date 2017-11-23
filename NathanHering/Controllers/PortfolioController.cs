@@ -3,8 +3,6 @@
 
 namespace NathanHering.Controllers
 {
-    
-    
     public class PortfolioController : Controller
     {
         public ActionResult LibraryDatabase()

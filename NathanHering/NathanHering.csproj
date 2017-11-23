@@ -166,12 +166,14 @@
       <DependentUpon>SlotMachine.aspx</DependentUpon>
     </Compile>
     <Compile Include="Context\ApplicationDataContext.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SlotMachine.Master.cs">
@@ -244,6 +246,7 @@
     <Content Include="images\LinkedIn.png" />
     <Content Include="images\Microsoft.png" />
     <Content Include="images\PDF.png" />
+    <Content Include="images\Pong.png" />
     <Content Include="images\Python.png" />
     <Content Include="images\SlotMachine_lg.jpg" />
     <Content Include="images\SlotMachine_sm.jpg" />
@@ -296,6 +299,7 @@
     <Content Include="Views\Portfolio\SlotMachine.cshtml" />
     <Content Include="Views\Portfolio\SurveyToService.cshtml" />
     <Content Include="SlotMachine.Master" />
+    <Content Include="Views\Game\Pong.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
