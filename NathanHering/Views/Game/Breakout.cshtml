@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Breakout";
+}
+
+<link href="~/css/ArcadeGame.css" rel="stylesheet" />
+
+<!-- The outermost container -->
+<div class="container">
+
+    <!-- Game banner -->
+    <div id="banner" class="banner">
+        Breakout
+    </div>
+    
+    <!-- The game area on the left -->
+    <div id="gameArea">
+        <canvas></canvas>
+    </div>
+
+    <!-- Info board on right -->
+    <div id="infoArea" class="infoArea">
+        <div class="infoText">
+            Score: <b id="score">0</b>
+        </div>
+        <div class="infoText">
+
+        </div>
+    </div>
+
+    <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
+    <div id="maskingLayer" class="maskingLayer">
+    </div>
+
+    <!-- Settings modal -->
+    <div id="settings">
+
+    </div>
+
+    <!-- Pause/Play modal -->
+    <div id="playPause">
+
+    </div>
+
+     <!-- Continue/Start Over modal -->
+    <div id="continueStartOver">
+
+    </div>
+
+    <!-- Instructions modal -->
+    <div id="instructions">
+
+    </div>
+</div>

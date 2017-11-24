@@ -3,5 +3,26 @@
     ViewBag.Title = "Pong";
 }
 
-<h2>Pong</h2>
+<link href="~/css/ArcadeGame.css" rel="stylesheet" />
+
+<div class="container"> <!-- The outermost container -->
+
+    <div id="gameBanner" class="gameBanner"> <!-- Game banner -->
+    Pong
+    </div>
+
+    <div id="scoreBoard"> <!-- Scoreboard at the top -->
+        <div id="playerOne">
+
+        </div>
+    </div>
+
+    <div> <!-- The "Screen" for playing -->
+    <canvas></canvas>
+    </div>
+
+    <div id="statusBar"> <!-- Info/status bar at the bottom -->
+
+    </div>
+</div>
 

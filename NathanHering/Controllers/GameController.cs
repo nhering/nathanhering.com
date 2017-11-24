@@ -12,5 +12,9 @@ namespace NathanHering.Controllers
         {
             return View();
         }
+        public ActionResult Breakout()
+        {
+            return View();
+        }
     }
 }

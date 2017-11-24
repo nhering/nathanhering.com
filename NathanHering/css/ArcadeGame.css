@@ -1,0 +1,9 @@
+﻿.banner {
+    background: black;
+    color: green;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Arial Rounded MT';
+    font-size: 40px;
+}

@@ -2,8 +2,24 @@
     height: 17px;
     padding: 0px 5px 3px 0px;
 }
+
 .header-icon{
     height: 22px;
     padding: 0px 10px 0px 10px;
     margin-top: 15px;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(#022241,#04509a);
+    box-shadow: 0px 0px 7px black;
+    text-align: center;
+    font-size: 12px;
+    color: #317eb4;
+    text-shadow: 0px -1px 1px black;
+    padding-top: 4px;
+    margin: 0px;
 }

@@ -217,6 +217,7 @@
     <Content Include="Areas\SlotMachine\SM_images\Watermellon.png" />
     <Content Include="Areas\SlotMachine\SlotMachine.aspx" />
     <Content Include="css\about-me.css" />
+    <Content Include="css\ArcadeGame.css" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -231,6 +232,7 @@
     <Content Include="images\Archive_lg.jpg" />
     <Content Include="images\Archive_sm.jpg" />
     <Content Include="images\ASPNET_MVC.png" />
+    <Content Include="images\Breakout.png" />
     <Content Include="images\Cs.png" />
     <Content Include="images\EatSomePizza_lg.jpg" />
     <Content Include="images\EatSomePizza_sm.jpg" />
@@ -300,6 +302,8 @@
     <Content Include="Views\Portfolio\SurveyToService.cshtml" />
     <Content Include="SlotMachine.Master" />
     <Content Include="Views\Game\Pong.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Game\Breakout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

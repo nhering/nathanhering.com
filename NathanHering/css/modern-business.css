@@ -122,11 +122,6 @@ body {
   font-style: italic;
 }
 
-/* Footer Styles */
-footer {
-  margin: 50px 0;
-}
-
 /* Responsive Styles */
 @media (max-width: 767px) {
 

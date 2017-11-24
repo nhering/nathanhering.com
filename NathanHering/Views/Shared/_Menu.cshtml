@@ -1,0 +1,81 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Nathan Hering", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
+            <a href="https://github.com/nhering" target="_blank"><img src="~/images/GitHub.png" class="header-icon" /></a>
+            <a href="https://www.linkedin.com/in/nathanhering" target="_blank"><img src="~/images/LinkedIn.png" class="header-icon" /></a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li id="portfolio" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width:0px;">
+
+                        <li id="Archive">
+                            <a href="~/Portfolio/Archive"><img src="~/images/Python.png" class="menu-icon" /> Archive</a>
+                        </li>
+
+                        <li id="EatSomePizza">
+                            <a href="~/Portfolio/EatSomePizza"><img src="~/images/JavaScript.png" class="menu-icon" /> Eat Some Pizza</a>
+                        </li>
+
+                        <li id="InsuranceQuote">
+                            <a href="~/Portfolio/InsuranceQuote"><img src="~/images/ASPNET_MVC.png" class="menu-icon" /> Insurance Quote</a>
+                        </li>
+
+                        <li id="LibraryDatabase">
+                            <a href="~/Portfolio/LibraryDatabase"><img src="~/images/SQL.png" class="menu-icon" /> Library Database</a>
+                        </li>
+
+                        <li id="SlotMachine">
+                            <a href="~/Portfolio/SlotMachine"><img src="~/images/Cs.png" class="menu-icon" /> Slot Machine</a>
+                        </li>
+
+                        <li id="SurveyToService">
+                            <a href="~/Portfolio/SurveyToService"><img src="~/images/Excel.png" class="menu-icon" /> Survey To Service</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="resume" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resume <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width:0px;">
+
+                        <li id="PDF">
+                            <a href="~/Files/Hering, Nathan Resume.pdf" target="_blank"><img src="~/images/PDF.png" class="menu-icon" /> PDF</a>
+                        </li>
+
+                        <li id="TXT">
+                            <a href="~/Files/Hering, Nathan Resume.txt" target="_blank"><img src="~/images/Txt.png" class="menu-icon" /> TXT</a>
+                        </li>
+
+                        <li id="HTML">
+                            <a href="~/Resume/HTML"><img src="~/images/HTML5.png" class="menu-icon" /> HTML</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="games" class="dropdown">
+                    <a href="#" data-toggle="dropdown">Games <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width:0px;">
+
+                        <li id="Pong">
+                            <a href="~/Game/Pong"><img src="~/images/Pong.png" class="menu-icon" /> Pong</a>
+                        </li>
+                        <li id="Breakout">
+                            <a href="~/Game/Breakout"><img src="~/images/Breakout.png" class="menu-icon" /> Breakout</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
