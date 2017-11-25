@@ -7,6 +7,11 @@ var blocksLeft = randomNumber();
 function clearScreen(canvas) {
     ctx.fillStyle = "#223322";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    var gradient = ctx.createLinearGradient(0, 400, 0, 490);
+    gradient.addColorStop(0, '#223322');
+    gradient.addColorStop(1, '#101010');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 400, 785, 90);
 }
 
 function upadateScoreBoard(lives, score, blocksLeft) {
@@ -16,8 +21,8 @@ function upadateScoreBoard(lives, score, blocksLeft) {
 }
 
 function drawPaddle() {
-    ctx.fillStyle = "#ddffdd";
-    ctx.fillRect(10, 40, 30, 6);
+    ctx.fillStyle = "#dcdfdc";
+    ctx.fillRect(10, 450, 80, 20);
 }
 
 function randomNumber() {

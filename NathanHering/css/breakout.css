@@ -15,14 +15,14 @@
     font-size: 40px;
     text-align: center;
     cursor: default;
+    color: green;
 }
 
 .monitor {
     border-radius: 4px;
     border: 5px solid #937247;
     box-shadow: 1px 1px 15px #3e2a2a;
-    background-color: black;
-    color: green;
+    background-color: #223322;
 }
 
 .canvas {
@@ -49,19 +49,21 @@
 }
 
 .infoTextBlock {
-    background-color: rgba(255,255,255,.1);
-    border: 2px solid black;
-    border-radius: 6px;
-    padding: 5px 15px;
+    background-color: #3c503c;
+    border-radius: 4px;
+    padding: 5px 10px;
     margin: 5px 0px;
+    color: #ecffdc;
 }
 
 .infoTextLeft {
+    display: inline;
 }
 
 .infoTextRight {
     text-align: right;
     float: right;
+    display: inline;
 }
 
 .maskingLayer {
