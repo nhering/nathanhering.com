@@ -3,52 +3,62 @@
     ViewBag.Title = "Breakout";
 }
 
-<link href="~/css/ArcadeGame.css" rel="stylesheet" />
+<link href="~/css/breakout.css" rel="stylesheet" />
+
 
 <!-- The outermost container -->
-<div class="container">
+<div class="gamePage">
 
     <!-- Game banner -->
-    <div id="banner" class="banner">
-        Breakout
+    <div id="titleBanner" class="titleBanner monitor">
+        BREAKOUT
     </div>
     
     <!-- The game area on the left -->
-    <div id="gameArea">
-        <canvas></canvas>
+    <div id="gameArea" class="gameArea monitor">
+        <canvas id="canvas" class="canvas">Canvas</canvas>
+
+        <!-- Settings modal -->
+        <div id="settings" class="settingsModal">
+
+        </div>
+
+        <!-- Pause/Play modal -->
+        <div id="playPause" class="playPauseModal">
+
+        </div>
+
+        <!-- Continue/Start Over modal -->
+        <div id="continueStartOver" class="continueStartOverModal">
+
+        </div>
+
+        <!-- Instructions modal -->
+        <div id="instructions" class="instructionsModal">
+
+        </div>
     </div>
 
     <!-- Info board on right -->
-    <div id="infoArea" class="infoArea">
-        <div class="infoText">
-            Score: <b id="score">0</b>
+    <div id="infoArea" class="infoArea monitor">
+        <div class="infoTextBlock">
+            <b class="infoTextLeft">Lives :</b>
+            <b class="infoTextRight" id="lives">0</b>
         </div>
-        <div class="infoText">
-
+        <div class="infoTextBlock">
+            <b class="infoTextLeft">Score :</b>
+            <b class="infoTextRight" id="score">0</b>
+        </div>
+        <div class="infoTextBlock">
+            <b class="infoTextLeft">Blocks Left :</b>
+            <b class="infoTextRight" id="blocksLeft">0</b>
         </div>
     </div>
 
     <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
     <div id="maskingLayer" class="maskingLayer">
-    </div>
-
-    <!-- Settings modal -->
-    <div id="settings">
-
-    </div>
-
-    <!-- Pause/Play modal -->
-    <div id="playPause">
-
-    </div>
-
-     <!-- Continue/Start Over modal -->
-    <div id="continueStartOver">
-
-    </div>
-
-    <!-- Instructions modal -->
-    <div id="instructions">
-
+        masking layer
     </div>
 </div>
+
+<script src="~/js/breakout/breakout.js"></script>
