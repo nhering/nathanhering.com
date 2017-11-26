@@ -1,10 +1,13 @@
-﻿var canvas = document.getElementById("canvas");
+﻿/// <reference path="paddle.js" />
+var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var lives = canvas.width;
 var score = canvas.height;
 var blocksLeft = randomNumber();
 
-function clearScreen(canvas) {
+//import * as paddle '~/js/breakout/paddle';
+
+function drawScreen(canvas) {
     ctx.fillStyle = "#223322";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     var gradient = ctx.createLinearGradient(0, 400, 0, 490);
@@ -33,5 +36,5 @@ function loop() {
 }
 
 upadateScoreBoard(lives, score, blocksLeft);
-clearScreen(canvas);
+drawScreen(canvas);
 drawPaddle();

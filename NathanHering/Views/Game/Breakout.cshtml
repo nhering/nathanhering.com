@@ -16,6 +16,8 @@
     
     <!-- The game area on the left -->
     <div id="gameArea" class="gameArea monitor">
+
+        <!-- Canvas area -->
         <canvas id="canvas" width="785" height="490"></canvas>
 
         <!-- Settings modal -->
@@ -37,28 +39,36 @@
         <div id="instructions" class="instructionsModal">
 
         </div>
+
     </div>
 
     <!-- Info board on right -->
     <div id="infoArea" class="infoArea monitor">
+
         <div class="infoTextBlock">
             <div class="infoTextLeft">Lives :</div>
             <div class="infoTextRight" id="lives">0</div>
         </div>
+
         <div class="infoTextBlock">
             <div class="infoTextLeft">Score :</div>
             <div class="infoTextRight" id="score">0</div>
         </div>
+
         <div class="infoTextBlock">
             <div class="infoTextLeft">Blocks Left :</div>
             <div class="infoTextRight" id="blocksLeft">0</div>
         </div>
+
     </div>
 
     <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
-    <div id="maskingLayer" class="maskingLayer">
-        masking layer
+    <div id="maskingLayer" class="maskingLayer"></div>
+    
+    <!-- Fotter banner -->
+    <div id="footerBanner" class="footerBanner monitor">
     </div>
+
 </div>
 
 <script src="~/js/breakout/breakout.js"></script>
