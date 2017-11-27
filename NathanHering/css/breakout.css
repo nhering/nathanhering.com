@@ -1,5 +1,9 @@
 ﻿body {
     background-color: tan;
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
 }
 
 .gamePage {
@@ -26,7 +30,7 @@
 }
 
 .canvas {
-    width: 785px;
+    width: 780px;
     height: 490px;
     cursor: none;
     border: 3px solid #2b442b;
@@ -35,7 +39,7 @@
 .gameArea {
     display: inline-block;
     float: left;
-    width: 795px;
+    width: 760px;
     height: 500px;
     height: 500px;
     cursor: none;
@@ -44,10 +48,39 @@
 .infoArea{
     display: inline-block;
     float: right;
-    width: 195px;
+    width: 230px;
     padding: 0px 10px;
     height: 500px;
     cursor: default;
+}
+
+.controlTextBlock {
+    background-color: #0a760a;
+    border-radius: 4px;
+    margin: 10px 0px;
+    padding: 5px 10px;
+    color: #ecffdc;
+}
+
+.controlTextBlock:hover {
+    box-shadow: 0px 0px 5px #8dea8f;
+}
+
+.controlText {
+    display: inline;
+    height: 200px;
+}
+
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.controlShortcut {
+    padding-top: 3px;
+    font-size: 10px;
+    display: inline;
+    float: right;
 }
 
 .infoTextBlock {
@@ -55,7 +88,8 @@
     border-radius: 4px;
     padding: 5px 10px;
     margin: 10px 0px;
-    color: #ecffdc;
+    color: #00800b;
+    text-shadow: 0px 0px 2px black;
 }
 
 .infoTextLeft {

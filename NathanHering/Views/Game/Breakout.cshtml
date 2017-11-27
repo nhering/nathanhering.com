@@ -18,7 +18,7 @@
     <div id="gameArea" class="gameArea monitor">
 
         <!-- Canvas area -->
-        <canvas id="canvas" width="785" height="490"></canvas>
+        <canvas id="canvas" width="750" height="490"></canvas>
 
         <!-- Settings modal -->
         <div id="settings" class="settingsModal">
@@ -45,6 +45,20 @@
     <!-- Info board on right -->
     <div id="infoArea" class="infoArea monitor">
 
+        <a id="playButton" onmouseup="play()">
+            <div class="controlTextBlock">
+                <div class="controlText">PLAY</div>
+                <div class="controlShortcut">(enter)</div>
+            </div>
+        </a>
+
+        <a id="pauseButton" onmouseup="pause()" style="display:none;">
+            <div class="controlTextBlock">
+                <div class="controlText">PAUSE</div>
+                <div class="controlShortcut">(space)</div>
+            </div>
+        </a>
+
         <div class="infoTextBlock">
             <div class="infoTextLeft">Lives :</div>
             <div class="infoTextRight" id="lives">0</div>
@@ -56,8 +70,8 @@
         </div>
 
         <div class="infoTextBlock">
-            <div class="infoTextLeft">Blocks Left :</div>
-            <div class="infoTextRight" id="blocksLeft">0</div>
+            <div class="infoTextLeft">Blocks Destroyed :</div>
+            <div class="infoTextRight" id="blocksDestroyed">0</div>
         </div>
 
     </div>
@@ -72,3 +86,7 @@
 </div>
 
 <script src="~/js/breakout/breakout.js"></script>
+<script>
+    ready(document);
+    keyListener();
+</script>
