@@ -26,9 +26,9 @@
         </div>
 
         <!-- Pause/Play modal -->
-        <div id="playPause" class="playPauseModal">
-
-        </div>
+        <a id="playPause" class="playPauseModal" onmouseup="play()">
+            <b>CONTINUE</b>
+        </a>
 
         <!-- Continue/Start Over modal -->
         <div id="continueStartOver" class="continueStartOverModal">
@@ -39,6 +39,9 @@
         <div id="instructions" class="instructionsModal">
 
         </div>
+        
+        <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
+        <div id="maskingLayer" class="maskingLayer"></div>
 
     </div>
 
@@ -61,23 +64,20 @@
 
         <div class="infoTextBlock">
             <div class="infoTextLeft">Lives :</div>
-            <div class="infoTextRight" id="lives">0</div>
+            <div class="infoTextRight" id="lives"></div>
         </div>
 
         <div class="infoTextBlock">
             <div class="infoTextLeft">Score :</div>
-            <div class="infoTextRight" id="score">0</div>
+            <div class="infoTextRight" id="score"></div>
         </div>
 
         <div class="infoTextBlock">
             <div class="infoTextLeft">Blocks Destroyed :</div>
-            <div class="infoTextRight" id="blocksDestroyed">0</div>
+            <div class="infoTextRight" id="blocksDestroyed"></div>
         </div>
 
     </div>
-
-    <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
-    <div id="maskingLayer" class="maskingLayer"></div>
     
     <!-- Fotter banner -->
     <div id="footerBanner" class="footerBanner monitor">
@@ -87,6 +87,5 @@
 
 <script src="~/js/breakout/breakout.js"></script>
 <script>
-    ready(document);
-    keyListener();
+    Breakout();
 </script>
