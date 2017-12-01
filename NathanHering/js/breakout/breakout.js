@@ -3,12 +3,13 @@ var ctx = canvas.getContext("2d");
 var game = {};
 
 function Breakout() {
-    game.phase = 'ready';
-    game.playing = false;
+    game.mode = 'ready';
     game.level = 1;
-    game.win = false;
     game.lives = 3;
     game.score = 0;
+    game.blocksDestroyed = 0;
+    game.counter = 0;
+    game.mouseX = 335;
     window.addEventListener('keydown', function (e) { keyListener(e) }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
     game.timer = setInterval(function () { draw(); update() }, 40);
@@ -24,6 +25,10 @@ function Brick(x,y,h) {
     brick = [xCoord,yCoord,width,height,color,health];
     return brick;
 }
+
+//----------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------INPUT--
+//----------------------------------------------------------------------------------------
 
 function keyListener(e) {
     switch (e.keyCode) {
@@ -41,20 +46,33 @@ function play() {
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('maskingLayer').style.display = 'none';
     document.getElementById('playPause').style.display = 'none';
-    game.phase = 'play';
+    game.mode = 'play';
 }
 
 function pause() {
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'block';
-    document.getElementById('maskingLayer').style.display = 'inline';
+    document.getElementById('maskingLayer').style.display = 'block';
     document.getElementById('playPause').style.display = 'block';
-    game.phase = 'pause';
+    game.mode = 'pause';
 }
 
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------DRAW--
+//----------------------------------------------------------------------------------------
+
 function draw() {
-    drawScreen();
-    drawPaddle();
+    switch (game.mode) {
+        case 'ready':
+            drawScreen();
+            drawPaddle();
+            break;
+        case 'play':
+            game.counter += 1;
+            drawScreen();
+            drawPaddle();
+            break;
+    }
 }
 
 function drawScreen() {
@@ -71,14 +89,21 @@ function drawPaddle() {
     var x = game.mouseX - canvas.getBoundingClientRect().left - 40;
     if (x <= 0) { x = 0 };
     if (x >= 670) { x = 670 };
+    if (game.mode = 'ready') { x = 335; };
     ctx.fillStyle = "#dcdfdc";
     ctx.fillRect(x, 455, 80, 20);
 }
 
-function upadateScoreBoard(lives, score, blocksDestroyed) {
-    document.getElementById("lives").innerHTML = game.lives;
-    document.getElementById("score").innerHTML = game.score;
-    document.getElementById("blocksDestroyed").innerHTML = blocksDestroyed;
+//----------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------UPDATE--
+//----------------------------------------------------------------------------------------
+
+function update() {
+    upadateScoreBoard();
 }
 
-upadateScoreBoard(game.lives, game.score, blocksDestroyed);
+function upadateScoreBoard() {
+    document.getElementById("lives").innerHTML = game.mode;
+    document.getElementById("score").innerHTML = game.counter;
+    document.getElementById("blocksDestroyed").innerHTML = game.blocksDestroyed;
+}

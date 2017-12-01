@@ -33,11 +33,10 @@
     width: 780px;
     height: 490px;
     cursor: none;
-    border: 3px solid #2b442b;
 }
 
 .gameArea {
-    display: inline-block;
+    display: inline;
     float: left;
     width: 760px;
     height: 500px;
@@ -46,7 +45,7 @@
 }
 
 .infoArea{
-    display: inline-block;
+    display: inline;
     float: right;
     width: 230px;
     padding: 0px 10px;
@@ -103,7 +102,7 @@ a:hover {
 }
 
 .maskingLayer {
-    position: absolute;
+    position: relative;
     top: 0px;
     right: 0px;
     bottom: 0px;
