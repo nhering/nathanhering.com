@@ -7,7 +7,7 @@
 
 
 <!-- The outermost container -->
-<div class="gamePage">
+<div class="gamePage">    
 
     <!-- Game banner -->
     <div id="titleBanner" class="titleBanner monitor">
@@ -18,47 +18,53 @@
     <div id="gameArea" class="gameArea monitor">
 
         <!-- Canvas area -->
-        <canvas id="canvas" width="750" height="490"></canvas>
+        <canvas id="canvas" class="canvas"></canvas>
 
         <!-- Settings modal -->
         <div id="settings" class="settingsModal">
 
         </div>
 
-        <!-- Pause/Play modal -->
-        <a id="playPause" class="playPauseModal" onmouseup="play()">
-            <b>CONTINUE</b>
+        <!-- Continue modal -->
+        <a id="continueModal" onmouseup="Continue()" style="display:none;cursor:default;">
+            <div id="a1" class="continueModal"
+                 onmouseover="setStyle('a2', 'boxShadow', '0px 0px 5px #8dea8f')"
+                 onmouseout="setStyle('a2', 'boxShadow', '')">
+                <div class="continueModalText">CONTINUE</div>
+                <div class="continueModalShortcut">(enter)</div>
+            </div>
         </a>
-
-        <!-- Continue/Start Over modal -->
-        <div id="continueStartOver" class="continueStartOverModal">
-
-        </div>
 
         <!-- Instructions modal -->
         <div id="instructions" class="instructionsModal">
 
         </div>
-        
-         <!-- Masking layer to give the appearence that all the rest of the layers are faded while a modal is visible -->
-        <div id="maskingLayer" class="maskingLayer"></div>
 
     </div>
 
     <!-- Info board on right -->
     <div id="infoArea" class="infoArea monitor">
 
-        <a id="playButton" onmouseup="play()">
+        <a id="playButton" onmouseup="play(); return false;">
             <div class="controlTextBlock">
                 <div class="controlText">PLAY</div>
                 <div class="controlShortcut">(enter)</div>
             </div>
         </a>
 
-        <a id="pauseButton" onmouseup="pause()" style="display:none;">
+        <a id="pauseButton" onmouseup="pause(); return false;" style="display:none;">
             <div class="controlTextBlock">
                 <div class="controlText">PAUSE</div>
                 <div class="controlShortcut">(space)</div>
+            </div>
+        </a>
+
+        <a id="continueButton" onmouseup="Continue(); return false;" style="display:none;">
+            <div id="a2" class="controlTextBlock"
+                 onmouseover="setStyle('a1', 'boxShadow', '0px 0px 23px #8dea8f')"
+                 onmouseout="setStyle('a1', 'boxShadow', '')">
+                <div class="controlText">CONTINUE</div>
+                <div class="controlShortcut">(enter)</div>
             </div>
         </a>
 
@@ -75,6 +81,11 @@
         <div class="infoTextBlock">
             <div class="infoTextLeft">Blocks Destroyed :</div>
             <div class="infoTextRight" id="blocksDestroyed"></div>
+        </div>
+
+        <div class="infoTextBlock">
+            <div class="infoTextLeft">Time :</div>
+            <div class="infoTextRight" id="time"></div>
         </div>
 
     </div>

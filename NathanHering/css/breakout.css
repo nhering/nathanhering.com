@@ -30,18 +30,14 @@
 }
 
 .canvas {
-    width: 780px;
+    width: 750px;
     height: 490px;
-    cursor: none;
 }
 
 .gameArea {
-    display: inline;
     float: left;
     width: 760px;
     height: 500px;
-    height: 500px;
-    cursor: none;
 }
 
 .infoArea{
@@ -56,9 +52,11 @@
 .controlTextBlock {
     background-color: #0a760a;
     border-radius: 4px;
+    border: solid 1px #1a861a;
     margin: 10px 0px;
     padding: 5px 10px;
     color: #ecffdc;
+    text-shadow: 0px 0px 2px black;
 }
 
 .controlTextBlock:hover {
@@ -67,7 +65,6 @@
 
 .controlText {
     display: inline;
-    height: 200px;
 }
 
 a:hover {
@@ -85,9 +82,10 @@ a:hover {
 .infoTextBlock {
     background-color: #3c503c;
     border-radius: 4px;
+    border: solid 1px #4c604c;
     padding: 5px 10px;
     margin: 10px 0px;
-    color: #00800b;
+    color: #3aa63a;
     text-shadow: 0px 0px 2px black;
 }
 
@@ -99,18 +97,6 @@ a:hover {
     text-align: right;
     float: right;
     display: inline;
-}
-
-.maskingLayer {
-    position: relative;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    z-index: 2;
-    background-color: rgba(210, 180, 140, .8);
-    cursor: pointer;
-    display: none;
 }
 
 .settingsModal {
@@ -129,32 +115,40 @@ a:hover {
     display: none;
 }
 
-.playPauseModal {
+.continueModal {
     position: relative;
-    left: 100px;
-    top: -420px;
-    width: 560px;
-    height: 340px;
-    padding: 20px;
+    padding: 12px 25px;
+    left: 125px;
+    top: -300px;
+    width: 500px;
     z-index: 3;
-    background-color: rgb(220, 190, 150);
-    border-radius: 4px;
-    border: 5px solid #937247;
-    box-shadow: 1px 1px 15px #3e2a2a;
+    background-color: #0a760a;
+    border-radius: 10px;
+    border: solid 2px #1a861a;
     cursor: default;
-    display: none;
-
-    text-align: center;
-    font-size: 80px;
-    padding-top: 50px;
-    color: green;
-    font-family: 'Arial Rounded MT';
+    color: #ecffdc;
+    text-shadow: 0px 0px 5px black;
+    box-shadow: 2px 2px 10px #223322;
 }
 
-.playPauseModal:hover {
-    color: green;
+.continueModal:hover {
+    box-shadow: 0px 0px 23px #8dea8f;
+    text-decoration: none;
+    cursor: pointer;
+    color: #ecffdc;
 }
 
+.continueModalText {
+    display: inline;
+    font-size: 35px;
+}
+
+.continueModalShortcut {
+    display: inline;
+    float: right;
+    font-size: 25px;
+    padding-top: 7px;
+}
 .continueStartOverModal {
     position: relative;
     left: 100px;
