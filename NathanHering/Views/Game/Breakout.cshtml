@@ -18,20 +18,20 @@
     <div id="gameArea" class="gameArea monitor">
 
         <!-- Canvas area -->
-        <canvas id="canvas" class="canvas"></canvas>
+        <canvas id="canvas" width="750" height="490"></canvas>
 
         <!-- Settings modal -->
         <div id="settings" class="settingsModal">
 
         </div>
 
-        <!-- Continue modal -->
-        <a id="continueModal" onmouseup="Continue()" style="display:none;cursor:default;">
-            <div id="a1" class="continueModal"
+        <!-- resume modal -->
+        <a id="resumeModal" onmouseup="resume()" style="display:none;cursor:default;">
+            <div id="a1" class="resumeModal"
                  onmouseover="setStyle('a2', 'boxShadow', '0px 0px 5px #8dea8f')"
                  onmouseout="setStyle('a2', 'boxShadow', '')">
-                <div class="continueModalText">CONTINUE</div>
-                <div class="continueModalShortcut">(enter)</div>
+                <div class="resumeModalText">CONTINUE</div>
+                <div class="resumeModalShortcut">(enter)</div>
             </div>
         </a>
 
@@ -59,7 +59,7 @@
             </div>
         </a>
 
-        <a id="continueButton" onmouseup="Continue(); return false;" style="display:none;">
+        <a id="continueButton" onmouseup="resume(); return false;" style="display:none;">
             <div id="a2" class="controlTextBlock"
                  onmouseover="setStyle('a1', 'boxShadow', '0px 0px 23px #8dea8f')"
                  onmouseout="setStyle('a1', 'boxShadow', '')">

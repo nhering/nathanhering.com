@@ -1,10 +1,13 @@
-﻿var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var game = {};
-
-//----------------------------------------------------------------------------------------
+﻿//----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------DEFINITIONS--
 //----------------------------------------------------------------------------------------
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var game = {};
+var paddle = {};
+var ball = {};
+var bricks = [];
 
 function Breakout() {
     game.mode = 'ready';
@@ -20,17 +23,6 @@ function Breakout() {
     game.timer = setInterval(function () { draw(); update() }, game.refresh);
 }
 
-function Brick(x,y,h) {
-    xCoord = x;
-    yCoord = y;
-    width = 50;
-    height = 20;
-    color = '#ffffff';
-    health = h;
-    brick = [xCoord,yCoord,width,height,color,health];
-    return brick;
-}
-
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------INPUT--
 //----------------------------------------------------------------------------------------
@@ -39,18 +31,14 @@ function keyListener(e) {
     switch (e.keyCode) {
         case 13: //PLAY & CONTINUE (enter)
             if (game.mode == 'play') { break; }
-            if (game.mode == 'pause') {
-                Continue();
-            }
-            else {
-                play();
-            }
+            if (game.mode == 'pause') { resume(); }
+            else { play(); }
             break;
+
         case 32: //PAUSE (space bar)
-            if (game.mode == 'play') {
-                pause();
-            }
+            if (game.mode == 'play') { pause(); }
             break;
+
         default:
             break;
     }
@@ -60,7 +48,7 @@ function play() {
     game.mode = 'play';
     document.getElementById('playButton').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'block';
-    document.getElementById('playPause').style.display = 'none';
+    document.getElementById('continueButton').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
 }
 
@@ -68,15 +56,15 @@ function pause() {
     game.mode = 'pause';
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('continueButton').style.display = 'block';
-    document.getElementById('continueModal').style.display = 'block';
+    document.getElementById('resumeModal').style.display = 'block';
     document.getElementById('canvas').style.cursor = 'default';
 }
 
-function Continue() {
+function resume() {
     game.mode = 'play';
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
-    document.getElementById('continueModal').style.display = 'none';
+    document.getElementById('resumeModal').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
 }
 
@@ -93,11 +81,13 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
+            drawBall();
             break;
         case 'play':
-            game.counter += 1;
+            game.counter++;
             drawScreen();
             drawPaddle();
+            drawBall();
             break;
         case 'pause':
             break;
@@ -105,22 +95,37 @@ function draw() {
 }
 
 function drawScreen() {
-    ctx.fillStyle = "#223322";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    var gradient = ctx.createLinearGradient(0, 400, 0, 490);
+    ctx.fillStyle = '#223322';
+    ctx.fillRect(0, 0, 750, 490);
+    var gradient = ctx.createLinearGradient(0, 440, 0, 490);
     gradient.addColorStop(0, '#223322');
     gradient.addColorStop(1, '#101010');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 400, 785, 90);
+    ctx.fillRect(0, 440, 750, 50);
 }
 
 function drawPaddle() {
-    var x = game.mouseX - canvas.getBoundingClientRect().left - 40;
+    paddle.width = 80;
+    var x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width / 2);
     if (x <= 0) { x = 0 };
     if (x >= 670) { x = 670 };
     if (game.mode == 'ready') { x = 335; };
-    ctx.fillStyle = "#dcdfdc";
-    ctx.fillRect(x, 455, 80, 20);
+    ctx.fillStyle = '#dcdfdc';
+    ctx.fillRect(x, 455, paddle.width, 20);
+}
+
+function drawBall() {
+    ball.xCoord = 375;
+    ball.yCoord = 245;
+    ball.radius = 6;
+    ctx.beginPath();
+    ctx.arc(ball.xCoord, ball.yCoord, ball.radius, 0, 2 * Math.PI);
+    ctx.fillStyle = '#dcdfdc';
+    ctx.fill();
+}
+
+function drawBricks() {
+
 }
 
 //----------------------------------------------------------------------------------------
@@ -136,18 +141,36 @@ function update() {
 }
 
 function upadateScoreBoard() {
-    document.getElementById("lives").innerHTML = game.mode;
-    document.getElementById("score").innerHTML = game.counter;
-    document.getElementById("blocksDestroyed").innerHTML = game.blocksDestroyed;
-    document.getElementById("time").innerHTML = timer(game.count);
+    document.getElementById('lives').innerHTML = game.mode;
+    document.getElementById('score').innerHTML = game.score;
+    document.getElementById('blocksDestroyed').innerHTML = game.blocksDestroyed;
+    document.getElementById('time').innerHTML = timer();
 }
 
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
 
-function timer(count) {
-    var s = count / 60;
-    var m = s / 60;
-    var h = m / 60;
+function timer() {
+    var s = Math.floor((game.counter / (1000 / game.refresh)) % 60);
+    var m = Math.floor(((game.counter / (1000 / game.refresh)) / 60) % 60);
+
+    if (s < 10) { second = ('0' + s); }
+    else { second = s }
+
+    if (m < 10) { minute = ('0' + m); }
+    else { minute = m; }
+
+    return (minute + ':' + second);
+}
+
+function makeBrick(x, y, h) {
+    var xCoord = x;
+    var yCoord = y;
+    var width = 50;
+    var height = 20;
+    var color = '#ffffff';
+    var health = h;
+    var brick = [xCoord, yCoord, width, height, color, health];
+    return brick;
 }
