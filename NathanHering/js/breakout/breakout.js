@@ -10,9 +10,10 @@ var ball = {};
 var bricks = [];
 
 function Breakout() {
+    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0];//xCoord,yCoord,radius,startAngle,endAngle,xVelocity,yVelocity
     game.mode = 'ready';
     game.level = 1;
-    game.lives = 3;
+    game.tries = 3;
     game.score = 0;
     game.blocksDestroyed = 0;
     game.counter = 0;
@@ -34,11 +35,9 @@ function keyListener(e) {
             if (game.mode == 'pause') { resume(); }
             else { play(); }
             break;
-
         case 32: //PAUSE (space bar)
             if (game.mode == 'play') { pause(); }
             break;
-
         default:
             break;
     }
@@ -50,6 +49,7 @@ function play() {
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
+    initializeBricks();
 }
 
 function pause() {
@@ -81,13 +81,12 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
-            drawBall();
             break;
         case 'play':
-            game.counter++;
             drawScreen();
             drawPaddle();
             drawBall();
+            drawBricks();
             break;
         case 'pause':
             break;
@@ -96,7 +95,7 @@ function draw() {
 
 function drawScreen() {
     ctx.fillStyle = '#223322';
-    ctx.fillRect(0, 0, 750, 490);
+    ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
     var gradient = ctx.createLinearGradient(0, 440, 0, 490);
     gradient.addColorStop(0, '#223322');
     gradient.addColorStop(1, '#101010');
@@ -105,7 +104,7 @@ function drawScreen() {
 }
 
 function drawPaddle() {
-    paddle.width = 80;
+    paddle.width = 70;
     var x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width / 2);
     if (x <= 0) { x = 0 };
     if (x >= 670) { x = 670 };
@@ -114,18 +113,19 @@ function drawPaddle() {
     ctx.fillRect(x, 455, paddle.width, 20);
 }
 
-function drawBall() {
-    ball.xCoord = 375;
-    ball.yCoord = 245;
-    ball.radius = 6;
+function drawBall(x, y) {
+    var b = game.ball;
     ctx.beginPath();
-    ctx.arc(ball.xCoord, ball.yCoord, ball.radius, 0, 2 * Math.PI);
-    ctx.fillStyle = '#dcdfdc';
+    ctx.arc(b[0], b[1], b[2], b[3], b[4]);
+    ctx.fillStyle = b[5];
     ctx.fill();
 }
 
 function drawBricks() {
-
+    for (var i = 0; i < bricks.length; i++) {
+        ctx.fillStyle = bricks[i][4];
+        ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3])
+    }
 }
 
 //----------------------------------------------------------------------------------------
@@ -135,9 +135,10 @@ function drawBricks() {
 function update() {
     switch (game.mode) {
         case 'play':
+            game.counter++;
+            upadateScoreBoard();
             break;
     }
-    upadateScoreBoard();
 }
 
 function upadateScoreBoard() {
@@ -145,6 +146,12 @@ function upadateScoreBoard() {
     document.getElementById('score').innerHTML = game.score;
     document.getElementById('blocksDestroyed').innerHTML = game.blocksDestroyed;
     document.getElementById('time').innerHTML = timer();
+}
+
+function updateBall() {
+    var b = game.ball;
+    b[0] += b[6];
+    b[1] += b[7];
 }
 
 //----------------------------------------------------------------------------------------
@@ -164,13 +171,27 @@ function timer() {
     return (minute + ':' + second);
 }
 
-function makeBrick(x, y, h) {
-    var xCoord = x;
-    var yCoord = y;
-    var width = 50;
-    var height = 20;
-    var color = '#ffffff';
-    var health = h;
-    var brick = [xCoord, yCoord, width, height, color, health];
-    return brick;
+function initializeBricks() {
+    var brickWidth = 70;
+    var brickHeight = 20;
+    var color = "#dcdfdc";
+    var health = game.level;
+    var powerUp = '';
+
+    bricks = [];
+    var rows = 5;
+    var columns = 9;
+    var brickSpacing = 7; //space between rows and columns of bricks
+    var screenWidth = canvas.clientWidth;
+    var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
+
+    for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < columns; col++) {
+            var x = col * (brickSpacing + brickWidth);
+            var y = row * (brickSpacing + brickHeight);
+            bricks.push([(x + screenSpacing), (y + screenSpacing), brickWidth, brickHeight, color, health, powerUp]);
+        }
+    }
+    console.log(bricks)
+    return bricks;
 }
