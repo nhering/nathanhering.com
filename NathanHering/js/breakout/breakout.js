@@ -96,11 +96,12 @@ function draw() {
 function drawScreen() {
     ctx.fillStyle = '#223322';
     ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-    var gradient = ctx.createLinearGradient(0, 440, 0, 490);
+    var gradient = ctx.createLinearGradient(0, 455, 0, 490);
     gradient.addColorStop(0, '#223322');
+    gradient.addColorStop(0.855, '#101310');
     gradient.addColorStop(1, '#101010');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 440, 750, 50);
+    ctx.fillRect(0, 455, 750, 35);
 }
 
 function drawPaddle() {
@@ -124,7 +125,16 @@ function drawBall(x, y) {
 function drawBricks() {
     for (var i = 0; i < bricks.length; i++) {
         ctx.fillStyle = bricks[i][4];
-        ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3])
+        ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3]);
+
+        var fontSize = 16;
+        var fontFont = "Consolas";
+        var message = bricks[i][5];
+        var x = bricks[i][0] + (bricks[i][2] / 2) - (fontSize / 5);
+        var y = bricks[i][1] + ((bricks[i][3] / 2) + (fontSize / 3));
+        ctx.fillStyle = 'black';
+        ctx.font = fontSize + 'px ' + fontFont;
+        ctx.fillText(message, x, y);
     }
 }
 
@@ -172,8 +182,8 @@ function timer() {
 }
 
 function initializeBricks() {
-    var brickWidth = 70;
-    var brickHeight = 20;
+    var brickWidth = 75;
+    var brickHeight = 25;
     var color = "#dcdfdc";
     var health = game.level;
     var powerUp = '';
@@ -181,7 +191,7 @@ function initializeBricks() {
     bricks = [];
     var rows = 5;
     var columns = 9;
-    var brickSpacing = 7; //space between rows and columns of bricks
+    var brickSpacing = 1; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
     var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
@@ -192,6 +202,5 @@ function initializeBricks() {
             bricks.push([(x + screenSpacing), (y + screenSpacing), brickWidth, brickHeight, color, health, powerUp]);
         }
     }
-    console.log(bricks)
     return bricks;
 }
