@@ -9,19 +9,21 @@ var paddle = {};
 var ball = {};
 var bricks = [];
 
+
 function Breakout() {
-    game.ball = [0, 0, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 10];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 10];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
     game.mode = 'ready';
     game.level = 1;
     game.tries = 3;
     game.score = 0;
-    game.blocksDestroyed = 0;
+    game.bricksDestroyed = 0;
     game.counter = 0;
     game.mouseX = 335;
     game.refresh = 50;
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
     game.timer = setInterval(function () { draw(); update() }, game.refresh);
+    initializeBricks();
 }
 
 //----------------------------------------------------------------------------------------
@@ -82,6 +84,8 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
+            drawBall();
+            drawBricks();
             break;
         case 'play':
             drawScreen();
@@ -121,7 +125,7 @@ function drawBall(x, y) {
     ctx.arc(b[0], b[1], b[2], b[3], b[4]);
     ctx.fillStyle = b[5];
     ctx.fill();
-    document.getElementById('footerBanner').innerHTML = b[0];
+    document.getElementById('footerBanner').innerHTML = 'x: ' + b[0] + '<br/>y: ' + b[1];
 }
 
 function drawBricks() {
@@ -157,7 +161,7 @@ function update() {
 function upadateScoreBoard() {
     document.getElementById('lives').innerHTML = game.mode;
     document.getElementById('score').innerHTML = game.score;
-    document.getElementById('blocksDestroyed').innerHTML = game.blocksDestroyed;
+    document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
     document.getElementById('time').innerHTML = timer();
 }
 
@@ -207,10 +211,11 @@ function initializeBricks() {
     }
     return bricks;
 }
-
+//place the ball at the center of the screen
+//make sure the ball starts off aiming toward the bottom
 function initializeBall() {
-    var b = game.ball();
-    var angle = (Math.random() * (Math.PI * .25)) + (.375 * Math.PI);//make sure the ball starts off aiming toward the bottom of the screen
+    var b = game.ball;
+    var angle = (Math.random() * (Math.PI * .1)) + (Math.PI * .4);
     b[6] = b[8] * Math.cos(angle);
     b[7] = b[8] * Math.sin(angle);
     b[0] = 375;
