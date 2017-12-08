@@ -1,4 +1,8 @@
-﻿//----------------------------------------------------------------------------------------
+﻿function test(info) {
+    document.getElementById('footerBanner').innerHTML = info;
+}
+
+//----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------DEFINITIONS--
 //----------------------------------------------------------------------------------------
 
@@ -125,7 +129,7 @@ function drawBall(x, y) {
     ctx.arc(b[0], b[1], b[2], b[3], b[4]);
     ctx.fillStyle = b[5];
     ctx.fill();
-    document.getElementById('footerBanner').innerHTML = 'x: ' + b[0] + '<br/>y: ' + b[1];
+    //test('x: ' + b[0] + '<br/>y: ' + b[1]);
 }
 
 function drawBricks() {
@@ -154,6 +158,7 @@ function update() {
             game.counter++;
             upadateScoreBoard();
             updateBall();
+            updateCollisions();
             break;
     }
 }
@@ -169,6 +174,26 @@ function updateBall() {
     var b = game.ball;
     b[0] += b[6];
     b[1] += b[7];
+}
+
+function updateCollisions() {
+    var b = game.ball;
+    //-------WALLS---------
+    if (b[0] <= b[2]) { //left side of screen
+        b[0] = b[2]; //might not like the effect this has
+        b[6] = b[6] * -1;
+    }
+    if ((b[0] >= canvas.clientWidth) - b[2]) { //right side of screen
+        b[0] = canvas.clientWidth - b[2]; //might not like the effect this has
+        b[6] = b[6] * -1;
+    }
+    if (b[1] <= b[2]) { //top of screen
+        b[1] = b[2];  //might not like the effect this has
+        b[7] = b[7] * -1;
+    }
+    if (b[1] > canvas.clientHeight) { //bottom of screen
+        lostBall();
+    }
 }
 
 //----------------------------------------------------------------------------------------
@@ -211,13 +236,23 @@ function initializeBricks() {
     }
     return bricks;
 }
+
 //place the ball at the center of the screen
 //make sure the ball starts off aiming toward the bottom
 function initializeBall() {
     var b = game.ball;
-    var angle = (Math.random() * (Math.PI * .1)) + (Math.PI * .4);
-    b[6] = b[8] * Math.cos(angle);
-    b[7] = b[8] * Math.sin(angle);
+    var radians = ((Math.random() * 2.08) + 3.67) * -1; //set angle to between 3.67 - 5.75 radians (210 - 330 degrees)
+    b[6] = b[8] * Math.cos(radians);
+    b[7] = b[8] * Math.sin(radians);
     b[0] = 375;
     b[1] = 245;
+    //GOOD TO KNOW FOR REFERENCE
+    //radians = (angle * (Math.PI / 180));
+    //angle = (radians * (180 / Math.PI));
+}
+
+function lostBall() {
+    game.tries -= 1;
+    initializeBall();
+    pause();
 }
