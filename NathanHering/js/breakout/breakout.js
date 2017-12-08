@@ -181,28 +181,31 @@ function handleCollisions() {
     var b = game.ball;
     //---------------------------------WALLS---
     //-----------------------------------------
-    if (b[0] <= b[2]) { //left side of screen
+    if (b[0] <= b[2]) { //hit left side of screen
         b[0] = b[2]; //might not like the effect this has
         b[6] = b[6] * -1;
     }
-    if (b[0] >= (canvas.clientWidth - b[2])) { //right side of screen
+    if (b[0] >= (canvas.clientWidth - b[2])) { //hit right side of screen
         b[0] = canvas.clientWidth - b[2]; //might not like the effect this has
         b[6] = b[6] * -1;
     }
-    if (b[1] <= b[2]) { //top of screen
+    if (b[1] <= b[2]) { //hit top of screen
         b[1] = b[2]; //might not like the effect this has
         b[7] = b[7] * -1;
     }
-    if (b[1] > (canvas.clientHeight + b[2])) { //bottom of screen
+    if (b[1] > (canvas.clientHeight + b[2]*10)) { //off bottom of screen
         lostBall();
     }
     //--------------------------------PADDLE---
     //-----------------------------------------
     pT = paddle.top;
-    pL = paddle.x - (paddle.width / 2);//paddle's left edge
-    pR = paddle.x + (paddle.width / 2);//paddle's right edge
-    if (b[0] >= pL && b[1] >= pT) {
-        
+    pL = paddle.x;//paddle's left edge
+    pR = paddle.x + (paddle.width);//paddle's right edge
+    //if ball's center is between paddle's left and right and ball's bottom is hitting the paddle's top, bounce up
+    if (((b[0] >= pL) && (b[0] <= pR)) && ((b[1]+b[2]) > pT)) {
+        //bouncePaddle(); //todo: make ball bounce at an angle depending on where it hits the paddle
+        b[7] = b[7] * -1;
+        game.score += 1;
     }
 }
 
