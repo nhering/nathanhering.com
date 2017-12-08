@@ -114,13 +114,14 @@ function drawScreen() {
 }
 
 function drawPaddle() {
+    paddle.top = 455;
     paddle.width = 80;
     var right = canvas.clientWidth - paddle.width;
-    var x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width/2);
-    if (x <= 0) { x = 0 };
-    if (x >= right) { x = right };
+    paddle.x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width/2);
+    if (paddle.x <= 0) { paddle.x = 0 };
+    if (paddle.x >= right) { paddle.x = right };
     ctx.fillStyle = '#dcdfdc';
-    ctx.fillRect(x, 455, paddle.width, 20);
+    ctx.fillRect(paddle.x, paddle.top, paddle.width, 20);
 }
 
 function drawBall(x, y) {
@@ -157,14 +158,14 @@ function update() {
         case 'play':
             game.counter++;
             upadateScoreBoard();
+            handleCollisions();
             updateBall();
-            updateCollisions();
             break;
     }
 }
 
 function upadateScoreBoard() {
-    document.getElementById('lives').innerHTML = game.mode;
+    document.getElementById('lives').innerHTML = game.tries;
     document.getElementById('score').innerHTML = game.score;
     document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
     document.getElementById('time').innerHTML = timer();
@@ -176,23 +177,32 @@ function updateBall() {
     b[1] += b[7];
 }
 
-function updateCollisions() {
+function handleCollisions() {
     var b = game.ball;
-    //-------WALLS---------
+    //---------------------------------WALLS---
+    //-----------------------------------------
     if (b[0] <= b[2]) { //left side of screen
         b[0] = b[2]; //might not like the effect this has
         b[6] = b[6] * -1;
     }
-    if ((b[0] >= canvas.clientWidth) - b[2]) { //right side of screen
+    if (b[0] >= (canvas.clientWidth - b[2])) { //right side of screen
         b[0] = canvas.clientWidth - b[2]; //might not like the effect this has
         b[6] = b[6] * -1;
     }
     if (b[1] <= b[2]) { //top of screen
-        b[1] = b[2];  //might not like the effect this has
+        b[1] = b[2]; //might not like the effect this has
         b[7] = b[7] * -1;
     }
-    if (b[1] > canvas.clientHeight) { //bottom of screen
+    if (b[1] > (canvas.clientHeight + b[2])) { //bottom of screen
         lostBall();
+    }
+    //--------------------------------PADDLE---
+    //-----------------------------------------
+    pT = paddle.top;
+    pL = paddle.x - (paddle.width / 2);//paddle's left edge
+    pR = paddle.x + (paddle.width / 2);//paddle's right edge
+    if (b[0] >= pL && b[1] >= pT) {
+        
     }
 }
 
