@@ -179,19 +179,28 @@ function updateBall() {
 
 function handleCollisions() {
     var b = game.ball;
+    //X coordinates
+    var baL = b[0] - b[2];//left
+    var baX = b[0];//center x
+    var baR = b[0] + b[2];//right
+    //Y coordinates
+    var baT = b[1] - b[2];//top
+    var baY = b[1];//center y
+    var baB = b[1] + b[2];//bottom
+
     //---------------------------------WALLS---
     //-----------------------------------------
     if (b[0] <= b[2]) { //hit left side of screen
         b[0] = b[2]; //might not like the effect this has
-        b[6] = b[6] * -1;
+        b[6] *= -1;
     }
     if (b[0] >= (canvas.clientWidth - b[2])) { //hit right side of screen
         b[0] = canvas.clientWidth - b[2]; //might not like the effect this has
-        b[6] = b[6] * -1;
+        b[6] *= -1;
     }
     if (b[1] <= b[2]) { //hit top of screen
         b[1] = b[2]; //might not like the effect this has
-        b[7] = b[7] * -1;
+        b[7] *= -1;
     }
     if (b[1] > (canvas.clientHeight + b[2]*10)) { //off bottom of screen
         lostBall();
@@ -199,13 +208,25 @@ function handleCollisions() {
     //--------------------------------PADDLE---
     //-----------------------------------------
     pT = paddle.top;
+    pB = paddle.top + paddle.height;//paddle's bottom
     pL = paddle.x;//paddle's left edge
     pR = paddle.x + (paddle.width);//paddle's right edge
     //if ball's center is between paddle's left and right and ball's bottom is hitting the paddle's top, bounce up
-    if (((b[0] >= pL) && (b[0] <= pR)) && ((b[1]+b[2]) > pT)) {
-        //bouncePaddle(); //todo: make ball bounce at an angle depending on where it hits the paddle
-        b[7] = b[7] * -1;
+    if ((b[0] >= pL && b[0] <= pR) && ((b[1]+b[2]) > pT)) {
+        //todo: make ball bounce at an angle depending on where it hits the paddle
+        b[7] *= -1;
         game.score += 1;
+    }
+    //This is glitchy. It causes the ball to get stuck bouncing up and down inside the paddle
+    //if ((((b[0]+b[2] >= pL) && (b[0]-b[2] < pR)) || ((b[0]-b[2] <= pR) && (b[0]+b[2] > pL))) && ((b[1] >= pT) && (b[1] <= pB))) {
+    //    b[6] *= -1;
+    //}
+
+
+    //--------------------------------BRICKS---
+    //-----------------------------------------
+    for (var i = 0; i < bricks.length; i++) {
+        //if (bricks[i])
     }
 }
 
