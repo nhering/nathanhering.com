@@ -93,6 +93,56 @@ a:hover {
     font-family: Consolas;
 }
 
+.powerUpsTextBlock {
+    background-color: #3c503c;
+    border-radius: 4px;
+    border: solid 1px #4c604c;
+    padding: 5px 10px;
+    margin: 10px 0px;
+    color: #3aa63a;
+    text-shadow: 0px 0px 2px black;
+    height: 260px;
+}
+
+.powerUpsNeutral {
+    display: inline;
+    color: #256cff;
+    text-shadow: 0px 0px 10px black;
+}
+
+.powerUpsNeutralRight {
+    display: inline;
+    float: right;
+    color: #256cff;
+    text-shadow: 0px 0px 10px black;
+}  
+
+.powerUpsGood {
+    display: inline;
+    color: #54c14c;
+    text-shadow: 0px 0px 10px black;
+}
+
+.powerUpsGoodRight {
+    display: inline;
+    float: right;
+    color: #54c14c;
+    text-shadow: 0px 0px 10px black;
+}  
+
+.powerUpsBad {
+    display: inline;
+    color: #ce5050;
+    text-shadow: 0px 0px 10px black;
+}
+
+.powerUpsBadRight {
+    display: inline;
+    float: right;
+    color: #ce5050;
+    text-shadow: 0px 0px 10px black;
+}
+
 .resumeModal {
     position: relative;
     padding: 12px 25px;

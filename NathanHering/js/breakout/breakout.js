@@ -141,7 +141,7 @@ function drawBricks() {
         ctx.fillStyle = bricks[i][4];
         ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3]);
 
-        var fontSize = 15;
+        var fontSize = 11;
         var fontFont = "Consolas";
         var message = bricks[i][5];
         var x = bricks[i][0] + (bricks[i][2] / 2) - (fontSize / 5);
@@ -170,7 +170,7 @@ function upadateScoreBoard() {
     document.getElementById('lives').innerHTML = game.tries;
     document.getElementById('score').innerHTML = game.score;
     document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
-    document.getElementById('time').innerHTML = timer();
+    document.getElementById('time').innerHTML = timer(game.counter);
 }
 
 function updateBall() {
@@ -337,9 +337,9 @@ function updateBall() {
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
 
-function timer() {
-    var s = Math.floor((game.counter / (1000 / game.refresh)) % 60);
-    var m = Math.floor(((game.counter / (1000 / game.refresh)) / 60) % 60);
+function timer(count) {
+    var s = Math.floor((count / (1000 / game.refresh)) % 60);
+    var m = Math.floor(((count / (1000 / game.refresh)) / 60) % 60);
 
     if (s < 10) { second = ('0' + s); }
     else { second = s }
