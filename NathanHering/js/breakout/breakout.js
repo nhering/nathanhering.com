@@ -12,11 +12,13 @@ var game = {};
 var paddle = {};
 var ball = {};
 var bricks = [];
+var powerUps =[];
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
-    game.level = 1;
+    game.level = 2;
     game.tries = 3;
     game.score = 0;
     game.bricksDestroyed = 0;
@@ -265,7 +267,8 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baB > bricks[i][1] &&
             baT < bricks[i][1]) {
-            b[7] *= -1;
+            if (!game.player[1].includes('passThrough')) { b[7] *= -1; }
+            doDamage(i)
             return true;
         } else {
             return false;
@@ -277,7 +280,8 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baL <= bricks[i][0] + bricks[i][2] &&
             baR >= bricks[i][0] + bricks[i][2]) {
-            b[6] *= -1;
+            if (!game.player[1].includes('passThrough')) { b[6] *= -1; }
+            doDamage(i)
             return true;
         } else {
             return false;
@@ -289,7 +293,8 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baT <= bricks[i][1] + bricks[i][3] &&
             baB >= bricks[i][1] + bricks[i][3]) {
-            b[7] *= -1;
+            if (!game.player[1].includes('passThrough')) { b[7] *= -1; }
+            doDamage(i)
             return true;
         } else {
             return false;
@@ -301,7 +306,8 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baR >= bricks[i][0] &&
             baL <= bricks[i][0]) {
-            b[6] *= -1;
+            if (!game.player[1].includes('passThrough')) { b[6] *= -1; }
+            doDamage(i)
             return true;
         } else {
             return false;
@@ -309,7 +315,17 @@ function updateBall() {
     }
 
     function doDamage(i) {
-
+        var damageDone = bricks[i][5];
+        bricks[i][5] -= game.player[0]
+        if (bricks[i][5] <= 0) {
+            bricks[i][5] = 0;
+            damageDone -= bricks[i][5];
+            bricks.splice(i, 1);
+            game.bricksDestroyed += 1;
+        } else {
+            damageDone -= bricks[i][5];
+        }
+        game.score += damageDone;
     }
 
     //move the ball
