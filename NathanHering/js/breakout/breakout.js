@@ -16,9 +16,9 @@ var powerUps =[];
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
-    game.player = [1, powerUps]//[0]damage, [1]powerUps
+    game.player = [230, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
-    game.level = 2;
+    game.level = 2445;
     game.tries = 3;
     game.score = 0;
     game.bricksDestroyed = 0;
@@ -125,6 +125,17 @@ function drawPaddle() {
     if (paddle.x >= right) { paddle.x = right };
     ctx.fillStyle = '#dcdfdc';
     ctx.fillRect(paddle.x, paddle.top, paddle.width, paddle.height);
+
+
+    var fontSize = 12;
+    var fontName = "Consolas";
+    var message = game.player[0];
+    var messageLen = game.player[0].toString().length;
+    var x = paddle.x + (paddle.width / 2) - ((fontSize / 4) * messageLen);
+    var y = paddle.top + (paddle.height / 2) + (fontSize / 3);
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px ' + fontName;
+    ctx.fillText(message, x, y);
 }
 
 function drawBall(x, y) {
@@ -141,13 +152,14 @@ function drawBricks() {
         ctx.fillStyle = bricks[i][4];
         ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3]);
 
-        var fontSize = 11;
-        var fontFont = "Consolas";
+        var fontSize = 12;
+        var fontName = "Consolas";
         var message = bricks[i][5];
-        var x = bricks[i][0] + (bricks[i][2] / 2) - (fontSize / 5);
+        var messageLen = bricks[i][5].toString().length;
+        var x = bricks[i][0] + (bricks[i][2] / 2) - ((fontSize / 4) * messageLen);
         var y = bricks[i][1] + (bricks[i][3] / 2) + (fontSize / 3);
         ctx.fillStyle = 'black';
-        ctx.font = fontSize + 'px ' + fontFont;
+        ctx.font = fontSize + 'px ' + fontName;
         ctx.fillText(message, x, y);
     }
 }
@@ -221,10 +233,22 @@ function updateBall() {
         if (baX >= pL && baX <= pR && baB >= pT && baB < pB) {
             //TODO: make ball bounce at an angle depending on where it hits the paddle
             if (baB > pT) { b[1] = pT - b[2] };
+            calculateAngle();
             b[7] *= -1;
             game.score += 1;
             collide = true;
         } //hit top of paddle
+    }
+
+    function calculateAngle() {
+        var b = game.ball;
+        p1x = paddle.x + (paddle.width / 2);
+        p1y = paddle.top - (paddle.height * 2);
+        p2x = b[0];
+        p2y = b[1];
+        var radians = Math.atan2(p2y - p1y, p2x - p1x);
+        b[6] = b[8] * Math.cos(radians);
+        b[7] = b[8] * Math.sin(radians);
     }
 
     //--------------------------------BRICKS---
