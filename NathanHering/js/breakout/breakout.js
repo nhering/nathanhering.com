@@ -12,13 +12,14 @@ var game = {};
 var paddle = {};
 var ball = {};
 var bricks = [];
-var powerUps =[];
+var powerUps = [];
+var countDown = [3, 50, 150];//starting number, text shadow, box shadow
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
-    game.player = [230, powerUps]//[0]damage, [1]powerUps
+    game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
-    game.level = 2445;
+    game.level = 1;
     game.tries = 3;
     game.score = 0;
     game.bricksDestroyed = 0;
@@ -27,8 +28,7 @@ function Breakout() {
     game.refresh = 40;
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
-    game.timer = setInterval(function () { draw(); update() }, game.refresh);
-    initializeBricks();
+    game.timer = setInterval(function () { draw(); update(); }, game.refresh);
 }
 
 //----------------------------------------------------------------------------------------
@@ -37,14 +37,14 @@ function Breakout() {
 
 function keyListener(e) {
     switch (e.keyCode) {
-        case 13: //PLAY & CONTINUE (enter)
-            if (game.mode == 'play') { break; }
+        case 13: //(enter)------PLAY & CONTINUE
+            if (game.mode == 'playing') { break; }
             if (game.mode == 'pause') { resume(); }
             else { play(); }
             break;
-        case 32: //PAUSE (space bar)
+        case 32: //(space)------PAUSE 
             if (game.mode == 'pause') { resume(); }
-            if (game.mode == 'play') { pause(); }
+            if (game.mode == 'playing') { pause(); }
             break;
         default:
             break;
@@ -52,17 +52,16 @@ function keyListener(e) {
 }
 
 function play() {
-    game.mode = 'play';
+    game.mode = 'countDown';
     document.getElementById('playButton').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
     initializeBricks();
-    initializeBall();
 }
 
 function resume() {
-    game.mode = 'play';
+    game.mode = 'playing';
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
     document.getElementById('resumeModal').style.display = 'none';
@@ -90,16 +89,21 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
-            drawBall();
             drawBricks();
             break;
-        case 'play':
+        case 'playing':
             drawScreen();
             drawPaddle();
             drawBall();
             drawBricks();
             break;
         case 'pause':
+            break;
+        case 'countDown':
+            drawScreen();
+            drawPaddle();
+            drawBricks();
+            drawCountDown();
             break;
     }
 }
@@ -138,13 +142,12 @@ function drawPaddle() {
     ctx.fillText(message, x, y);
 }
 
-function drawBall(x, y) {
+function drawBall() {
     var b = game.ball;
     ctx.beginPath();
     ctx.arc(b[0], b[1], b[2], b[3], b[4]);
     ctx.fillStyle = b[5];
     ctx.fill();
-    //test('x: ' + b[0] + '<br/>y: ' + b[1]);
 }
 
 function drawBricks() {
@@ -164,13 +167,17 @@ function drawBricks() {
     }
 }
 
+function drawCountDown() {
+    document.getElementById('countDown').style.display = 'block';
+}
+
 //----------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------UPDATE--
 //----------------------------------------------------------------------------------------
 
 function update() {
     switch (game.mode) {
-        case 'play':
+        case 'playing':
             game.counter++;
             upadateScoreBoard();
             updateBall();
@@ -231,7 +238,6 @@ function updateBall() {
     //-----------------------------------------
     if (collide == false) {
         if (baX >= pL && baX <= pR && baB >= pT && baB < pB) {
-            //TODO: make ball bounce at an angle depending on where it hits the paddle
             if (baB > pT) { b[1] = pT - b[2] };
             calculateAngle();
             b[7] *= -1;
@@ -384,7 +390,7 @@ function initializeBricks() {
     bricks = [];
     var rows = 6;
     var columns = 9;
-    var brickSpacing = 1; //space between rows and columns of bricks
+    var brickSpacing = 2; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
     var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
@@ -410,8 +416,28 @@ function initializeBall() {
     //angle = (radians * (180 / Math.PI));
 }
 
-function lostBall() {
-    game.tries -= 1;
+function countDown() {
+    var d = document.getElementById('countDown');
+    d.style.display = 'block';
+    for (var i = 3; i > 0; i--) {
+        console.log('count '+i);
+        d.innerHTML = i;
+        for (var j = 50; j > 0; j--) {
+            console.log(j);
+            setTimeout(function () { fade(); }, 1000);
+            function fade() {
+                d.style.textShadow = "0px 0px " + j + "px #3b75ff";
+            }
+        }
+    }
+    d.style.display = 'none';
     initializeBall();
-    pause();
+}
+
+function lostBall() {
+    if (game.tries > 0) {
+        game.mode = 'countDown';
+    } else {
+        game.mode = 'lostGame';
+    }
 }
