@@ -1,8 +1,4 @@
-﻿function test(info) {
-    document.getElementById('footerBanner').innerHTML = info;
-}
-
-//----------------------------------------------------------------------------------------
+﻿//----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------DEFINITIONS--
 //----------------------------------------------------------------------------------------
 
@@ -13,12 +9,12 @@ var paddle = {};
 var ball = {};
 var bricks = [];
 var powerUps = [];
-var countDown = [3, 50, 150];//starting number, text shadow, box shadow
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
     game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
+    game.countDown = 3000;
     game.level = 1;
     game.tries = 3;
     game.score = 0;
@@ -57,7 +53,7 @@ function play() {
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
-    initializeBricks();
+    newBall();
 }
 
 function resume() {
@@ -74,10 +70,6 @@ function pause() {
     document.getElementById('continueButton').style.display = 'block';
     document.getElementById('resumeModal').style.display = 'block';
     document.getElementById('canvas').style.cursor = 'default';
-}
-
-function setStyle(id, style, value) {
-    document.getElementById(id).style[style] = value;
 }
 
 //----------------------------------------------------------------------------------------
@@ -177,10 +169,15 @@ function drawCountDown() {
 
 function update() {
     switch (game.mode) {
+        case 'ready':
+            initializeBricks();
         case 'playing':
             game.counter++;
             upadateScoreBoard();
             updateBall();
+            break;
+        case 'countDown':
+            updateCountDown();
             break;
     }
 }
@@ -229,7 +226,7 @@ function updateBall() {
             collide = true;
         } //hit top of screen
         if (b[1] > (canvas.clientHeight + b[2] * 10)) {
-            lostBall();
+            newBall();
             collide = true;
         } //off bottom of screen
     }
@@ -363,6 +360,23 @@ function updateBall() {
     b[1] += b[7];
 }
 
+function updateCountDown() {
+    var c = document.getElementById('countDown');
+    var count = game.countDown;
+    var boxShadow = Math.floor(count / 50);
+    var textShadow = (Math.floor((35 * ((count / 1000) - Math.floor(count / 1000)))));
+
+    if (count > 0) {
+        c.style.boxShadow = "0px 0px " + boxShadow + "px black inset, 0px 0px " + boxShadow + "px green";
+        c.style.textShadow = "2px 2px 5px black, 0px 0px " + textShadow + "px green";
+        c.innerHTML = Math.ceil(count / 1000);
+    } else {
+        c.style.display = 'none';
+        game.mode = 'playing';
+    }
+    count -= game.refresh;
+}
+
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
@@ -416,28 +430,19 @@ function initializeBall() {
     //angle = (radians * (180 / Math.PI));
 }
 
-function countDown() {
-    var d = document.getElementById('countDown');
-    d.style.display = 'block';
-    for (var i = 3; i > 0; i--) {
-        console.log('count '+i);
-        d.innerHTML = i;
-        for (var j = 50; j > 0; j--) {
-            console.log(j);
-            setTimeout(function () { fade(); }, 1000);
-            function fade() {
-                d.style.textShadow = "0px 0px " + j + "px #3b75ff";
-            }
-        }
-    }
-    d.style.display = 'none';
-    initializeBall();
-}
-
-function lostBall() {
+function newBall() {
     if (game.tries > 0) {
         game.mode = 'countDown';
+        game.countDown = 3000;
     } else {
-        game.mode = 'lostGame';
+        game.mode = 'gameOver';
     }
+}
+
+function setStyle(id, style, value) {
+    document.getElementById(id).style[style] = value;
+}
+
+function info(info) {
+    document.getElementById('footerBanner').innerHTML = info;
 }

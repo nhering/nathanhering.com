@@ -187,12 +187,11 @@ a:hover {
     height: 230px;
     border: solid 10px green;
     border-radius: 50%;
-    box-shadow: 0px 0px 150px black inset, 0px 0px 150px green;
     font-size: 150px;
     text-align: center;
     line-height: 220px;
     color: #ecffdc;
-    text-shadow:  2px 2px 5px black, 0px 0px 50px green;
+    /*text-shadow:  2px 2px 5px black, 0px 0px 30px green;*/
 }
 
 .footerBanner {
