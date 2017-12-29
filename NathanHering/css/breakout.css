@@ -101,7 +101,7 @@ a:hover {
     margin: 10px 0px;
     color: #3aa63a;
     text-shadow: 0px 0px 2px black;
-    height: 260px;
+    height: 220px;
 }
 
 .powerUpsNeutral {
@@ -191,7 +191,22 @@ a:hover {
     text-align: center;
     line-height: 220px;
     color: #ecffdc;
-    /*text-shadow:  2px 2px 5px black, 0px 0px 30px green;*/
+}
+
+.nextLevel {
+    position: relative;
+    padding: 12px 25px;
+    left: 125px;
+    bottom: 300px;
+    width: 500px;
+    z-index: 3;
+    background-color: #0a760a;
+    border-radius: 10px;
+    border: solid 2px #1a861a;
+    cursor: default;
+    color: #ecffdc;
+    text-shadow: 0px 0px 5px black;
+    box-shadow: 2px 2px 10px #223322;
 }
 
 .footerBanner {

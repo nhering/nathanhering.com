@@ -1,4 +1,6 @@
-﻿//----------------------------------------------------------------------------------------
+﻿//"use strict";
+
+//----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------DEFINITIONS--
 //----------------------------------------------------------------------------------------
 
@@ -35,6 +37,7 @@ function keyListener(e) {
     switch (e.keyCode) {
         case 13: //(enter)------PLAY & CONTINUE
             if (game.mode == 'playing') { break; }
+            if (game.mode == 'countDown') { break; }
             if (game.mode == 'pause') { resume(); }
             else { play(); }
             break;
@@ -96,6 +99,11 @@ function draw() {
             drawPaddle();
             drawBricks();
             drawCountDown();
+            break;
+        case 'nextLevel':
+            drawScreen();
+            drawPaddle();
+            drawLevelChange();
             break;
     }
 }
@@ -163,6 +171,11 @@ function drawCountDown() {
     document.getElementById('countDown').style.display = 'block';
 }
 
+function drawLevelChange() {
+    var msg = document.getElementById('nextLevel');
+    msg.innerHTML = 'Level ' + (game.level - 1) + ' cleared!';
+}
+
 //----------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------UPDATE--
 //----------------------------------------------------------------------------------------
@@ -170,8 +183,13 @@ function drawCountDown() {
 function update() {
     switch (game.mode) {
         case 'ready':
+            upadateScoreBoard();
             initializeBricks();
+            //initializePowerups(); needs to come after initBricks
+            //openingMessage();
+            break;
         case 'playing':
+            detectLevelChange();
             game.counter++;
             upadateScoreBoard();
             updateBall();
@@ -179,11 +197,26 @@ function update() {
         case 'countDown':
             updateCountDown();
             break;
+        case 'nextLevel':
+            updateLevelChange();
+            break;
+    }
+}
+
+function updateLevelChange() {
+    if (game.countDown > 0) {
+        document.getElementById('nextLevel').style.display = 'block';
+        game.countDown -= game.refresh;
+    } else {
+        document.getElementById('nextLevel').style.display = 'none';
+        game.countDown = 3000;
+        game.mode = 'countDown';
     }
 }
 
 function upadateScoreBoard() {
-    document.getElementById('lives').innerHTML = game.tries;
+    document.getElementById('level').innerHTML = game.level;
+    document.getElementById('tries').innerHTML = game.tries;
     document.getElementById('score').innerHTML = game.score;
     document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
     document.getElementById('time').innerHTML = timer(game.counter);
@@ -226,8 +259,10 @@ function updateBall() {
             collide = true;
         } //hit top of screen
         if (b[1] > (canvas.clientHeight + b[2] * 10)) {
-            newBall();
+            game.tries -= 1;
+            document.getElementById('tries').innerHTML = game.tries;
             collide = true;
+            newBall();
         } //off bottom of screen
     }
 
@@ -370,11 +405,16 @@ function updateCountDown() {
         c.style.boxShadow = "0px 0px " + boxShadow + "px black inset, 0px 0px " + boxShadow + "px green";
         c.style.textShadow = "2px 2px 5px black, 0px 0px " + textShadow + "px green";
         c.innerHTML = Math.ceil(count / 1000);
+    } else if (count <= 0 && count > -1000) {
+        drawBall();
+        c.style.boxShadow = "";
+        c.innerHTML = "";
     } else {
         c.style.display = 'none';
         game.mode = 'playing';
     }
-    count -= game.refresh;
+    initializeBall();
+    game.countDown -= game.refresh;
 }
 
 //----------------------------------------------------------------------------------------
@@ -384,6 +424,8 @@ function updateCountDown() {
 function timer(count) {
     var s = Math.floor((count / (1000 / game.refresh)) % 60);
     var m = Math.floor(((count / (1000 / game.refresh)) / 60) % 60);
+    var second = 0;
+    var minute = 0;
 
     if (s < 10) { second = ('0' + s); }
     else { second = s }
@@ -402,8 +444,8 @@ function initializeBricks() {
     var powerUp = '';
 
     bricks = [];
-    var rows = 6;
-    var columns = 9;
+    var rows = 1;
+    var columns = 1;
     var brickSpacing = 2; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
     var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
@@ -445,4 +487,12 @@ function setStyle(id, style, value) {
 
 function info(info) {
     document.getElementById('footerBanner').innerHTML = info;
+}
+
+function detectLevelChange() {
+    if (bricks.length == 0) {
+        game.level += 1;
+        game.mode = 'nextLevel';
+        game.countDown = 2000;
+    }
 }
