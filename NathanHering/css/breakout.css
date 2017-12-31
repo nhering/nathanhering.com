@@ -205,6 +205,8 @@ a:hover {
     border: solid 2px #1a861a;
     cursor: default;
     color: #ecffdc;
+    font-size: 20px;
+    text-align: center;
     text-shadow: 0px 0px 5px black;
     box-shadow: 2px 2px 10px #223322;
 }

@@ -51,12 +51,11 @@ function keyListener(e) {
 }
 
 function play() {
-    game.mode = 'countDown';
     document.getElementById('playButton').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
-    newBall();
+    initializeLevel();
 }
 
 function resume() {
@@ -185,11 +184,9 @@ function update() {
         case 'ready':
             upadateScoreBoard();
             initializeBricks();
-            //initializePowerups(); needs to come after initBricks
-            //openingMessage();
             break;
         case 'playing':
-            detectLevelChange();
+            if (bricks.length == 0) { initializeLevel() }
             game.counter++;
             upadateScoreBoard();
             updateBall();
@@ -211,6 +208,7 @@ function updateLevelChange() {
         document.getElementById('nextLevel').style.display = 'none';
         game.countDown = 3000;
         game.mode = 'countDown';
+        initializeBricks();
     }
 }
 
@@ -436,12 +434,21 @@ function timer(count) {
     return (minute + ':' + second);
 }
 
+function initializeLevel() {
+    if (game.level == 1) {
+        game.mode = 'countDown';
+    } else {
+        game.level += 1;
+        game.mode = 'nextLevel';
+    }
+}
+
 function initializeBricks() {
     var brickWidth = 75;
     var brickHeight = 25;
     var color = "#dcdfdc";
     var health = game.level;
-    var powerUp = '';
+    var powerUp;
 
     bricks = [];
     var rows = 1;
@@ -472,6 +479,10 @@ function initializeBall() {
     //angle = (radians * (180 / Math.PI));
 }
 
+function displayMessage(text, count) {
+
+}
+
 function newBall() {
     if (game.tries > 0) {
         game.mode = 'countDown';
@@ -487,12 +498,4 @@ function setStyle(id, style, value) {
 
 function info(info) {
     document.getElementById('footerBanner').innerHTML = info;
-}
-
-function detectLevelChange() {
-    if (bricks.length == 0) {
-        game.level += 1;
-        game.mode = 'nextLevel';
-        game.countDown = 2000;
-    }
 }
