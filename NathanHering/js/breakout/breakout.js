@@ -16,12 +16,13 @@ function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
     game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
-    game.countDown = 3000;
-    game.level = 1;
+    game.message = '';
+    game.level = 0;
     game.tries = 3;
     game.score = 0;
     game.bricksDestroyed = 0;
     game.counter = 0;
+    game.time = 0;
     game.mouseX = 335;
     game.refresh = 40;
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
@@ -37,7 +38,7 @@ function keyListener(e) {
     switch (e.keyCode) {
         case 13: //(enter)------PLAY & CONTINUE
             if (game.mode == 'playing') { break; }
-            if (game.mode == 'countDown') { break; }
+            if (game.mode == 'counter') { break; }
             if (game.mode == 'pause') { resume(); }
             else { play(); }
             break;
@@ -83,7 +84,6 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
-            drawBricks();
             break;
         case 'playing':
             drawScreen();
@@ -93,16 +93,16 @@ function draw() {
             break;
         case 'pause':
             break;
-        case 'countDown':
+        case 'message':
+            drawScreen();
+            drawPaddle();
+            drawMessage();
+            break;
+        case 'counter':
             drawScreen();
             drawPaddle();
             drawBricks();
-            drawCountDown();
-            break;
-        case 'nextLevel':
-            drawScreen();
-            drawPaddle();
-            drawLevelChange();
+            drawCount();
             break;
     }
 }
@@ -166,13 +166,23 @@ function drawBricks() {
     }
 }
 
-function drawCountDown() {
-    document.getElementById('countDown').style.display = 'block';
+function drawMessage() {
+    var m = document.getElementById('message');
+
+    if (game.counter > 0) {
+        m.style.display = 'block';
+        m.innerHTML = game.message;
+    } else {
+        m.style.display = 'none';
+        game.counter = 3000;
+        game.mode = 'counter';
+    }
+
+    game.counter -= game.refresh;
 }
 
-function drawLevelChange() {
-    var msg = document.getElementById('nextLevel');
-    msg.innerHTML = 'Level ' + (game.level - 1) + ' cleared!';
+function drawCount() {
+    document.getElementById('counter').style.display = 'block';
 }
 
 //----------------------------------------------------------------------------------------
@@ -187,28 +197,15 @@ function update() {
             break;
         case 'playing':
             if (bricks.length == 0) { initializeLevel() }
-            game.counter++;
+            game.time++;
             upadateScoreBoard();
             updateBall();
             break;
-        case 'countDown':
-            updateCountDown();
+        case 'message':
             break;
-        case 'nextLevel':
-            updateLevelChange();
+        case 'counter':
+            updateCount();
             break;
-    }
-}
-
-function updateLevelChange() {
-    if (game.countDown > 0) {
-        document.getElementById('nextLevel').style.display = 'block';
-        game.countDown -= game.refresh;
-    } else {
-        document.getElementById('nextLevel').style.display = 'none';
-        game.countDown = 3000;
-        game.mode = 'countDown';
-        initializeBricks();
     }
 }
 
@@ -217,7 +214,7 @@ function upadateScoreBoard() {
     document.getElementById('tries').innerHTML = game.tries;
     document.getElementById('score').innerHTML = game.score;
     document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
-    document.getElementById('time').innerHTML = timer(game.counter);
+    document.getElementById('time').innerHTML = timer(game.time);
 }
 
 function updateBall() {
@@ -393,9 +390,9 @@ function updateBall() {
     b[1] += b[7];
 }
 
-function updateCountDown() {
-    var c = document.getElementById('countDown');
-    var count = game.countDown;
+function updateCount() {
+    var c = document.getElementById('counter');
+    var count = game.counter;
     var boxShadow = Math.floor(count / 50);
     var textShadow = (Math.floor((35 * ((count / 1000) - Math.floor(count / 1000)))));
 
@@ -412,16 +409,16 @@ function updateCountDown() {
         game.mode = 'playing';
     }
     initializeBall();
-    game.countDown -= game.refresh;
+    game.counter -= game.refresh;
 }
 
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
 
-function timer(count) {
-    var s = Math.floor((count / (1000 / game.refresh)) % 60);
-    var m = Math.floor(((count / (1000 / game.refresh)) / 60) % 60);
+function timer(time) {
+    var s = Math.floor((time / (1000 / game.refresh)) % 60);
+    var m = Math.floor(((time / (1000 / game.refresh)) / 60) % 60);
     var second = 0;
     var minute = 0;
 
@@ -435,12 +432,11 @@ function timer(count) {
 }
 
 function initializeLevel() {
-    if (game.level == 1) {
-        game.mode = 'countDown';
-    } else {
-        game.level += 1;
-        game.mode = 'nextLevel';
-    }
+    game.level += 1;
+    initializeBricks();
+    game.counter = 2000;
+    game.message = 'Level ' + game.level;
+    game.mode = 'message'
 }
 
 function initializeBricks() {
@@ -479,14 +475,11 @@ function initializeBall() {
     //angle = (radians * (180 / Math.PI));
 }
 
-function displayMessage(text, count) {
-
-}
-
 function newBall() {
     if (game.tries > 0) {
-        game.mode = 'countDown';
-        game.countDown = 3000;
+        game.counter = 2000;
+        game.message = "That one got away!";
+        game.mode = 'message';
     } else {
         game.mode = 'gameOver';
     }

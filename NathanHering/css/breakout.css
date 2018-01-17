@@ -178,7 +178,7 @@ a:hover {
     padding-top: 7px;
 }
 
-.countDown {
+.counter {
     cursor: none;
     position: relative;
     left: 260px;
@@ -193,7 +193,7 @@ a:hover {
     color: #ecffdc;
 }
 
-.nextLevel {
+.message {
     position: relative;
     padding: 12px 25px;
     left: 125px;
@@ -209,6 +209,7 @@ a:hover {
     text-align: center;
     text-shadow: 0px 0px 5px black;
     box-shadow: 2px 2px 10px #223322;
+    cursor: none;
 }
 
 .footerBanner {
