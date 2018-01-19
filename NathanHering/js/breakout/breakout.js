@@ -16,6 +16,7 @@ function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
     game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.mode = 'ready';
+    game.nextMode = '';
     game.message = '';
     game.level = 0;
     game.tries = 3;
@@ -37,14 +38,10 @@ function Breakout() {
 function keyListener(e) {
     switch (e.keyCode) {
         case 13: //(enter)------PLAY & CONTINUE
-            if (game.mode == 'playing') { break; }
-            if (game.mode == 'counter') { break; }
-            if (game.mode == 'pause') { resume(); }
-            else { play(); }
+            play();
             break;
         case 32: //(space)------PAUSE 
-            if (game.mode == 'pause') { resume(); }
-            if (game.mode == 'playing') { pause(); }
+            pause();
             break;
         default:
             break;
@@ -52,6 +49,9 @@ function keyListener(e) {
 }
 
 function play() {
+    var noPlay = ['playing', 'counter', 'message', 'gameOver'];
+    if (noPlay.indexOf(game.mode) > -1) return;
+    if (game.mode == 'pause') resume();
     document.getElementById('playButton').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
@@ -68,6 +68,9 @@ function resume() {
 }
 
 function pause() {
+    var noPause = ['message', 'ready', 'counter', 'gameOver'];
+    if (noPause.indexOf(game.mode) > -1) return;
+    if (game.mode == 'pause') resume();
     game.mode = 'pause';
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('continueButton').style.display = 'block';
@@ -80,30 +83,23 @@ function pause() {
 //----------------------------------------------------------------------------------------
 
 function draw() {
+    drawScreen();
+    drawPaddle();
+    drawBricks();
     switch (game.mode) {
-        case 'ready':
-            drawScreen();
-            drawPaddle();
-            break;
         case 'playing':
-            drawScreen();
-            drawPaddle();
             drawBall();
-            drawBricks();
-            break;
-        case 'pause':
+            //drawBricks();
             break;
         case 'message':
-            drawScreen();
-            drawPaddle();
             drawMessage();
             break;
         case 'counter':
-            drawScreen();
-            drawPaddle();
-            drawBricks();
+            //drawBricks();
             drawCount();
             break;
+        case 'gameOver':
+            //drawBricks();
     }
 }
 
@@ -169,16 +165,12 @@ function drawBricks() {
 function drawMessage() {
     var m = document.getElementById('message');
 
-    if (game.counter > 0) {
+    if (game.counter > game.refresh) {
         m.style.display = 'block';
         m.innerHTML = game.message;
     } else {
         m.style.display = 'none';
-        game.counter = 3000;
-        game.mode = 'counter';
     }
-
-    game.counter -= game.refresh;
 }
 
 function drawCount() {
@@ -190,6 +182,7 @@ function drawCount() {
 //----------------------------------------------------------------------------------------
 
 function update() {
+    info(game.mode);
     switch (game.mode) {
         case 'ready':
             upadateScoreBoard();
@@ -202,6 +195,7 @@ function update() {
             updateBall();
             break;
         case 'message':
+            updateMessage();
             break;
         case 'counter':
             updateCount();
@@ -412,6 +406,21 @@ function updateCount() {
     game.counter -= game.refresh;
 }
 
+function updateMessage() {
+    game.counter -= game.refresh;
+    if (game.counter < 0) {
+        switch (game.nextMode) {
+            case 'counter':
+                game.counter = 3000;
+                game.mode = 'counter';
+                break;
+            case 'playing':
+                game.mode = 'playing';
+                break;
+        }
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
@@ -434,9 +443,7 @@ function timer(time) {
 function initializeLevel() {
     game.level += 1;
     initializeBricks();
-    game.counter = 2000;
-    game.message = 'Level ' + game.level;
-    game.mode = 'message'
+    initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
 function initializeBricks() {
@@ -475,11 +482,17 @@ function initializeBall() {
     //angle = (radians * (180 / Math.PI));
 }
 
+function initializeMessage(counter, message, nextMode) {
+    var nextMode = nextMode ? nextMode : 'playing';
+    game.counter = counter;
+    game.message = message;
+    game.mode = 'message';
+    game.nextMode = nextMode;
+}
+
 function newBall() {
     if (game.tries > 0) {
-        game.counter = 2000;
-        game.message = "That one got away!";
-        game.mode = 'message';
+        initializeMessage(1500, 'That one got away!', 'counter');
     } else {
         game.mode = 'gameOver';
     }
@@ -491,4 +504,4 @@ function setStyle(id, style, value) {
 
 function info(info) {
     document.getElementById('footerBanner').innerHTML = info;
-}
+}//helper function for testing. displayes 'info' variable data inside the footer.
