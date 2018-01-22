@@ -26,12 +26,12 @@
         </div>
 
         <!-- Resume modal -->
-        <a id="resumeModal" onmouseup="resume()" style="display:none;cursor:default;">
-            <div id="a1" class="resumeModal"
+        <a id="continueModal" onmouseup="play()" style="display:none;cursor:default;">
+            <div id="a1" class="continueModal"
                  onmouseover="setStyle('a2', 'boxShadow', '0px 0px 5px #8dea8f')"
                  onmouseout="setStyle('a2', 'boxShadow', '')">
-                <div class="resumeModalText">CONTINUE</div>
-                <div class="resumeModalShortcut">(enter)</div>
+                <div class="continueModalText">CONTINUE</div>
+                <div class="continueModalShortcut">(enter)</div>
             </div>
         </a>
         
@@ -43,26 +43,33 @@
         <div id="message" class="message" style="display:none;">
         </div>
 
+        <!-- Quit modal -->
+        <div id="quitModal" class="quitModal">
+            <div class="quitMessage" style="display:inline;">Are you sure you want to quit?</div>
+            <a id="quitNo" class="quitNo" onmouseup="play(); return;">NO</a>
+            <a id="quitYes" class="quitYes" onmouseup="newGame(); return;">YES</a>
+        </div>
+
     </div>
 
     <!-- Info board on right -->
     <div id="infoArea" class="infoArea monitor">
 
-        <a id="playButton" onmouseup="play(); return false;">
+        <a id="playButton" onmouseup="play(); return;">
             <div class="controlTextBlock">
                 <div class="controlText">PLAY</div>
                 <div class="controlShortcut">(enter)</div>
             </div>
         </a>
 
-        <a id="pauseButton" onmouseup="pause(); return false;" style="display:none;">
+        <a id="pauseButton" onmouseup="pause(); return;" style="display:none;">
             <div class="controlTextBlock">
                 <div class="controlText">PAUSE</div>
                 <div class="controlShortcut">(space)</div>
             </div>
         </a>
 
-        <a id="continueButton" onmouseup="resume(); return false;" style="display:none;">
+        <a id="continueButton" onmouseup="play(); return;" style="display:none;">
             <div id="a2" class="controlTextBlock"
                  onmouseover="setStyle('a1', 'boxShadow', '0px 0px 23px #8dea8f')"
                  onmouseout="setStyle('a1', 'boxShadow', '')">
@@ -101,16 +108,23 @@
             <div id="powerUps">
                 <div class="powerUpsNeutral">Neutral</div>
                 <div class="powerUpsNeutralRight">info</div><br />
+
                 <div class="powerUpsBad">Bad</div>
                 <div class="powerUpsBadRight">info</div><br />
+
                 <div class="powerUpsGood">Good</div>
                 <div class="powerUpsGoodRight">info</div>
             </div>
         </div>
 
+        <div class="controlTextBlock" onmouseup="quit(); return;">
+            <div class="controlText">QUIT</div>
+            <div class="controlShortcut">(esc)</div>
+        </div>
+
     </div>
     
-    <!-- Fotter banner -->
+    <!-- Footer banner -->
     <div id="footerBanner" class="footerBanner monitor">
     </div>
 

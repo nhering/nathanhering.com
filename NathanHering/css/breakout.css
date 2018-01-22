@@ -101,7 +101,7 @@ a:hover {
     margin: 10px 0px;
     color: #3aa63a;
     text-shadow: 0px 0px 2px black;
-    height: 220px;
+    height: 176px;
 }
 
 .powerUpsNeutral {
@@ -143,7 +143,7 @@ a:hover {
     text-shadow: 0px 0px 10px black;
 }
 
-.resumeModal {
+.continueModal {
     position: relative;
     padding: 12px 25px;
     left: 125px;
@@ -159,23 +159,84 @@ a:hover {
     box-shadow: 2px 2px 10px #223322;
 }
 
-.resumeModal:hover {
+.continueModal:hover {
     box-shadow: 0px 0px 23px #8dea8f;
     text-decoration: none;
     cursor: pointer;
     color: #ecffdc;
 }
 
-.resumeModalText {
+.continueModalText {
     display: inline;
     font-size: 35px;
 }
 
-.resumeModalShortcut {
+.continueModalShortcut {
     display: inline;
     float: right;
     font-size: 25px;
     padding-top: 7px;
+}
+
+.quitModal {
+    position: relative;
+    padding: 12px 25px;
+    left: 125px;
+    bottom: 300px;
+    width: 500px;
+    font-size: 20px;
+    z-index: 3;
+    background-color: #0a760a;
+    border-radius: 10px;
+    border: solid 2px #1a861a;
+    cursor: default;
+    color: #ecffdc;
+    text-shadow: 0px 0px 5px black;
+    box-shadow: 2px 2px 10px #223322;
+}
+
+.quitMessage{
+    display: inline;
+}
+
+.quitYes{
+    margin: 0px 13px;
+    display: inline;
+    color: #ecffdc;
+    background-color: green;
+    text-align: center;
+    width: 65px;
+    float: right;
+    height: 30px;
+    padding-top: 1px;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 5px gray;
+}
+
+.quitYes:hover{
+    box-shadow: 0px 0px 5px blue;
+    color: #accfac;
+}
+
+.quitNo{
+    display: inline;
+    color: #ecffdc;
+    background-color: green;
+    text-align: center;
+    width: 65px;
+    float: right;
+    height: 30px;
+    padding-top: 1px;
+    margin-right: -12px;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 5px gray;
+}
+
+.quitNo:hover{
+    box-shadow: 0px 0px 5px blue;
+    color: #accfac;
 }
 
 .counter {

@@ -43,39 +43,57 @@ function keyListener(e) {
         case 32: //(space)------PAUSE 
             pause();
             break;
+        case 27: //(escape)-----QUIT
+            quit();
+            break;
         default:
             break;
     }
 }
 
 function play() {
-    var noPlay = ['playing', 'counter', 'message', 'gameOver'];
+    var noPlay = ['playing', 'counter', 'message', 'gameOver', 'quit'];
     if (noPlay.indexOf(game.mode) > -1) return;
-    if (game.mode == 'pause') resume();
-    document.getElementById('playButton').style.display = 'none';
-    document.getElementById('pauseButton').style.display = 'block';
-    document.getElementById('continueButton').style.display = 'none';
-    document.getElementById('canvas').style.cursor = 'none';
-    initializeLevel();
+    if (game.mode == 'pause') {
+        resume();
+    } else {
+        document.getElementById('quitModal').style.display = 'none';
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('continueButton').style.display = 'none';
+        document.getElementById('canvas').style.cursor = 'none';
+        document.getElementById('pauseButton').style.display = 'block';
+        initializeLevel();
+    }
 }
 
 function resume() {
     game.mode = 'playing';
-    document.getElementById('pauseButton').style.display = 'block';
     document.getElementById('continueButton').style.display = 'none';
-    document.getElementById('resumeModal').style.display = 'none';
+    document.getElementById('continueModal').style.display = 'none';
     document.getElementById('canvas').style.cursor = 'none';
+    document.getElementById('pauseButton').style.display = 'block';
 }
 
 function pause() {
-    var noPause = ['message', 'ready', 'counter', 'gameOver'];
-    if (noPause.indexOf(game.mode) > -1) return;
+    var noPause = ['message', 'ready', 'counter', 'gameOver', 'quit'];
+    if (noPause.includes(game.mode)) return;
     if (game.mode == 'pause') resume();
     game.mode = 'pause';
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('continueButton').style.display = 'block';
-    document.getElementById('resumeModal').style.display = 'block';
+    document.getElementById('continueModal').style.display = 'block';
     document.getElementById('canvas').style.cursor = 'default';
+}
+
+function quit() {
+    var noQuit = ['ready', 'gameOver', 'quit'];
+    if (noQuit.indexOf(game.mode) > -1) return;
+    document.getElementById('playButton').style.display = 'block';
+    var hideElements = ['pauseButton', 'continueButton', 'continueModal', 'message', 'counter'];
+    for (var i = 0; i < hideElements.length ; i++) {
+        document.getElementById(hideElements[i]).style.display = 'none';
+    }
+    newGame();
 }
 
 //----------------------------------------------------------------------------------------
@@ -83,23 +101,33 @@ function pause() {
 //----------------------------------------------------------------------------------------
 
 function draw() {
-    drawScreen();
-    drawPaddle();
-    drawBricks();
+    info(game.mode);
     switch (game.mode) {
         case 'playing':
+            drawScreen();
+            drawPaddle();
+            drawBricks();
             drawBall();
-            //drawBricks();
             break;
         case 'message':
+            drawScreen();
+            drawBricks();
+            drawPaddle();
             drawMessage();
             break;
         case 'counter':
-            //drawBricks();
+            drawScreen();
+            drawPaddle();
+            drawBricks();
             drawCount();
             break;
         case 'gameOver':
-            //drawBricks();
+            drawScreen();
+            drawPaddle();
+            drawBricks();
+        case 'ready':
+            drawScreen();
+            drawPaddle();
     }
 }
 
@@ -182,7 +210,6 @@ function drawCount() {
 //----------------------------------------------------------------------------------------
 
 function update() {
-    info(game.mode);
     switch (game.mode) {
         case 'ready':
             upadateScoreBoard();
@@ -233,17 +260,17 @@ function updateBall() {
     //-----------------------------------------
     if (collide == false) {
         if (b[0] <= b[2]) {
-            b[0] = b[2]; //might not like the effect this has
+            b[0] = b[2];
             b[6] *= -1;
             collide = true;
         } //hit left side of screen
         if (b[0] >= (canvas.clientWidth - b[2])) {
-            b[0] = canvas.clientWidth - b[2]; //might not like the effect this has
+            b[0] = canvas.clientWidth - b[2];
             b[6] *= -1;
             collide = true;
         } //hit right side of screen
         if (b[1] <= b[2]) {
-            b[1] = b[2]; //might not like the effect this has
+            b[1] = b[2];
             b[7] *= -1;
             collide = true;
         } //hit top of screen
@@ -251,7 +278,7 @@ function updateBall() {
             game.tries -= 1;
             document.getElementById('tries').innerHTML = game.tries;
             collide = true;
-            newBall();
+            lostBall();
         } //off bottom of screen
     }
 
@@ -490,11 +517,36 @@ function initializeMessage(counter, message, nextMode) {
     game.nextMode = nextMode;
 }
 
-function newBall() {
+function lostBall() {
+    var lostBallMessages = ['That one got away!', 'Oh no!', 'Ouch, that hurt!', 'Yikes!!', 'You lost one!', "It's gone!", 'Aw man!', 'Bummer...', 'Try harder.', 'What?!?', 'Get to llama school!']
+    var message = lostBallMessages[Math.floor((Math.random() * lostBallMessages.length))];
     if (game.tries > 0) {
-        initializeMessage(1500, 'That one got away!', 'counter');
+        initializeMessage(1500, message, 'counter');
     } else {
+        initializeMessage(2000, 'GAME OVER', 'gameOver');
         game.mode = 'gameOver';
+    }
+}
+
+function newGame(){
+    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    game.player = [1, powerUps]//[0]damage, [1]powerUps
+    game.nextMode = '';
+    game.message = '';
+    game.level = 0;
+    game.tries = 3;
+    game.score = 0;
+    game.bricksDestroyed = 0;
+    game.counter = 0;
+    game.time = 0;
+    game.mouseX = 335;
+    document.getElementById('canvas').style.cursor = 'default';
+    upadateScoreBoard();
+    drawScreen();
+    if (game.mode == 'gameOver') {
+        game.mode = 'playing';
+    } else {
+        game.mode = 'ready';
     }
 }
 
