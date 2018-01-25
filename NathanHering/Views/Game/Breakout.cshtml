@@ -46,7 +46,7 @@
         <!-- Quit modal -->
         <div id="quitModal" class="quitModal" style="display:none;">
             <div class="quitMessage" style="display:inline;">Are you sure you want to quit?</div>
-            <a id="quitNo" class="quitNo" onmouseup="play(); return;">NO</a>
+            <a id="quitNo" class="quitNo" onmouseup="resume(); return;">NO</a>
             <a id="quitYes" class="quitYes" onmouseup="quit('confirmed'); return;">YES</a>
         </div>
 
@@ -79,7 +79,7 @@
         </a>
 
         <a id="nothingButton" style="display:none;" 
-           onmouseover="setInnerHTML('Nope', ['nothingButtonText'])"
+           onmouseover="setInnerHTML('NOPE', ['nothingButtonText'])"
            onmouseout="setInnerHTML('', ['nothingButtonText'])">
             <div id="nothingButtonText" class="controlTextBlock">
             </div>

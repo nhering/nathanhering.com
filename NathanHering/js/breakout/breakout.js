@@ -24,8 +24,11 @@ function Breakout() {
     game.bricksDestroyed = 0;
     game.counter = 0;
     game.time = 0;
-    game.mouseX = 335;
+    //game.mouseX = 335;
     game.refresh = 40;
+    document.getElementById('canvas').style.cursor = 'default';
+    upadateScoreBoard();
+    drawScreen();
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
     game.timer = setInterval(function () { draw(); update(); }, game.refresh);
@@ -58,16 +61,13 @@ function play() {
     if (game.mode == 'pause') {
         resume();
     } else {
-        setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton']);
-        setStyle('display', 'block', ['pauseButton']);
-        setStyle('cursor', 'none', ['canvas']);
-        initializeLevel();
+        newGame();
     }
 }
 
 function resume() {
     game.mode = 'playing';
-    setStyle('display', 'none', ['continueButton', 'continueModal']);
+    setStyle('display', 'none', ['continueButton', 'continueModal', 'quitModal', 'nothingButton']);
     setStyle('display', 'block', ['pauseButton']);
     setStyle('cursor', 'none', ['canvas']);
 }
@@ -85,18 +85,18 @@ function pause() {
 }
 
 function quit(option) {
-    var noQuit = ['ready', 'gameOver', 'pause', 'message', 'counter'];
+    var noQuit = ['ready', 'gameOver', 'message', 'counter'];
     if (noQuit.indexOf(game.mode) > -1) return;
 
     if (option == 'request') {
         game.mode = 'quit';
-        setStyle('display', 'none', ['playButton', 'pauseButton']);
+        setStyle('display', 'none', ['playButton', 'pauseButton', 'continueModal']);
         setStyle('display', 'block', ['quitModal', 'nothingButton']);
         setStyle('cursor', 'default', ['canvas']);
     } else {
+        game.mode = 'ready';
+        setStyle('display', 'none', ['quitModal', 'nothingButton']);
         setStyle('display', 'block', ['playButton']);
-        setStyle('display', 'none', ['quitModal', 'pauseButton', 'continueButton', 'continueModal', 'nothingButton']);
-        newGame();
     }
 }
 
@@ -533,7 +533,7 @@ function lostBall() {
 }
 
 function newGame(){
-    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];
     game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.nextMode = '';
     game.message = '';
@@ -543,15 +543,13 @@ function newGame(){
     game.bricksDestroyed = 0;
     game.counter = 0;
     game.time = 0;
-    game.mouseX = 335;
-    document.getElementById('canvas').style.cursor = 'default';
+    game.mode = 'playing';
+    setStyle('cursor', 'none', ['canvas']);
+    setStyle('display', 'block', ['pauseButton']);
+    setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton', 'continueModal', 'nothingButton']);
     upadateScoreBoard();
     drawScreen();
-    if (game.mode == 'gameOver') {
-        game.mode = 'playing';
-    } else {
-        game.mode = 'ready';
-    }
+    initializeLevel();
 }
 
 function setStyle(style, value, ids) {
