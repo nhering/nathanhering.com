@@ -28,8 +28,8 @@
         <!-- Resume modal -->
         <a id="continueModal" onmouseup="play()" style="display:none;cursor:default;">
             <div id="a1" class="continueModal"
-                 onmouseover="setStyle('a2', 'boxShadow', '0px 0px 5px #8dea8f')"
-                 onmouseout="setStyle('a2', 'boxShadow', '')">
+                 onmouseover="setStyle('boxShadow', '0px 0px 5px #8dea8f', ['a2'])"
+                 onmouseout="setStyle('boxShadow', '', ['a2'])">
                 <div class="continueModalText">CONTINUE</div>
                 <div class="continueModalShortcut">(enter)</div>
             </div>
@@ -44,10 +44,10 @@
         </div>
 
         <!-- Quit modal -->
-        <div id="quitModal" class="quitModal">
+        <div id="quitModal" class="quitModal" style="display:none;">
             <div class="quitMessage" style="display:inline;">Are you sure you want to quit?</div>
             <a id="quitNo" class="quitNo" onmouseup="play(); return;">NO</a>
-            <a id="quitYes" class="quitYes" onmouseup="newGame(); return;">YES</a>
+            <a id="quitYes" class="quitYes" onmouseup="quit('confirmed'); return;">YES</a>
         </div>
 
     </div>
@@ -71,10 +71,17 @@
 
         <a id="continueButton" onmouseup="play(); return;" style="display:none;">
             <div id="a2" class="controlTextBlock"
-                 onmouseover="setStyle('a1', 'boxShadow', '0px 0px 23px #8dea8f')"
-                 onmouseout="setStyle('a1', 'boxShadow', '')">
+                 onmouseover="setStyle('boxShadow', '0px 0px 23px #8dea8f', ['a1'])"
+                 onmouseout="setStyle('boxShadow', '', ['a1'])">
                 <div class="controlText">CONTINUE</div>
                 <div class="controlShortcut">(enter)</div>
+            </div>
+        </a>
+
+        <a id="nothingButton" style="display:none;" 
+           onmouseover="setInnerHTML('Nope', ['nothingButtonText'])"
+           onmouseout="setInnerHTML('', ['nothingButtonText'])">
+            <div id="nothingButtonText" class="controlTextBlock">
             </div>
         </a>
 
@@ -117,7 +124,7 @@
             </div>
         </div>
 
-        <div class="controlTextBlock" onmouseup="quit(); return;">
+        <div class="controlTextBlock" onmouseup="quit('request'); return;">
             <div class="controlText">QUIT</div>
             <div class="controlShortcut">(esc)</div>
         </div>

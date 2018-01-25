@@ -44,7 +44,7 @@ function keyListener(e) {
             pause();
             break;
         case 27: //(escape)-----QUIT
-            quit();
+            quit('request');
             break;
         default:
             break;
@@ -54,29 +54,28 @@ function keyListener(e) {
 function play() {
     var noPlay = ['playing', 'counter', 'message', 'gameOver', 'quit'];
     if (noPlay.indexOf(game.mode) > -1) return;
+
     if (game.mode == 'pause') {
         resume();
     } else {
-        document.getElementById('quitModal').style.display = 'none';
-        document.getElementById('playButton').style.display = 'none';
-        document.getElementById('continueButton').style.display = 'none';
-        document.getElementById('canvas').style.cursor = 'none';
-        document.getElementById('pauseButton').style.display = 'block';
+        setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton']);
+        setStyle('display', 'block', ['pauseButton']);
+        setStyle('cursor', 'none', ['canvas']);
         initializeLevel();
     }
 }
 
 function resume() {
     game.mode = 'playing';
-    document.getElementById('continueButton').style.display = 'none';
-    document.getElementById('continueModal').style.display = 'none';
-    document.getElementById('canvas').style.cursor = 'none';
-    document.getElementById('pauseButton').style.display = 'block';
+    setStyle('display', 'none', ['continueButton', 'continueModal']);
+    setStyle('display', 'block', ['pauseButton']);
+    setStyle('cursor', 'none', ['canvas']);
 }
 
 function pause() {
     var noPause = ['message', 'ready', 'counter', 'gameOver', 'quit'];
     if (noPause.includes(game.mode)) return;
+
     if (game.mode == 'pause') resume();
     game.mode = 'pause';
     document.getElementById('pauseButton').style.display = 'none';
@@ -85,15 +84,20 @@ function pause() {
     document.getElementById('canvas').style.cursor = 'default';
 }
 
-function quit() {
-    var noQuit = ['ready', 'gameOver', 'quit'];
+function quit(option) {
+    var noQuit = ['ready', 'gameOver', 'pause', 'message', 'counter'];
     if (noQuit.indexOf(game.mode) > -1) return;
-    document.getElementById('playButton').style.display = 'block';
-    var hideElements = ['pauseButton', 'continueButton', 'continueModal', 'message', 'counter'];
-    for (var i = 0; i < hideElements.length ; i++) {
-        document.getElementById(hideElements[i]).style.display = 'none';
+
+    if (option == 'request') {
+        game.mode = 'quit';
+        setStyle('display', 'none', ['playButton', 'pauseButton']);
+        setStyle('display', 'block', ['quitModal', 'nothingButton']);
+        setStyle('cursor', 'default', ['canvas']);
+    } else {
+        setStyle('display', 'block', ['playButton']);
+        setStyle('display', 'none', ['quitModal', 'pauseButton', 'continueButton', 'continueModal', 'nothingButton']);
+        newGame();
     }
-    newGame();
 }
 
 //----------------------------------------------------------------------------------------
@@ -550,8 +554,16 @@ function newGame(){
     }
 }
 
-function setStyle(id, style, value) {
-    document.getElementById(id).style[style] = value;
+function setStyle(style, value, ids) {
+    for (var i = 0; i < ids.length ; i++){
+        document.getElementById(ids[i]).style[style] = value;
+    }
+}
+
+function setInnerHTML(value, ids) {
+    for (var i = 0; i < ids.length ; i++) {
+        document.getElementById(ids[i]).innerHTML = value;
+    }
 }
 
 function info(info) {
