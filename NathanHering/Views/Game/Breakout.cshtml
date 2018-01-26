@@ -78,49 +78,41 @@
             </div>
         </a>
 
-        <a id="nothingButton" style="display:none;" 
-           onmouseover="setInnerHTML('NOPE', ['nothingButtonText'])"
-           onmouseout="setInnerHTML('', ['nothingButtonText'])">
-            <div id="nothingButtonText" class="controlTextBlock">
-            </div>
-        </a>
-
-        <div class="infoTextBlock">
-            <div class="infoTextLeft">Level :</div>
-            <div class="infoTextRight" id="level"></div>
+        <div id="disabledPauseButton" class="disabledTextBlock" style="display:none;">
+            <div class="disabledText">PAUSE</div>
+            <div class="disabledShortcut">(space)</div>
         </div>
 
         <div class="infoTextBlock">
-            <div class="infoTextLeft">Tries :</div>
-            <div class="infoTextRight" id="tries"></div>
+            <div class="infoTextLefta">Level :</div>
+            <div class="infoTextRighta" id="level"></div>
         </div>
 
         <div class="infoTextBlock">
-            <div class="infoTextLeft">Score :</div>
-            <div class="infoTextRight" id="score"></div>
+            <div class="infoTextLefta">Tries :</div>
+            <div class="infoTextRighta" id="tries"></div>
         </div>
 
         <div class="infoTextBlock">
-            <div class="infoTextLeft">Bricks Destroyed :</div>
-            <div class="infoTextRight" id="bricksDestroyed"></div>
+            <div class="infoTextLefta">Score :</div>
+            <div class="infoTextRighta" id="score"></div>
         </div>
 
         <div class="infoTextBlock">
-            <div class="infoTextLeft">Time :</div>
-            <div class="infoTextRight" id="time"></div>
+            <div class="infoTextLefta">Bricks Destroyed :</div>
+            <div class="infoTextRighta" id="bricksDestroyed"></div>
         </div>
 
-        <div class="powerUpsTextBlock">
-            <div class="infoTextLeft">Power Ups :</div><br/>
-            <div id="powerUps">
-                <div class="powerUpsNeutral">Neutral</div>
-                <div class="powerUpsNeutralRight">info</div><br />
+        <div class="infoTextBlock">
+            <div class="infoTextLefta">Time :</div>
+            <div class="infoTextRighta" id="time"></div>
+        </div>
 
-                <div class="powerUpsBad">Bad</div>
-                <div class="powerUpsBadRight">info</div><br />
-
-                <div class="powerUpsGood">Good</div>
-                <div class="powerUpsGoodRight">info</div>
+        <div class="infoHeading">BONUS POWERS</div>
+        <div class="infoBody">
+            <div class="infoBlock">
+                <div class="infoTextLeft">Strength :</div>
+                <div class="infoTextRight" id="bonusStrength">1</div>
             </div>
         </div>
 

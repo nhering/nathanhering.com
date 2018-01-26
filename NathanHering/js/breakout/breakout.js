@@ -67,7 +67,7 @@ function play() {
 
 function resume() {
     game.mode = 'playing';
-    setStyle('display', 'none', ['continueButton', 'continueModal', 'quitModal', 'nothingButton']);
+    setStyle('display', 'none', ['continueButton', 'continueModal', 'quitModal', 'disabledPauseButton']);
     setStyle('display', 'block', ['pauseButton']);
     setStyle('cursor', 'none', ['canvas']);
 }
@@ -90,12 +90,12 @@ function quit(option) {
 
     if (option == 'request') {
         game.mode = 'quit';
-        setStyle('display', 'none', ['playButton', 'pauseButton', 'continueModal']);
-        setStyle('display', 'block', ['quitModal', 'nothingButton']);
+        setStyle('display', 'none', ['playButton', 'pauseButton', 'continueModal', 'continueButton']);
+        setStyle('display', 'block', ['quitModal', 'disabledPauseButton']);
         setStyle('cursor', 'default', ['canvas']);
     } else {
         game.mode = 'ready';
-        setStyle('display', 'none', ['quitModal', 'nothingButton']);
+        setStyle('display', 'none', ['quitModal', 'disabledPauseButton']);
         setStyle('display', 'block', ['playButton']);
     }
 }
@@ -132,6 +132,7 @@ function draw() {
         case 'ready':
             drawScreen();
             drawPaddle();
+            drawBricks();
     }
 }
 
@@ -546,7 +547,7 @@ function newGame(){
     game.mode = 'playing';
     setStyle('cursor', 'none', ['canvas']);
     setStyle('display', 'block', ['pauseButton']);
-    setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton', 'continueModal', 'nothingButton']);
+    setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton', 'continueModal', 'disabledPauseButton']);
     upadateScoreBoard();
     drawScreen();
     initializeLevel();

@@ -74,17 +74,66 @@ a:hover {
     float: right;
 }
 
-.infoTextBlock {
-    background-color: #3c503c;
+.disabledTextBlock {
+    background-color: #215a1c;
     border-radius: 4px;
-    border: solid 1px #4c604c;
-    padding: 5px 10px;
+    border: solid 1px #00620e;
     margin: 10px 0px;
+    padding: 5px 10px;
+    color: #215a1c;
+    text-shadow: 1px 1px 0px #939393;
+    cursor: pointer;
+    height: 31px;
+}
+
+.disabledText {
+    display: inline;
+}
+
+.disabledShortcut {
+    padding-top: 3px;
+    font-size: 10px;
+    display: inline;
+    float: right;
+}
+
+.infoHeading {
+    background-color: #3c503c;
+    border-radius: 4px 4px 0px 0px;
+    border: solid 1px #4c604c;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+    color: #3aa63a;
+    text-shadow: 0px 0px 2px black;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+
+.infoBody {
+    background-color: #3c503c;
+    border-radius: 0px 0px 4px 4px;
+    border: solid 1px #4c604c;
+    border-top: hidden;
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    color: #3aa63a;
+    text-shadow: 0px 0px 2px black;
+    height: 145px;
+}
+
+.infoBlock {
+    background-color: #3c503c;
+    border-bottom: dashed 1px #4c604c;
+    padding: 5px 10px;
+    height: 27px;
     color: #3aa63a;
     text-shadow: 0px 0px 2px black;
 }
 
 .infoTextLeft {
+    float: left;
+    text-align: left;
     display: inline;
 }
 
@@ -95,7 +144,7 @@ a:hover {
     font-family: Consolas;
 }
 
-.powerUpsTextBlock {
+.infoTextBlock {
     background-color: #3c503c;
     border-radius: 4px;
     border: solid 1px #4c604c;
@@ -103,46 +152,18 @@ a:hover {
     margin: 10px 0px;
     color: #3aa63a;
     text-shadow: 0px 0px 2px black;
-    height: 176px;
 }
 
-.powerUpsNeutral {
+.infoTextLefta {
+    text-align: left;
     display: inline;
-    color: #256cff;
-    text-shadow: 0px 0px 10px black;
 }
 
-.powerUpsNeutralRight {
-    display: inline;
+.infoTextRighta {
+    text-align: right;
     float: right;
-    color: #256cff;
-    text-shadow: 0px 0px 10px black;
-}  
-
-.powerUpsGood {
     display: inline;
-    color: #54c14c;
-    text-shadow: 0px 0px 10px black;
-}
-
-.powerUpsGoodRight {
-    display: inline;
-    float: right;
-    color: #54c14c;
-    text-shadow: 0px 0px 10px black;
-}  
-
-.powerUpsBad {
-    display: inline;
-    color: #ce5050;
-    text-shadow: 0px 0px 10px black;
-}
-
-.powerUpsBadRight {
-    display: inline;
-    float: right;
-    color: #ce5050;
-    text-shadow: 0px 0px 10px black;
+    font-family: Consolas;
 }
 
 .continueModal {
