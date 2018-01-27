@@ -101,12 +101,13 @@ a:hover {
     background-color: #3c503c;
     border-radius: 4px 4px 0px 0px;
     border: solid 1px #4c604c;
+    border-bottom: hidden;
     padding: 3px 10px;
     text-align: center;
     margin: 10px 0px 0px 0px;
-    color: #3aa63a;
-    text-shadow: 0px 0px 2px black;
-    letter-spacing: 2px;
+    color: #e6e6e6;
+    text-shadow: 0px -1px 2px black;
+    letter-spacing: 12px;
     font-size: 18px;
 }
 
@@ -117,18 +118,25 @@ a:hover {
     border-top: hidden;
     text-align: center;
     margin: 0px 0px 10px 0px;
-    color: #3aa63a;
     text-shadow: 0px 0px 2px black;
-    height: 145px;
+    height: 90px;
+    padding: 0px 10px;
 }
 
 .infoBlock {
-    background-color: #3c503c;
-    border-bottom: dashed 1px #4c604c;
-    padding: 5px 10px;
+    border-top: dashed 1px #9b9b9b;
+    padding: 5px 0px;
     height: 27px;
-    color: #3aa63a;
+    color: #56b244;
     text-shadow: 0px 0px 2px black;
+}
+
+.infoBlockInactive {
+    border-top: dashed 1px #9b9b9b;
+    padding: 5px 0px;
+    height: 27px;
+    color: #667c69;
+    text-shadow: 0px 0px 2px #223723;
 }
 
 .infoTextLeft {
@@ -138,28 +146,6 @@ a:hover {
 }
 
 .infoTextRight {
-    text-align: right;
-    float: right;
-    display: inline;
-    font-family: Consolas;
-}
-
-.infoTextBlock {
-    background-color: #3c503c;
-    border-radius: 4px;
-    border: solid 1px #4c604c;
-    padding: 5px 10px;
-    margin: 10px 0px;
-    color: #3aa63a;
-    text-shadow: 0px 0px 2px black;
-}
-
-.infoTextLefta {
-    text-align: left;
-    display: inline;
-}
-
-.infoTextRighta {
     text-align: right;
     float: right;
     display: inline;

@@ -83,37 +83,55 @@
             <div class="disabledShortcut">(space)</div>
         </div>
 
-        <div class="infoTextBlock">
-            <div class="infoTextLefta">Level :</div>
-            <div class="infoTextRighta" id="level"></div>
-        </div>
-
-        <div class="infoTextBlock">
-            <div class="infoTextLefta">Tries :</div>
-            <div class="infoTextRighta" id="tries"></div>
-        </div>
-
-        <div class="infoTextBlock">
-            <div class="infoTextLefta">Score :</div>
-            <div class="infoTextRighta" id="score"></div>
-        </div>
-
-        <div class="infoTextBlock">
-            <div class="infoTextLefta">Bricks Destroyed :</div>
-            <div class="infoTextRighta" id="bricksDestroyed"></div>
-        </div>
-
-        <div class="infoTextBlock">
-            <div class="infoTextLefta">Time :</div>
-            <div class="infoTextRighta" id="time"></div>
-        </div>
-
-        <div class="infoHeading">BONUS POWERS</div>
+        <div class="infoHeading">STATS</div>
         <div class="infoBody">
             <div class="infoBlock">
-                <div class="infoTextLeft">Strength :</div>
-                <div class="infoTextRight" id="bonusStrength">1</div>
+                <div class="infoTextLeft">Level :</div>
+                <div class="infoTextRight" id="level"></div>
             </div>
+            <div class="infoBlock">
+                <div class="infoTextLeft">Tries :</div>
+                <div class="infoTextRight" id="tries"></div>
+            </div>
+            <div class="infoBlock" id="bonusStrength">
+                <div class="infoTextLeft">Strength :</div>
+                <div class="infoTextRight">1</div>
+            </div>
+            <div class="infoBlock"></div>
+        </div>
+
+        <div class="infoHeading">SCORE</div>
+        <div class="infoBody">
+            <div class="infoBlockInactive">
+                <div class="infoTextLeft">Points :</div>
+                <div class="infoTextRight" id="score"></div>
+            </div>
+            <div class="infoBlock">
+                <div class="infoTextLeft">Bricks :</div>
+                <div class="infoTextRight" id="bricksDestroyed"></div>
+            </div>
+            <div class="infoBlock">
+                <div class="infoTextLeft">Time :</div>
+                <div class="infoTextRight" id="time"></div>
+            </div>
+            <div class="infoBlock"></div>
+        </div>
+
+        <div class="infoHeading">BONUS</div>
+        <div class="infoBody">
+            <div class="infoBlock">
+                <div class="infoTextLeft">Expand :</div>
+                <div class="infoTextRight" id="bonusStrength">:00</div>
+            </div>
+            <div class="infoBlock">
+                <div class="infoTextLeft">Blockade :</div>
+                <div class="infoTextRight" id="bonusStrength">:00</div>
+            </div>
+            <div class="infoBlock">
+                <div class="infoTextLeft">Juggernaut :</div>
+                <div class="infoTextRight" id="bonusStrength">:00</div>
+            </div>
+            <div class="infoBlock"></div>
         </div>
 
         <div class="controlTextBlock" onmouseup="quit('request'); return;">
@@ -121,7 +139,7 @@
             <div class="controlShortcut">(esc)</div>
         </div>
 
-    </div>
+        </div>
     
     <!-- Footer banner -->
     <div id="footerBanner" class="footerBanner monitor">

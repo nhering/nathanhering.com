@@ -466,8 +466,10 @@ function timer(time) {
     if (s < 10) { second = ('0' + s); }
     else { second = s }
 
-    if (m < 10) { minute = ('0' + m); }
-    else { minute = m; }
+    if (m > 0) {
+        minute = m;
+    } else {
+        minute = ""}
 
     return (minute + ':' + second);
 }
