@@ -30,7 +30,10 @@ function Breakout() {
     game.mouseX;
     game.refresh = 40;
     canvas.style.cursor = 'default';
-    upadateScoreBoard();
+    _tokens();
+    _player();
+    _bonus();
+    drawScore();
     drawScreen();
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
@@ -110,33 +113,35 @@ function quit(option) {
 function draw() {
     drawInfo();
     switch (game.mode) {
+        case 'ready':
+            drawStandardSet();
+            drawStats();
+            drawScore();
+            break;
         case 'playing':
-            drawScreen();
-            drawPaddle();
-            drawBricks();
+            drawStandardSet();
             drawBall();
             break;
         case 'message':
-            drawScreen();
-            drawBricks();
-            drawPaddle();
+            drawStandardSet();
+            drawStats();
+            drawScore();
             drawMessage();
             break;
         case 'counter':
-            drawScreen();
-            drawPaddle();
-            drawBricks();
+            drawStandardSet();
             drawCount();
             break;
         case 'gameOver':
-            drawScreen();
-            drawPaddle();
-            drawBricks();
-        case 'ready':
-            drawScreen();
-            drawPaddle();
-            drawBricks();
+            drawStandardSet();
+            break;
     }
+}
+
+function drawStandardSet() {
+    drawScreen();
+    drawPaddle();
+    drawBricks();
 }
 
 function drawScreen() {
@@ -214,6 +219,18 @@ function drawInfo() {
     }
 }
 
+function drawStats() {
+    setInnerHTML(game.level, 'level');
+    setInnerHTML(game.tries, 'tries');
+    setInnerHTML(player.strength, 'strength');
+}
+
+function drawScore() {
+    setInnerHTML(game.score, 'score');
+    setInnerHTML(game.bricksDestroyed, 'bricksDestroyed');
+    setInnerHTML(timer(game.time), 'time');
+}
+
 //----------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------UPDATE--
 //----------------------------------------------------------------------------------------
@@ -222,13 +239,12 @@ function update() {
     updateInfo();
     switch (game.mode) {
         case 'ready':
-            upadateScoreBoard();
+            updateBonus();
             initializeBricks();
             break;
         case 'playing':
             if (bricks.length == 0) { initializeLevel() }
             game.time++;
-            upadateScoreBoard();
             updateBall();
             break;
         case 'message':
@@ -240,12 +256,8 @@ function update() {
     }
 }
 
-function upadateScoreBoard() {
-    setInnerHTML(game.level, 'level');
-    setInnerHTML(game.tries, 'tries');
-    setInnerHTML(game.score, 'score');
-    setInnerHTML(game.bricksDestroyed, 'bricksDestroyed');
-    setInnerHTML(timer(game.time), 'time');
+function updateBonus() {
+
 }
 
 function updateBall() {
@@ -404,14 +416,22 @@ function updateBall() {
 
     function doDamage(i) {
         var damageDone = bricks[i][5];
-        bricks[i][5] -= player.strength
-        if (bricks[i][5] <= 0) {
-            bricks[i][5] = 0;
-            damageDone -= bricks[i][5];
+        if (bonus.juggernaut > 0) {
+            damageDone = bricks[i][5];
             bricks.splice(i, 1);
             game.bricksDestroyed += 1;
+            //insert token drop logic here
         } else {
-            damageDone -= bricks[i][5];
+            bricks[i][5] -= player.strength
+            if (bricks[i][5] <= 0) {
+                bricks[i][5] = 0;
+                damageDone -= bricks[i][5];
+                bricks.splice(i, 1);
+                game.bricksDestroyed += 1;
+                //insert token drop logic here
+            } else {
+                damageDone -= bricks[i][5];
+            }
         }
         game.score += damageDone;
     }
@@ -428,15 +448,18 @@ function updateCount() {
     var textShadow = (Math.floor((35 * ((count / 1000) - Math.floor(count / 1000)))));
 
     if (count > 0) {
+        setStyle('opacity', 1, ['counter']);
         c.style.boxShadow = "0px 0px " + boxShadow + "px black inset, 0px 0px " + boxShadow + "px green";
         c.style.textShadow = "2px 2px 5px black, 0px 0px " + textShadow + "px green";
         c.innerHTML = Math.ceil(count / 1000);
     } else if (count <= 0 && count > -1000) {
-        drawBall();
+        setStyle('opacity', ((1000 + count) / 1000), ['counter']);
         c.style.boxShadow = "";
         c.innerHTML = "";
     } else {
-        c.style.display = 'none';
+        drawBall();
+        setStyle('display', 'none', ['counter']);
+        //c.style.display = 'none';
         game.mode = 'playing';
     }
     initializeBall();
@@ -491,17 +514,16 @@ function initializeLevel() {
     initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
-function _tokens() {//[0]Display on token, [1]Duration of bonus, [2]Points, [3]Unique value
-    token.tries('T', 0, 0, 20, 1);
-    token.strength('S', 0, 0, 20, 1);
-    token.expand = ['E', 30000, 20, 0];
-    token.blockade = ['B', 20000, 40, 0];
-    token.juggernaut = ['J', 10000, 80, 0];
+function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
+    token.tries =       ['T',                   10,             1];//[2] amount added to tries
+    token.strength =    ['S',                   10,             1];//[2] amount added to strength
+    token.expand =      ['E',                   20,             30000];//[2] duration of bonus
+    token.blockade =    ['B',                   40,             20000];//[2] duration of bonus
+    token.juggernaut =  ['J',                   80,             10000];//[2] duration of bonus
 }
 
 function _player() {
     player.strength = 1;
-    player.activeBonus = [];
 }
 
 function _bonus() {
@@ -579,7 +601,7 @@ function newGame(){
     setStyle('cursor', 'none', ['canvas']);
     setStyle('display', 'block', ['pauseButton']);
     setStyle('display', 'none', ['quitModal', 'playButton', 'continueButton', 'continueModal', 'disabledPauseButton']);
-    upadateScoreBoard();
+    drawScore();
     drawScreen();
     initializeLevel();
     _player();
