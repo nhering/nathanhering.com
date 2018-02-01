@@ -10,11 +10,14 @@ var game = {};
 var paddle = {};
 var ball = {};
 var bricks = [];
-var powerUps = [];
+var token = {};
+var bonus = {};
+var player = {};
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
-    game.player = [1, powerUps]//[0]damage, [1]powerUps
+    game.player = [1,0]
+    game.info = ["", 0]//[0]desctription, [1]timer
     game.mode = 'ready';
     game.nextMode = '';
     game.message = '';
@@ -24,9 +27,9 @@ function Breakout() {
     game.bricksDestroyed = 0;
     game.counter = 0;
     game.time = 0;
-    //game.mouseX = 335;
+    game.mouseX;
     game.refresh = 40;
-    document.getElementById('canvas').style.cursor = 'default';
+    canvas.style.cursor = 'default';
     upadateScoreBoard();
     drawScreen();
     window.addEventListener('keyup', function (e) { keyListener(e) }, false);
@@ -105,7 +108,7 @@ function quit(option) {
 //----------------------------------------------------------------------------------------
 
 function draw() {
-    info(game.mode);
+    drawInfo();
     switch (game.mode) {
         case 'playing':
             drawScreen();
@@ -157,17 +160,6 @@ function drawPaddle() {
     if (paddle.x >= right) { paddle.x = right };
     ctx.fillStyle = '#dcdfdc';
     ctx.fillRect(paddle.x, paddle.top, paddle.width, paddle.height);
-
-
-    var fontSize = 12;
-    var fontName = "Consolas";
-    var message = game.player[0];
-    var messageLen = game.player[0].toString().length;
-    var x = paddle.x + (paddle.width / 2) - ((fontSize / 4) * messageLen);
-    var y = paddle.top + (paddle.height / 2) + (fontSize / 3);
-    ctx.fillStyle = 'black';
-    ctx.font = fontSize + 'px ' + fontName;
-    ctx.fillText(message, x, y);
 }
 
 function drawBall() {
@@ -210,11 +202,24 @@ function drawCount() {
     document.getElementById('counter').style.display = 'block';
 }
 
+function drawInfo() {
+    var opacityLevel = game.info[1] / 1000;
+    setInnerHTML(game.info[0], 'statusInfo');
+    if (game.info[1] > 0) {
+        if (game.info[1] < 1000) {
+            setStyle('opacity', opacityLevel, ['statusInfo']);
+        }
+    } else {
+        game.info[0] = '';
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------UPDATE--
 //----------------------------------------------------------------------------------------
 
 function update() {
+    updateInfo();
     switch (game.mode) {
         case 'ready':
             upadateScoreBoard();
@@ -236,11 +241,11 @@ function update() {
 }
 
 function upadateScoreBoard() {
-    document.getElementById('level').innerHTML = game.level;
-    document.getElementById('tries').innerHTML = game.tries;
-    document.getElementById('score').innerHTML = game.score;
-    document.getElementById('bricksDestroyed').innerHTML = game.bricksDestroyed;
-    document.getElementById('time').innerHTML = timer(game.time);
+    setInnerHTML(game.level, 'level');
+    setInnerHTML(game.tries, 'tries');
+    setInnerHTML(game.score, 'score');
+    setInnerHTML(game.bricksDestroyed, 'bricksDestroyed');
+    setInnerHTML(timer(game.time), 'time');
 }
 
 function updateBall() {
@@ -294,7 +299,7 @@ function updateBall() {
             if (baB > pT) { b[1] = pT - b[2] };
             calculateAngle();
             b[7] *= -1;
-            game.score += 1;
+            game.score += player.strength;
             collide = true;
         } //hit top of paddle
     }
@@ -350,7 +355,7 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baB > bricks[i][1] &&
             baT < bricks[i][1]) {
-            if (!game.player[1].includes('passThrough')) { b[7] *= -1; }
+            if (bonus.juggernaut <= 0) { b[7] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -363,7 +368,7 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baL <= bricks[i][0] + bricks[i][2] &&
             baR >= bricks[i][0] + bricks[i][2]) {
-            if (!game.player[1].includes('passThrough')) { b[6] *= -1; }
+            if (bonus.juggernaut <= 0) { b[6] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -376,7 +381,7 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baT <= bricks[i][1] + bricks[i][3] &&
             baB >= bricks[i][1] + bricks[i][3]) {
-            if (!game.player[1].includes('passThrough')) { b[7] *= -1; }
+            if (bonus.juggernaut <= 0) { b[7] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -389,7 +394,7 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baR >= bricks[i][0] &&
             baL <= bricks[i][0]) {
-            if (!game.player[1].includes('passThrough')) { b[6] *= -1; }
+            if (bonus.juggernaut <= 0) { b[6] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -399,7 +404,7 @@ function updateBall() {
 
     function doDamage(i) {
         var damageDone = bricks[i][5];
-        bricks[i][5] -= game.player[0]
+        bricks[i][5] -= player.strength
         if (bricks[i][5] <= 0) {
             bricks[i][5] = 0;
             damageDone -= bricks[i][5];
@@ -453,6 +458,12 @@ function updateMessage() {
     }
 }
 
+function updateInfo() {
+    if (game.info[1] > 0) {
+        game.info[1] -= game.refresh;
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
@@ -478,6 +489,25 @@ function initializeLevel() {
     game.level += 1;
     initializeBricks();
     initializeMessage(1500, 'Begin level ' + game.level, 'counter');
+}
+
+function _tokens() {//[0]Display on token, [1]Duration of bonus, [2]Points, [3]Unique value
+    token.tries('T', 0, 0, 20, 1);
+    token.strength('S', 0, 0, 20, 1);
+    token.expand = ['E', 30000, 20, 0];
+    token.blockade = ['B', 20000, 40, 0];
+    token.juggernaut = ['J', 10000, 80, 0];
+}
+
+function _player() {
+    player.strength = 1;
+    player.activeBonus = [];
+}
+
+function _bonus() {
+    bonus.expand = 0;
+    bonus.blockade = 0;
+    bonus.juggernaut = 0;
 }
 
 function initializeBricks() {
@@ -537,7 +567,6 @@ function lostBall() {
 
 function newGame(){
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];
-    game.player = [1, powerUps]//[0]damage, [1]powerUps
     game.nextMode = '';
     game.message = '';
     game.level = 0;
@@ -553,6 +582,9 @@ function newGame(){
     upadateScoreBoard();
     drawScreen();
     initializeLevel();
+    _player();
+    _bonus();
+    _tokens();
 }
 
 function setStyle(style, value, ids) {
@@ -561,12 +593,22 @@ function setStyle(style, value, ids) {
     }
 }
 
-function setInnerHTML(value, ids) {
-    for (var i = 0; i < ids.length ; i++) {
-        document.getElementById(ids[i]).innerHTML = value;
-    }
+function setInnerHTML(value, id) {
+    document.getElementById(id).innerHTML = value
 }
 
-function info(info) {
-    document.getElementById('footerBanner').innerHTML = info;
-}//helper function for testing. displayes 'info' variable data inside the footer.
+function showInfo(option, time) {
+    switch (option) {
+        case 'ExpandDefinition':
+            game.info[0] = "<span style='text-decoration:underline;'>EXPAND</span>: Expand makes your paddle wider. Making it easier to hit the ball. <br/><span style='letter-spacing:2px;'>Catching an expand token will give you this bonus for 30 seconds.</span>"
+            break;
+        case 'BlockadeDefinition':
+            game.info[0] = "<span style='text-decoration:underline;'>BLOCKADE</span>: Blockade creates a wall at the bottom of the screen that the ball will bounce off of. Making it imposible to loose a ball!<br/>Catching a blockade token will give you this bonus for 20 seconds."
+            break;
+        case 'JuggernautDefinition':
+            game.info[0] = "<span style='text-decoration:underline;'>JUGGERNAUT</span>: Juggernaut makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them. <br/>Catching a juggernaut token will give you this bonus for 10 seconds."
+            break;
+    }
+    game.info[1] = time;
+    setStyle('opacity', 1, ['statusInfo']);
+}

@@ -86,32 +86,32 @@
         <div class="infoHeading">STATS</div>
         <div class="infoBody">
             <div class="infoBlock">
-                <div class="infoTextLeft">Level :</div>
+                <div class="infoTextLeft" style="letter-spacing:11.2px;">Level</div>
                 <div class="infoTextRight" id="level"></div>
             </div>
             <div class="infoBlock">
-                <div class="infoTextLeft">Tries :</div>
+                <div class="infoTextLeft" style="letter-spacing:12.6px;">Tries</div>
                 <div class="infoTextRight" id="tries"></div>
             </div>
             <div class="infoBlock" id="bonusStrength">
-                <div class="infoTextLeft">Strength :</div>
-                <div class="infoTextRight">1</div>
+                <div class="infoTextLeft" style="letter-spacing:4.1px;">Strength</div>
+                <div class="infoTextRight" id="strength">1</div>
             </div>
             <div class="infoBlock"></div>
         </div>
 
         <div class="infoHeading">SCORE</div>
         <div class="infoBody">
-            <div class="infoBlockInactive">
-                <div class="infoTextLeft">Points :</div>
+            <div class="infoBlock">
+                <div class="infoTextLeft" style="letter-spacing:8.5px;">Points</div>
                 <div class="infoTextRight" id="score"></div>
             </div>
             <div class="infoBlock">
-                <div class="infoTextLeft">Bricks :</div>
+                <div class="infoTextLeft" style="letter-spacing:8.75px;">Bricks</div>
                 <div class="infoTextRight" id="bricksDestroyed"></div>
             </div>
             <div class="infoBlock">
-                <div class="infoTextLeft">Time :</div>
+                <div class="infoTextLeft" style="letter-spacing:17px;">Time</div>
                 <div class="infoTextRight" id="time"></div>
             </div>
             <div class="infoBlock"></div>
@@ -119,18 +119,27 @@
 
         <div class="infoHeading">BONUS</div>
         <div class="infoBody">
-            <div class="infoBlock">
-                <div class="infoTextLeft">Expand :</div>
-                <div class="infoTextRight" id="bonusStrength">:00</div>
-            </div>
-            <div class="infoBlock">
-                <div class="infoTextLeft">Blockade :</div>
-                <div class="infoTextRight" id="bonusStrength">:00</div>
-            </div>
-            <div class="infoBlock">
-                <div class="infoTextLeft">Juggernaut :</div>
-                <div class="infoTextRight" id="bonusStrength">:00</div>
-            </div>
+            <a id="bonusExpandBlock"
+                 onmouseup="showInfo('ExpandDefinition', 9000); return;">
+                <div  class="infoBlockInactive">
+                    <div class="infoTextLeft" style="letter-spacing:7px;">Expand</div>
+                    <div class="infoTextRight" id="bonusExpand">:00</div>
+                </div>
+            </a>
+            <a id="bonusBlockadeBlock"
+                 onmouseup="showInfo('BlockadeDefinition', 9000); return;">
+                <div class="infoBlockInactive">
+                    <div class="infoTextLeft" style="letter-spacing:3.7px;">Blockade</div>
+                    <div class="infoTextRight" id="bonusBlockade">:00</div>
+                </div>
+            </a>
+            <a id="bonusJuggernautBlock"
+                 onmouseup="showInfo('JuggernautDefinition', 9000); return;">
+                <div class="infoBlockInactive">
+                    <div class="infoTextLeft" style="letter-spacing:1.5px;">Juggernaut</div>
+                    <div class="infoTextRight" id="bonusJuggernaut">:00</div>
+                </div>
+            </a>
             <div class="infoBlock"></div>
         </div>
 
@@ -141,8 +150,10 @@
 
         </div>
     
-    <!-- Footer banner -->
-    <div id="footerBanner" class="footerBanner monitor">
+    <!-- Info area at bottom -->
+    <div id="statusBar" class="statusBar monitor">
+        <div id="statusInfo" class="statusInfo">
+        </div>
     </div>
 
 </div>
