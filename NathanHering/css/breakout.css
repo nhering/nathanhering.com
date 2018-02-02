@@ -126,14 +126,14 @@ a:hover {
     border-top: dashed 1px #9b9b9b;
     padding: 5px 0px;
     height: 27px;
+}
+
+.infoBlockActive {
     color: #56b244;
     text-shadow: 0px 0px 2px black;
 }
 
 .infoBlockInactive {
-    border-top: dashed 1px #9b9b9b;
-    padding: 5px 0px;
-    height: 27px;
     color: #667c69;
     text-shadow: 0px 0px 2px #223723;
 }

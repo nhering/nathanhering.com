@@ -115,8 +115,6 @@ function draw() {
     switch (game.mode) {
         case 'ready':
             drawStandardSet();
-            drawStats();
-            drawScore();
             break;
         case 'playing':
             drawStandardSet();
@@ -124,8 +122,6 @@ function draw() {
             break;
         case 'message':
             drawStandardSet();
-            drawStats();
-            drawScore();
             drawMessage();
             break;
         case 'counter':
@@ -142,6 +138,9 @@ function drawStandardSet() {
     drawScreen();
     drawPaddle();
     drawBricks();
+    drawStats();
+    drawScore();
+    drawBonus();
 }
 
 function drawScreen() {
@@ -231,6 +230,27 @@ function drawScore() {
     setInnerHTML(timer(game.time), 'time');
 }
 
+function drawBonus() {
+    setInnerHTML(timer(bonus.expand), 'bonusExpand');
+    setInnerHTML(timer(bonus.blockade), 'bonusBlockade');
+    setInnerHTML(timer(bonus.juggernaut), 'bonusJuggernaut');
+    if (bonus.expand > 24) {
+        changeClass('infoBlockInactive', 'infoBlockActive', 'bonusExpandBlock');
+    } else {
+        changeClass('infoBlockActive', 'infoBlockInactive', 'bonusExpandBlock');
+    }
+    if (bonus.blockade > 24) {
+        changeClass('infoBlockInactive', 'infoBlockActive', 'bonusBlockadeBlock');
+    } else {
+        changeClass('infoBlockActive', 'infoBlockInactive', 'bonusBlockadeBlock');
+    }
+    if (bonus.juggernaut > 24) {
+        changeClass('infoBlockInactive', 'infoBlockActive', 'bonusJuggernautBlock');
+    } else {
+        changeClass('infoBlockActive', 'infoBlockInactive', 'bonusJuggernautBlock');
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------UPDATE--
 //----------------------------------------------------------------------------------------
@@ -246,6 +266,7 @@ function update() {
             if (bricks.length == 0) { initializeLevel() }
             game.time++;
             updateBall();
+            updateBonus();
             break;
         case 'message':
             updateMessage();
@@ -257,7 +278,21 @@ function update() {
 }
 
 function updateBonus() {
-
+    if (bonus.expand > 0) {
+        bonus.expand -= 1;
+    } else {
+        bonus.expand = 0;
+    }
+    if (bonus.blockade > 0) {
+        bonus.blockade -= 1;
+    } else {
+        bonus.blockade = 0;
+    }
+    if (bonus.juggernaut) {
+        bonus.juggernaut -= 1;
+    } else {
+        bonus.juggernaut = 0;
+    }
 }
 
 function updateBall() {
@@ -446,6 +481,7 @@ function updateCount() {
     var count = game.counter;
     var boxShadow = Math.floor(count / 50);
     var textShadow = (Math.floor((35 * ((count / 1000) - Math.floor(count / 1000)))));
+    var fadeRing = ((1000 + count) / 1000);
 
     if (count > 0) {
         setStyle('opacity', 1, ['counter']);
@@ -453,13 +489,12 @@ function updateCount() {
         c.style.textShadow = "2px 2px 5px black, 0px 0px " + textShadow + "px green";
         c.innerHTML = Math.ceil(count / 1000);
     } else if (count <= 0 && count > -1000) {
-        setStyle('opacity', ((1000 + count) / 1000), ['counter']);
+        setStyle('opacity', fadeRing, ['counter']);
         c.style.boxShadow = "";
         c.innerHTML = "";
     } else {
         drawBall();
         setStyle('display', 'none', ['counter']);
-        //c.style.display = 'none';
         game.mode = 'playing';
     }
     initializeBall();
@@ -517,8 +552,8 @@ function initializeLevel() {
 function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
     token.tries =       ['T',                   10,             1];//[2] amount added to tries
     token.strength =    ['S',                   10,             1];//[2] amount added to strength
-    token.expand =      ['E',                   20,             30000];//[2] duration of bonus
-    token.blockade =    ['B',                   40,             20000];//[2] duration of bonus
+    token.expand =      ['E',                   20,             770];//[2] duration of bonus
+    token.blockade =    ['B',                   40,             35];//[2] duration of bonus
     token.juggernaut =  ['J',                   80,             10000];//[2] duration of bonus
 }
 
@@ -526,10 +561,10 @@ function _player() {
     player.strength = 1;
 }
 
-function _bonus() {
-    bonus.expand = 0;
-    bonus.blockade = 0;
-    bonus.juggernaut = 0;
+function _bonus() {//[0]Start time, [1]End time, [2]Is Active
+    bonus.expand = [0, 0, false];
+    bonus.blockade = [0, 0, false];
+    bonus.juggernaut = [0, 0, false];
 }
 
 function initializeBricks() {
@@ -617,6 +652,11 @@ function setStyle(style, value, ids) {
 
 function setInnerHTML(value, id) {
     document.getElementById(id).innerHTML = value
+}
+
+function changeClass(removeClass, addClass, id) {
+    document.getElementById(id).classList.remove(removeClass);
+    document.getElementById(id).classList.add(addClass);
 }
 
 function showInfo(option, time) {
