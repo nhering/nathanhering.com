@@ -231,20 +231,21 @@ function drawScore() {
 }
 
 function drawBonus() {
-    setInnerHTML(timer(bonus.expand), 'bonusExpand');
-    setInnerHTML(timer(bonus.blockade), 'bonusBlockade');
-    setInnerHTML(timer(bonus.juggernaut), 'bonusJuggernaut');
-    if (bonus.expand > 24) {
+    var second = 1000 / game.refresh;
+    setInnerHTML(timer(bonus.expand * second), 'bonusExpand');
+    setInnerHTML(timer(bonus.blockade * second), 'bonusBlockade');
+    setInnerHTML(timer(bonus.juggernaut * second), 'bonusJuggernaut');
+    if (bonus.expand > 0) {
         changeClass('infoBlockInactive', 'infoBlockActive', 'bonusExpandBlock');
     } else {
         changeClass('infoBlockActive', 'infoBlockInactive', 'bonusExpandBlock');
     }
-    if (bonus.blockade > 24) {
+    if (bonus.blockade > 0) {
         changeClass('infoBlockInactive', 'infoBlockActive', 'bonusBlockadeBlock');
     } else {
         changeClass('infoBlockActive', 'infoBlockInactive', 'bonusBlockadeBlock');
     }
-    if (bonus.juggernaut > 24) {
+    if (bonus.juggernaut > 0) {
         changeClass('infoBlockInactive', 'infoBlockActive', 'bonusJuggernautBlock');
     } else {
         changeClass('infoBlockActive', 'infoBlockInactive', 'bonusJuggernautBlock');
@@ -278,20 +279,23 @@ function update() {
 }
 
 function updateBonus() {
-    if (bonus.expand > 0) {
-        bonus.expand -= 1;
-    } else {
-        bonus.expand = 0;
-    }
-    if (bonus.blockade > 0) {
-        bonus.blockade -= 1;
-    } else {
-        bonus.blockade = 0;
-    }
-    if (bonus.juggernaut) {
-        bonus.juggernaut -= 1;
-    } else {
-        bonus.juggernaut = 0;
+    if (document.getElementById('time').innerHTML != bonus.lastSecond) {
+        bonus.lastSecond = document.getElementById('time').innerHTML;
+        if (bonus.expand > 0) {
+            bonus.expand -= 1;
+        } else {
+            bonus.expand = 0;
+        }
+        if (bonus.blockade > 0) {
+            bonus.blockade -= 1;
+        } else {
+            bonus.blockade = 0;
+        }
+        if (bonus.juggernaut) {
+            bonus.juggernaut -= 1;
+        } else {
+            bonus.juggernaut = 0;
+        }
     }
 }
 
@@ -552,19 +556,20 @@ function initializeLevel() {
 function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
     token.tries =       ['T',                   10,             1];//[2] amount added to tries
     token.strength =    ['S',                   10,             1];//[2] amount added to strength
-    token.expand =      ['E',                   20,             770];//[2] duration of bonus
-    token.blockade =    ['B',                   40,             35];//[2] duration of bonus
-    token.juggernaut =  ['J',                   80,             10000];//[2] duration of bonus
+    token.expand =      ['E',                   20,             30];//[2] duration of bonus
+    token.blockade =    ['B',                   40,             20];//[2] duration of bonus
+    token.juggernaut =  ['J',                   80,             10];//[2] duration of bonus
 }
 
 function _player() {
     player.strength = 1;
 }
 
-function _bonus() {//[0]Start time, [1]End time, [2]Is Active
-    bonus.expand = [0, 0, false];
-    bonus.blockade = [0, 0, false];
-    bonus.juggernaut = [0, 0, false];
+function _bonus() {//[0]Seconds, [1]Is Active
+    bonus.lastSecond = ':00'; //used to count down
+    bonus.expand = 30;
+    bonus.blockade = 0;
+    bonus.juggernaut = 0;
 }
 
 function initializeBricks() {
@@ -662,7 +667,7 @@ function changeClass(removeClass, addClass, id) {
 function showInfo(option, time) {
     switch (option) {
         case 'ExpandDefinition':
-            game.info[0] = "<span style='text-decoration:underline;'>EXPAND</span>: Expand makes your paddle wider. Making it easier to hit the ball. <br/><span style='letter-spacing:2px;'>Catching an expand token will give you this bonus for 30 seconds.</span>"
+            game.info[0] = "<span class='bonusDefinitionTitle'>EXPAND</span>: Expand makes your paddle wider. Making it easier to hit the ball. <br/><span style='letter-spacing:2px;'>Catching an expand token will give you this bonus for 30 seconds.</span>"
             break;
         case 'BlockadeDefinition':
             game.info[0] = "<span style='text-decoration:underline;'>BLOCKADE</span>: Blockade creates a wall at the bottom of the screen that the ball will bounce off of. Making it imposible to loose a ball!<br/>Catching a blockade token will give you this bonus for 20 seconds."
