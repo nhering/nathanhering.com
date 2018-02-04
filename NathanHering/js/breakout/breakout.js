@@ -667,10 +667,10 @@ function changeClass(removeClass, addClass, id) {
 function showInfo(option, time) {
     switch (option) {
         case 'ExpandDefinition':
-            game.info[0] = "<span class='bonusTitle'>EXPAND</span><span class='bonusDefinition'> makes your paddle wider. Making it easier to hit the ball.</span><br/><br/><span class='bonusTokenDefinition'>Catching an expand token will give you this bonus for 30 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>EXPAND</span><span class='bonusDefinition'> makes your paddle wider. Making it easier to hit the ball.</span><br/><br/><span class='bonusTokenDefinition'>Catching an Expand token will give you this bonus for 30 seconds.</span>"
             break;
         case 'BlockadeDefinition':
-            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching a blockade token will give you this bonus for 20 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching Blockade token will give you this bonus for 20 seconds.</span>"
             break;
         case 'HammerDefinition':
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
