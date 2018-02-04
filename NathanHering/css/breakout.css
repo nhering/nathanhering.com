@@ -302,7 +302,7 @@ a:hover {
     height: 80px;
 }
 
-.bonusDefinitionTitle {
+.bonusTitle {
     color: #eeeeee;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 22px;
@@ -311,5 +311,15 @@ a:hover {
 }
 
 .bonusDefinition {
+    color: #eeeeee;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+}
 
+.bonusTokenDefinition {
+    color: #eeeeee;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
 }
