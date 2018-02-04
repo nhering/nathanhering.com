@@ -667,13 +667,13 @@ function changeClass(removeClass, addClass, id) {
 function showInfo(option, time) {
     switch (option) {
         case 'ExpandDefinition':
-            game.info[0] = "<span class='bonusDefinitionTitle'>EXPAND</span>: Expand makes your paddle wider. Making it easier to hit the ball. <br/><span style='letter-spacing:2px;'>Catching an expand token will give you this bonus for 30 seconds.</span>"
+            game.info[0] = "<span class='bonusDefinitionTitle'>EXPAND</span> Expand makes your paddle wider. Making it easier to hit the ball. <br/><span style='letter-spacing:2px;'>Catching an expand token will give you this bonus for 30 seconds.</span>"
             break;
         case 'BlockadeDefinition':
-            game.info[0] = "<span style='text-decoration:underline;'>BLOCKADE</span>: Blockade creates a wall at the bottom of the screen that the ball will bounce off of. Making it imposible to loose a ball!<br/>Catching a blockade token will give you this bonus for 20 seconds."
+            game.info[0] = "<span class='bonusDefinitionTitle''>BLOCKADE</span> Blockade creates a wall at the bottom of the screen that the ball will bounce off of. Making it imposible to loose a ball!<br/>Catching a blockade token will give you this bonus for 20 seconds."
             break;
         case 'JuggernautDefinition':
-            game.info[0] = "<span style='text-decoration:underline;'>JUGGERNAUT</span>: Juggernaut makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them. <br/>Catching a juggernaut token will give you this bonus for 10 seconds."
+            game.info[0] = "<span class='bonusDefinitionTitle''>JUGGERNAUT</span> Juggernaut makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them. <br/>Catching a juggernaut token will give you this bonus for 10 seconds."
             break;
     }
     game.info[1] = time;
