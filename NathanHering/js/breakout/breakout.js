@@ -152,11 +152,23 @@ function drawScreen() {
     gradient.addColorStop(1, '#101010');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 455, 750, 35);
+    if (bonus.blockade > 0) {
+        drawBlocade();
+    }
+}
+
+function drawBlocade() {
+    ctx.fillStyle = '#55ccee';
+    ctx.fillRect(3, canvas.clientHeight - 10, canvas.clientWidth - 6, 5);
 }
 
 function drawPaddle() {
     paddle.top = 455;
-    paddle.width = 80;
+    if (bonus.expand > 0) {
+        paddle.width = 120;
+    } else {
+        paddle.width = 80;
+    }
     paddle.height = 20;
     var right = canvas.clientWidth - paddle.width;
     paddle.x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width/2);
@@ -234,7 +246,7 @@ function drawBonus() {
     var second = 1000 / game.refresh;
     setInnerHTML(timer(bonus.expand * second), 'bonusExpand');
     setInnerHTML(timer(bonus.blockade * second), 'bonusBlockade');
-    setInnerHTML(timer(bonus.Hammer * second), 'bonusHammer');
+    setInnerHTML(timer(bonus.hammer * second), 'bonusHammer');
     if (bonus.expand > 0) {
         changeClass('infoBlockInactive', 'infoBlockActive', 'bonusExpandBlock');
     } else {
@@ -245,7 +257,7 @@ function drawBonus() {
     } else {
         changeClass('infoBlockActive', 'infoBlockInactive', 'bonusBlockadeBlock');
     }
-    if (bonus.Hammer > 0) {
+    if (bonus.hammer > 0) {
         changeClass('infoBlockInactive', 'infoBlockActive', 'bonusHammerBlock');
     } else {
         changeClass('infoBlockActive', 'infoBlockInactive', 'bonusHammerBlock');
@@ -291,10 +303,10 @@ function updateBonus() {
         } else {
             bonus.blockade = 0;
         }
-        if (bonus.Hammer) {
-            bonus.Hammer -= 1;
+        if (bonus.hammer) {
+            bonus.hammer -= 1;
         } else {
-            bonus.Hammer = 0;
+            bonus.hammer = 0;
         }
     }
 }
@@ -406,7 +418,7 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baB > bricks[i][1] &&
             baT < bricks[i][1]) {
-            if (bonus.Hammer <= 0) { b[7] *= -1; }
+            if (bonus.hammer <= 0) { b[7] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -419,7 +431,7 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baL <= bricks[i][0] + bricks[i][2] &&
             baR >= bricks[i][0] + bricks[i][2]) {
-            if (bonus.Hammer <= 0) { b[6] *= -1; }
+            if (bonus.hammer <= 0) { b[6] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -432,7 +444,7 @@ function updateBall() {
             baX <= bricks[i][0] + bricks[i][2] &&
             baT <= bricks[i][1] + bricks[i][3] &&
             baB >= bricks[i][1] + bricks[i][3]) {
-            if (bonus.Hammer <= 0) { b[7] *= -1; }
+            if (bonus.hammer <= 0) { b[7] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -445,7 +457,7 @@ function updateBall() {
             baY <= bricks[i][1] + bricks[i][3] &&
             baR >= bricks[i][0] &&
             baL <= bricks[i][0]) {
-            if (bonus.Hammer <= 0) { b[6] *= -1; }
+            if (bonus.hammer <= 0) { b[6] *= -1; }
             doDamage(i)
             return true;
         } else {
@@ -455,7 +467,7 @@ function updateBall() {
 
     function doDamage(i) {
         var damageDone = bricks[i][5];
-        if (bonus.Hammer > 0) {
+        if (bonus.hammer > 0) {
             damageDone = bricks[i][5];
             bricks.splice(i, 1);
             game.bricksDestroyed += 1;
@@ -556,9 +568,9 @@ function initializeLevel() {
 function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
     token.tries =       ['T',                   10,             1];//[2] amount added to tries
     token.strength =    ['S',                   10,             1];//[2] amount added to strength
-    token.expand =      ['E',                   20,             30];//[2] duration of bonus
-    token.blockade =    ['B',                   40,             20];//[2] duration of bonus
-    token.Hammer =  ['J',                   80,             10];//[2] duration of bonus
+    token.expand =      ['E',                   20,             30];//[2] amount added to duration of bonus
+    token.blockade =    ['B',                   40,             20];//[2] amount added to duration of bonus
+    token.hammer =      ['J',                   80,             10];//[2] amount added to duration of bonus
 }
 
 function _player() {
@@ -569,7 +581,7 @@ function _bonus() {//[0]Seconds, [1]Is Active
     bonus.lastSecond = ':00'; //used to count down
     bonus.expand = 30;
     bonus.blockade = 20;
-    bonus.Hammer = 10;
+    bonus.hammer = 0;
 }
 
 function initializeBricks() {
@@ -676,19 +688,19 @@ function showInfo(option, time) {
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
             break;
         case 'TokenAwardedTries':
-            game.info[0] = "<span class='tokenAwarded'>EXTRA TRY TOKEN RECIEVED!</span>"
+            game.info[0] = "<span class='tokenAwarded'>EXTRA TRY TOKEN!</span>"
             break;
         case 'TokenAwardedStrength':
-            game.info[0] = "<span class='tokenAwarded'>INCREASE STRENGTH TOKEN RECIEVED!</span>"
+            game.info[0] = "<span class='tokenAwarded'>INCREASE STRENGTH TOKEN!</span>"
             break;
         case 'TokenAwardedExpand':
-            game.info[0] = "<span class='tokenAwarded'>EXPAND TOKEN RECIEVED!</span>"
+            game.info[0] = "<span class='tokenAwarded'>EXPAND TOKEN!</span>"
             break;
         case 'TokenAwardedBlockade':
-            game.info[0] = "<span class='tokenAwarded'>BLOCKADE TOKEN RECIEVED!</span>"
+            game.info[0] = "<span class='tokenAwarded'>BLOCKADE TOKEN!</span>"
             break;
         case 'TokenAwardedHammer':
-            game.info[0] = "<span class='tokenAwarded'>HAMMER TOKEN RECIEVED!</span>"
+            game.info[0] = "<span class='tokenAwarded'>HAMMER TOKEN!</span>"
             break;
     }
     game.info[1] = time;
