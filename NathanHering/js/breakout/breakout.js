@@ -11,6 +11,7 @@ var paddle = {};
 var ball = {};
 var bricks = [];
 var token = {};
+var tokens = [];
 var bonus = {};
 var player = {};
 
@@ -571,6 +572,7 @@ function timer(time) {
 function initializeLevel() {
     game.level += 1;
     initializeBricks();
+    initializeTokens();
     initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
@@ -601,8 +603,16 @@ function _bonus() {//[0]Seconds, [1]Is Active
 }
 
 function initializeTokens() {
-    //
-    
+    var selectedBrick = 0;
+    tokens = [];
+    tokens.push(token.tries, token.strength, token.expand, token.blockade, token.hammer);
+    while (tokens.length >  0) {
+        selectedBrick = getRandomInt(bricks.length);
+        if (bricks[selectedBrick][6] == '') {
+            bricks[selectedBrick][6] = tokens[0];
+            tokens.splice(0, 1);
+        }
+    }
 }
 
 function initializeBricks() {
@@ -726,4 +736,8 @@ function showInfo(option, time) {
     }
     game.info[1] = time;
     setStyle('opacity', 1, ['statusInfo']);
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
 }
