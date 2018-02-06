@@ -574,12 +574,12 @@ function initializeLevel() {
     initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
-function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
-    token.tries =       [0,0,10,0,2 * Math.PI, 'T',                   10,             1];//[2] amount added to tries
-    token.strength =    ['S',                   10,             1];//[2] amount added to strength
-    token.expand =      ['E',                   20,             30];//[2] amount added to duration of bonus
-    token.blockade =    ['B',                   40,             20];//[2] amount added to duration of bonus
-    token.hammer =      ['J',                   80,             10];//[2] amount added to duration of bonus
+function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
+    token.tries =       [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
+    token.strength =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
+    token.expand =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
+    token.blockade =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'B', 40, 20];//[8] amount added to duration of bonus
+    token.hammer =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'J', 80, 10];//[8] amount added to duration of bonus
 }
 
 function _player() {
@@ -601,7 +601,7 @@ function _bonus() {//[0]Seconds, [1]Is Active
 }
 
 function initializeTokens() {
-    //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color
+    //
     
 }
 
