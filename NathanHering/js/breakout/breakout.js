@@ -146,20 +146,20 @@ function drawStandardSet() {
 function drawScreen() {
     ctx.fillStyle = '#223322';
     ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-    var gradient = ctx.createLinearGradient(0, 455, 0, 490);
+    var gradient = ctx.createLinearGradient(0, canvas.clientHeight - 15, 0, 490);
     gradient.addColorStop(0, '#223322');
-    gradient.addColorStop(0.855, '#101310');
     gradient.addColorStop(1, '#101010');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 455, 750, 35);
     if (bonus.blockade > 0) {
         drawBlocade();
+    } else {
+        ctx.fillRect(0, canvas.clientHeight - 15, canvas.clientWidth, 15);
     }
 }
 
 function drawBlocade() {
-    ctx.fillStyle = '#55ccee';
-    ctx.fillRect(3, canvas.clientHeight - 10, canvas.clientWidth - 6, 5);
+    ctx.fillStyle = '#557755';
+    ctx.fillRect(bonus.blockadeX, bonus.blockadeY, bonus.blockadeWidth, bonus.blockadeHeight);
 }
 
 function drawPaddle() {
@@ -353,6 +353,15 @@ function updateBall() {
             collide = true;
             lostBall();
         } //off bottom of screen
+    }
+
+    //------------------------------BLOCKADE---
+    //-----------------------------------------
+    if (collide == false && bonus.blockade > 0) {
+        if (baB >= bonus.blockadeY) {
+            b[7] *= -1;
+            collide = true;
+        }
     }
 
     //--------------------------------PADDLE---
@@ -566,7 +575,7 @@ function initializeLevel() {
 }
 
 function _tokens() {//  [0]Display on token,    [1]Points,      [2]Unique value
-    token.tries =       ['T',                   10,             1];//[2] amount added to tries
+    token.tries =       [0,0,10,0,2 * Math.PI, 'T',                   10,             1];//[2] amount added to tries
     token.strength =    ['S',                   10,             1];//[2] amount added to strength
     token.expand =      ['E',                   20,             30];//[2] amount added to duration of bonus
     token.blockade =    ['B',                   40,             20];//[2] amount added to duration of bonus
@@ -579,9 +588,21 @@ function _player() {
 
 function _bonus() {//[0]Seconds, [1]Is Active
     bonus.lastSecond = ':00'; //used to count down
-    bonus.expand = 30;
-    bonus.blockade = 20;
+
+    bonus.expand = 5;
+
+    bonus.blockade = 10;
+    bonus.blockadeX = 5;
+    bonus.blockadeY = canvas.clientHeight - 10; //top
+    bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
+    bonus.blockadeHeight = 5;
+
     bonus.hammer = 0;
+}
+
+function initializeTokens() {
+    //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color
+    
 }
 
 function initializeBricks() {
@@ -589,7 +610,7 @@ function initializeBricks() {
     var brickHeight = 25;
     var color = "#dcdfdc";
     var health = game.level;
-    var powerUp;
+    var token = '';
 
     bricks = [];
     var rows = 1;
@@ -602,7 +623,7 @@ function initializeBricks() {
         for (var col = 0; col < columns; col++) {
             var x = col * (brickSpacing + brickWidth);
             var y = row * (brickSpacing + brickHeight);
-            bricks.push([(x + screenSpacing), (y + screenSpacing), brickWidth, brickHeight, color, health, powerUp]);
+            bricks.push([(x + screenSpacing), (y + screenSpacing), brickWidth, brickHeight, color, health, token]);
         }
     }
     return bricks;
