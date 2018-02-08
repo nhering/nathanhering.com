@@ -183,6 +183,7 @@ function drawPaddle() {
 }
 
 function drawBall() {
+    //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color
     var b = game.ball;
     ctx.beginPath();
     ctx.arc(b[0], b[1], b[2], b[3], b[4]);
@@ -218,12 +219,15 @@ function drawBricks() {
 }
 
 function drawTokens() {
-    for (var i = 0; i < tokens.length; i++) {
-        var t = tokens[i];
-        ctx.beginPath();
-        ctx.arc(t[0], t[1], t[2], t[3], t[4]);
-        ctx.fillStyle = t[5];
-        ctx.fill();
+    if (tokens.length > 0) {
+        for (var i = 0; i < tokens.length; i++) {
+            //alert(tokens[i]);
+            var t = tokens[i];
+            ctx.beginPath();
+            ctx.arc(t[0], t[1], t[2], t[3], t[4]);
+            ctx.fillStyle = t[5];
+            ctx.fill();
+        }
     }
 }
 
@@ -647,8 +651,8 @@ function initializeTokens() {
     while (tokens.length >  0) {
         selectedBrick = getRandomInt(bricks.length);
         if (bricks[selectedBrick][6] == '') {
-            tokens[0][0] = bricks[selectedBrick][0] + (bricks.width / 2)//xCoord 
-            tokens[0][1] = bricks[selectedBrick][1] + (bricks.height / 2)//yCoord
+            tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2))//xCoord 
+            tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2))//yCoord
             bricks[selectedBrick][6] = tokens[0];
             tokens.splice(0, 1);
         }
