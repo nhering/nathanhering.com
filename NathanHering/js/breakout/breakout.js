@@ -189,18 +189,28 @@ function drawBall() {
 
 function drawBricks() {
     for (var i = 0; i < bricks.length; i++) {
-        ctx.fillStyle = bricks[i][4];
+        if (game.mode != 'ready') {
+            if (bricks[i][6] == '') {
+                ctx.fillStyle = bricks[i][4];
+            } else {
+                ctx.fillStyle = bricks[i][6][5];
+            }
+        } else {
+            ctx.fillStyle = '#dcdfdc';
+        }
         ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3]);
 
-        var fontSize = 12;
-        var fontName = "Consolas";
-        var message = bricks[i][5];
-        var messageLen = bricks[i][5].toString().length;
-        var x = bricks[i][0] + (bricks[i][2] / 2) - ((fontSize / 4) * messageLen);
-        var y = bricks[i][1] + (bricks[i][3] / 2) + (fontSize / 3);
-        ctx.fillStyle = 'black';
-        ctx.font = fontSize + 'px ' + fontName;
-        ctx.fillText(message, x, y);
+        if (game.mode != 'ready') {
+            var fontSize = 12;
+            var fontName = "Consolas";
+            var message = bricks[i][5];
+            var messageLen = bricks[i][5].toString().length;
+            var x = bricks[i][0] + (bricks[i][2] / 2) - ((fontSize / 4) * messageLen);
+            var y = bricks[i][1] + (bricks[i][3] / 2) + (fontSize / 3);
+            ctx.fillStyle = 'black';
+            ctx.font = fontSize + 'px ' + fontName;
+            ctx.fillText(message, x, y);
+        }
     }
 }
 
@@ -623,9 +633,9 @@ function initializeBricks() {
     var token = '';
 
     bricks = [];
-    var rows = 1;
-    var columns = 1;
-    var brickSpacing = 2; //space between rows and columns of bricks
+    var rows = 5;
+    var columns = 8;
+    var brickSpacing = 8; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
     var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
@@ -713,7 +723,7 @@ function showInfo(option, time) {
             game.info[0] = "<span class='bonusTitle'>EXPAND</span><span class='bonusDefinition'> makes your paddle wider. Making it easier to hit the ball.</span><br/><br/><span class='bonusTokenDefinition'>Catching an Expand token will give you this bonus for 30 seconds.</span>"
             break;
         case 'BlockadeDefinition':
-            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching Blockade token will give you this bonus for 20 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching a Blockade token will give you this bonus for 20 seconds.</span>"
             break;
         case 'HammerDefinition':
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
