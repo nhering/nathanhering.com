@@ -9,6 +9,7 @@ var ctx = canvas.getContext('2d');
 var game = {};
 var paddle = {};
 var ball = {};
+var brick = {};
 var bricks = [];
 var token = {};
 var tokens = [];
@@ -17,7 +18,8 @@ var player = {};
 
 function Breakout() {
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
-    game.player = [1,0]
+    game.player = [1, 0]
+    _player();
     game.info = ["", 0]//[0]desctription, [1]timer
     game.mode = 'ready';
     game.nextMode = '';
@@ -31,8 +33,6 @@ function Breakout() {
     game.mouseX;
     game.refresh = 40;
     canvas.style.cursor = 'default';
-    _tokens();
-    _player();
     _bonus();
     drawScore();
     drawScreen();
@@ -587,6 +587,7 @@ function initializeLevel() {
 }
 
 function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
+    this.tries = [];
     token.tries =       [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
     token.strength =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
     token.expand =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
@@ -600,8 +601,7 @@ function _player() {
 
 function _bonus() {//[0]Seconds, [1]Is Active
     bonus.lastSecond = ':00'; //used to count down
-
-    bonus.expand = 5;
+    bonus.expand = 705;
 
     bonus.blockade = 10;
     bonus.blockadeX = 5;
@@ -609,16 +609,28 @@ function _bonus() {//[0]Seconds, [1]Is Active
     bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
     bonus.blockadeHeight = 5;
 
-    bonus.hammer = 0;
+    bonus.hammer = 660;
+}
+
+function _bricks() {
+    brick.width = 75;
+    brick.height = 25;
+    brick.color = '#dcdfdc';
+    brick.health = game.level;
 }
 
 function initializeTokens() {
+    _tokens();
     var selectedBrick = 0;
-    tokens = [];
-    tokens.push(token.tries, token.strength, token.expand, token.blockade, token.hammer);
+
+    //need to figure out a better way of populating the token array using some kind of randomizer
+    tokens = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
+
     while (tokens.length >  0) {
         selectedBrick = getRandomInt(bricks.length);
         if (bricks[selectedBrick][6] == '') {
+            tokens[0][0] = 0//xCoord bricks[selectedBrick]
+            tokens[0][1] = 0//yCoord
             bricks[selectedBrick][6] = tokens[0];
             tokens.splice(0, 1);
         }
@@ -626,24 +638,23 @@ function initializeTokens() {
 }
 
 function initializeBricks() {
-    var brickWidth = 75;
-    var brickHeight = 25;
-    var color = "#dcdfdc";
-    var health = game.level;
-    var token = '';
-
+    //var brickWidth = 75;
+    //var brickHeight = 25;
+    //var color = "#dcdfdc";
+    //var health = game.level;
+    _bricks();
     bricks = [];
     var rows = 5;
     var columns = 8;
     var brickSpacing = 8; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
-    var screenSpacing = Math.floor((screenWidth - ((brickWidth * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
+    var screenSpacing = Math.floor((screenWidth - ((brick.width * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
     for (var row = 0; row < rows; row++) {
         for (var col = 0; col < columns; col++) {
-            var x = col * (brickSpacing + brickWidth);
-            var y = row * (brickSpacing + brickHeight);
-            bricks.push([(x + screenSpacing), (y + screenSpacing), brickWidth, brickHeight, color, health, token]);
+            var x = col * (brickSpacing + brick.width);
+            var y = row * (brickSpacing + brick.height);
+            bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '']);
         }
     }
     return bricks;
@@ -729,19 +740,19 @@ function showInfo(option, time) {
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
             break;
         case 'TokenAwardedTries':
-            game.info[0] = "<span class='tokenAwarded'>EXTRA TRY TOKEN!</span>"
+            game.info[0] = "<span class='tokenAwarded'>EXTRA TRY!</span>"
             break;
         case 'TokenAwardedStrength':
-            game.info[0] = "<span class='tokenAwarded'>INCREASE STRENGTH TOKEN!</span>"
+            game.info[0] = "<span class='tokenAwarded'>INCREASE STRENGTH!</span>"
             break;
         case 'TokenAwardedExpand':
-            game.info[0] = "<span class='tokenAwarded'>EXPAND TOKEN!</span>"
+            game.info[0] = "<span class='tokenAwarded'>EXPAND!</span>"
             break;
         case 'TokenAwardedBlockade':
-            game.info[0] = "<span class='tokenAwarded'>BLOCKADE TOKEN!</span>"
+            game.info[0] = "<span class='tokenAwarded'>BLOCKADE!</span>"
             break;
         case 'TokenAwardedHammer':
-            game.info[0] = "<span class='tokenAwarded'>HAMMER TOKEN!</span>"
+            game.info[0] = "<span class='tokenAwarded'>HAMMER!</span>"
             break;
     }
     game.info[1] = time;
