@@ -17,7 +17,9 @@ var bonus = {};
 var player = {};
 
 function Breakout() {
-    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+    game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];
+
     game.player = [1, 0]
     _player();
     game.info = ["", 0]//[0]desctription, [1]timer
@@ -138,6 +140,7 @@ function draw() {
 function drawStandardSet() {
     drawScreen();
     drawPaddle();
+    drawTokens();
     drawBricks();
     drawStats();
     drawScore();
@@ -210,7 +213,17 @@ function drawBricks() {
             ctx.fillStyle = 'black';
             ctx.font = fontSize + 'px ' + fontName;
             ctx.fillText(message, x, y);
-        }
+        } //replace this with progress bar style health indicator
+    }
+}
+
+function drawTokens() {
+    for (var i = 0; i < tokens.length; i++) {
+        var t = tokens[i];
+        ctx.beginPath();
+        ctx.arc(t[0], t[1], t[2], t[3], t[4]);
+        ctx.fillStyle = t[5];
+        ctx.fill();
     }
 }
 
@@ -400,7 +413,7 @@ function updateBall() {
 
     //--------------------------------BRICKS---
     //-----------------------------------------
-    //[0] = x, [1] = y, [2] = width, [3] = height, [4] = color, [5] = health, [6] = powerUp
+    //[0] = x, [1] = y, [2] = width, [3] = height, [4] = color, [5] = health, [6] = token
     if (collide == false) {
         for (var i = 0; i < bricks.length; i++) {
             if (b[6] > 0 && b[7] >= 0) {
@@ -489,17 +502,17 @@ function updateBall() {
         var damageDone = bricks[i][5];
         if (bonus.hammer > 0) {
             damageDone = bricks[i][5];
+            releaseToken(i);
             bricks.splice(i, 1);
             game.bricksDestroyed += 1;
-            //insert token drop logic here
         } else {
             bricks[i][5] -= player.strength
             if (bricks[i][5] <= 0) {
                 bricks[i][5] = 0;
                 damageDone -= bricks[i][5];
+                releaseToken(i);
                 bricks.splice(i, 1);
                 game.bricksDestroyed += 1;
-                //insert token drop logic here
             } else {
                 damageDone -= bricks[i][5];
             }
@@ -510,6 +523,12 @@ function updateBall() {
     //move the ball
     b[0] += b[6];
     b[1] += b[7];
+}
+
+function releaseToken(i) {
+    if (bricks[i][6] != '') {
+        tokens.push(bricks[i][6]);
+    }
 }
 
 function updateCount() {
@@ -587,7 +606,6 @@ function initializeLevel() {
 }
 
 function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
-    this.tries = [];
     token.tries =       [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
     token.strength =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
     token.expand =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
@@ -599,17 +617,17 @@ function _player() {
     player.strength = 1;
 }
 
-function _bonus() {//[0]Seconds, [1]Is Active
+function _bonus() {
     bonus.lastSecond = ':00'; //used to count down
-    bonus.expand = 705;
+    bonus.expand = 6000;
 
-    bonus.blockade = 10;
+    bonus.blockade = 6000;
     bonus.blockadeX = 5;
     bonus.blockadeY = canvas.clientHeight - 10; //top
     bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
     bonus.blockadeHeight = 5;
 
-    bonus.hammer = 660;
+    bonus.hammer = 6000;
 }
 
 function _bricks() {
@@ -629,8 +647,8 @@ function initializeTokens() {
     while (tokens.length >  0) {
         selectedBrick = getRandomInt(bricks.length);
         if (bricks[selectedBrick][6] == '') {
-            tokens[0][0] = 0//xCoord bricks[selectedBrick]
-            tokens[0][1] = 0//yCoord
+            tokens[0][0] = bricks[selectedBrick][0] + (bricks.width / 2)//xCoord 
+            tokens[0][1] = bricks[selectedBrick][1] + (bricks.height / 2)//yCoord
             bricks[selectedBrick][6] = tokens[0];
             tokens.splice(0, 1);
         }
@@ -638,10 +656,6 @@ function initializeTokens() {
 }
 
 function initializeBricks() {
-    //var brickWidth = 75;
-    //var brickHeight = 25;
-    //var color = "#dcdfdc";
-    //var health = game.level;
     _bricks();
     bricks = [];
     var rows = 5;
