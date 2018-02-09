@@ -592,18 +592,19 @@ function updateToken() {
     if (tokens.length > 0) {
         for (var i = 0; i < tokens.length; i++) {
             var t = tokens[i];
+            //ball
+            //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
+
+            //token
+            // [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]Display on token, [7]Points, [8]Unique value
 
             //collide with paddle
-            if (collide == false) {
-            //    if (baX >= pL && baX <= pR && baB >= pT && baB < pB) {
-            //        if (baB > pT) { b[1] = pT - b[2] };
-            //        calculateAngle();
-            //        b[7] *= -1;
-            //        game.score += player.strength;
-            //        collide = true;
-            //    } //hit top of paddle
+            if (collide == false && t[1] > (paddle.top - t[2])) {
+                if (t[0] > paddle.x && t[0] < (paddle.x + paddle.width && t[1] > paddle.top && t[1] < (paddle.top + paddle.height))) {
+                    catchToken(i);
+                } //hit top of paddle
             }
-
+            
             //move token
             t[1] += 5;
         }
@@ -743,6 +744,10 @@ function releaseToken(i) {
     if (bricks[i][6] != '') {
         tokens.push(bricks[i][6]);
     }
+}
+
+function catchToken(i) {
+    alert('token!');
 }
 
 function newGame(){
