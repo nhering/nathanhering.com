@@ -318,6 +318,7 @@ function update() {
             game.time++;
             updateBall();
             updateBonus();
+            updateToken();
             break;
         case 'message':
             updateMessage();
@@ -539,12 +540,6 @@ function updateBall() {
     b[1] += b[7];
 }
 
-function releaseToken(i) {
-    if (bricks[i][6] != '') {
-        tokens.push(bricks[i][6]);
-    }
-}
-
 function updateCount() {
     var c = document.getElementById('counter');
     var count = game.counter;
@@ -591,40 +586,40 @@ function updateInfo() {
     }
 }
 
+function updateToken() {
+    var collide = false;
+
+    if (tokens.length > 0) {
+        for (var i = 0; i < tokens.length; i++) {
+            var t = tokens[i];
+
+            //collide with paddle
+            if (collide == false) {
+            //    if (baX >= pL && baX <= pR && baB >= pT && baB < pB) {
+            //        if (baB > pT) { b[1] = pT - b[2] };
+            //        calculateAngle();
+            //        b[7] *= -1;
+            //        game.score += player.strength;
+            //        collide = true;
+            //    } //hit top of paddle
+            }
+
+            //move token
+            t[1] += 5;
+        }
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
-
-function timer(time) {
-    var s = Math.floor((time / (1000 / game.refresh)) % 60);
-    var m = Math.floor(((time / (1000 / game.refresh)) / 60) % 60);
-    var second = 0;
-    var minute = 0;
-
-    if (s < 10) { second = ('0' + s); }
-    else { second = s }
-
-    if (m > 0) {
-        minute = m;
-    } else {
-        minute = ""}
-
-    return (minute + ':' + second);
-}
-
-function initializeLevel() {
-    game.level += 1;
-    initializeBricks();
-    initializeTokens();
-    initializeMessage(1500, 'Begin level ' + game.level, 'counter');
-}
 
 function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
     token.tries =       [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
     token.strength =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
     token.expand =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
     token.blockade =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'B', 40, 20];//[8] amount added to duration of bonus
-    token.hammer =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'J', 80, 10];//[8] amount added to duration of bonus
+    token.hammer =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'H', 80, 10];//[8] amount added to duration of bonus
 }
 
 function _player() {
@@ -649,6 +644,13 @@ function _bricks() {
     brick.height = 25;
     brick.color = '#dcdfdc';
     brick.health = game.level;
+}
+
+function initializeLevel() {
+    game.level += 1;
+    initializeBricks();
+    initializeTokens();
+    initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
 function initializeTokens() {
@@ -708,6 +710,24 @@ function initializeMessage(counter, message, nextMode) {
     game.nextMode = nextMode;
 }
 
+function timer(time) {
+    var s = Math.floor((time / (1000 / game.refresh)) % 60);
+    var m = Math.floor(((time / (1000 / game.refresh)) / 60) % 60);
+    var second = 0;
+    var minute = 0;
+
+    if (s < 10) { second = ('0' + s); }
+    else { second = s }
+
+    if (m > 0) {
+        minute = m;
+    } else {
+        minute = ""
+    }
+
+    return (minute + ':' + second);
+}
+
 function lostBall() {
     var lostBallMessages = ['That one got away!', 'Oh no!', 'Ouch, that hurt!', 'Yikes!!', 'You lost one!', "It's gone!", 'Aw man!', 'Bummer...', 'Try harder.', 'What?!?', 'Get to llama school!']
     var message = lostBallMessages[Math.floor((Math.random() * lostBallMessages.length))];
@@ -716,6 +736,12 @@ function lostBall() {
     } else {
         initializeMessage(2000, 'GAME OVER', 'gameOver');
         game.mode = 'gameOver';
+    }
+}
+
+function releaseToken(i) {
+    if (bricks[i][6] != '') {
+        tokens.push(bricks[i][6]);
     }
 }
 
