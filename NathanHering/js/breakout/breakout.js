@@ -227,6 +227,16 @@ function drawTokens() {
             ctx.arc(t[0], t[1], t[2], t[3], t[4]);
             ctx.fillStyle = t[5];
             ctx.fill();
+
+            var fontSize = 20;
+            var fontName = "Consolas";
+            var message = t[6];
+            var messageLen = 1;
+            var x = t[0] - (t[2] / 2) + .5;
+            var y = t[1] + (t[3] / 2) + (fontSize / 3);
+            ctx.fillStyle = 'black';
+            ctx.font = fontSize + 'px ' + fontName;
+            ctx.fillText(message, x, y);
         }
     }
 }
@@ -610,11 +620,11 @@ function initializeLevel() {
 }
 
 function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
-    token.tries =       [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
-    token.strength =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
-    token.expand =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
-    token.blockade =    [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'B', 40, 20];//[8] amount added to duration of bonus
-    token.hammer =      [0, 0, 10, 0, 2 * Math.PI, '#55ccee', 'J', 80, 10];//[8] amount added to duration of bonus
+    token.tries =       [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
+    token.strength =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
+    token.expand =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
+    token.blockade =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'B', 40, 20];//[8] amount added to duration of bonus
+    token.hammer =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'J', 80, 10];//[8] amount added to duration of bonus
 }
 
 function _player() {
