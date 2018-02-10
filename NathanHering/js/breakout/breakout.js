@@ -221,8 +221,8 @@ function drawBricks() {
 function drawTokens() {
     if (tokens.length > 0) {
         for (var i = 0; i < tokens.length; i++) {
-            //alert(tokens[i]);
             var t = tokens[i];
+
             ctx.beginPath();
             ctx.arc(t[0], t[1], t[2], t[3], t[4]);
             ctx.fillStyle = t[5];
@@ -590,15 +590,15 @@ function updateToken() {
     if (tokens.length > 0) {
         for (var i = 0; i < tokens.length; i++) {
             var t = tokens[i];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]Display on token, [7]Points, [8]Unique value
-
-            //collide with paddle
-            if ((t[1] > (paddle.top - (t[2]/2))) && (t[0] > paddle.x) && (t[0] < paddle.x + paddle.width + t[2])) {
-                catchToken(i);
-                }
-            }
             
-            //move token
-            t[1] += 5;
+            if ((t[1] > (paddle.top - (t[2] / 2))) &&
+                (t[0] > paddle.x) &&
+                (t[0] < paddle.x + paddle.width + t[2])) {
+                catchToken(i);
+            }//hit paddle
+
+            t[1] += 5;//move token
+        }
     }
 }
 
@@ -620,15 +620,15 @@ function _player() {
 
 function _bonus() {
     bonus.lastSecond = ':00'; //used to count down
-    bonus.expand = 6000;
+    bonus.expand = 0;
 
-    bonus.blockade = 6000;
+    bonus.blockade = 0;
     bonus.blockadeX = 5;
     bonus.blockadeY = canvas.clientHeight - 10; //top
     bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
     bonus.blockadeHeight = 5;
 
-    bonus.hammer = 6000;
+    bonus.hammer = 0;
 }
 
 function _bricks() {
@@ -738,16 +738,38 @@ function releaseToken(i) {
 }
 
 function catchToken(i) {
-    switch (tokens[i][6]) {
+    var t = tokens[i];
+
+    switch (t[6]) {
         case 'T': //tries
+            game.score += t[7];
+            game.tries += t[8];
+            showInfo('CatchTokenTries', 1000)
+            tokens.splice(i, 1);
             break;
         case 'S': //strength
+            game.score += t[7];
+            player.strength += t[8];
+            showInfo('CatchTokenStrength', 1000)
+            tokens.splice(i, 1);
             break;
         case 'E': //expand
+            game.score += t[7];
+            bonus.expand += t[8];
+            showInfo('CatchTokenExpand', 1000)
+            tokens.splice(i, 1);
             break;
         case 'B': //blockade
+            game.score += t[7];
+            bonus.blockade += t[8];
+            showInfo('CatchTokenBlockade', 1000)
+            tokens.splice(i, 1);
             break;
-        case 'H': //hammer
+        case 'H': //hammertooltool
+            game.score += t[7];
+            bonus.hammer += t[8];
+            showInfo('CatchTokenHammer', 1000)
+            tokens.splice(i, 1);
             break;
     }
 }
@@ -800,20 +822,20 @@ function showInfo(option, time) {
         case 'HammerDefinition':
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
             break;
-        case 'TokenAwardedTries':
-            game.info[0] = "<span class='tokenAwarded'>EXTRA TRY!</span>"
+        case 'CatchTokenTries':
+            game.info[0] = "<span class='catchToken'>EXTRA TRY!</span>"
             break;
-        case 'TokenAwardedStrength':
-            game.info[0] = "<span class='tokenAwarded'>INCREASE STRENGTH!</span>"
+        case 'CatchTokenStrength':
+            game.info[0] = "<span class='catchToken'>INCREASE STRENGTH!</span>"
             break;
-        case 'TokenAwardedExpand':
-            game.info[0] = "<span class='tokenAwarded'>EXPAND!</span>"
+        case 'CatchTokenExpand':
+            game.info[0] = "<span class='catchToken'>EXPAND!</span>"
             break;
-        case 'TokenAwardedBlockade':
-            game.info[0] = "<span class='tokenAwarded'>BLOCKADE!</span>"
+        case 'CatchTokenBlockade':
+            game.info[0] = "<span class='catchToken'>BLOCKADE!</span>"
             break;
-        case 'TokenAwardedHammer':
-            game.info[0] = "<span class='tokenAwarded'>HAMMER!</span>"
+        case 'CatchTokenHammer':
+            game.info[0] = "<span class='catchToken'>HAMMER!</span>"
             break;
     }
     game.info[1] = time;
