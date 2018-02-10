@@ -295,7 +295,7 @@ a:hover {
     display: inline-block;
     margin: 10px 0px;
     padding: 6px;
-    font-family: 'Arial Rounded MT';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: left;
     cursor: default;
     width: 100%;
@@ -304,7 +304,6 @@ a:hover {
 
 .bonusTitle {
     color: #55ccee;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 20px;
     letter-spacing: 5px;
     text-shadow: 0px 0px 2px #5599ee;
@@ -313,7 +312,6 @@ a:hover {
 
 .bonusDefinition {
     color: #55ccee;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 15px;
     letter-spacing: 3px;
     line-height: .5;
@@ -321,7 +319,6 @@ a:hover {
 
 .bonusTokenDefinition {
     color: #5599ee;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: italic;
     font-size: 13px;
     letter-spacing: 2px;
@@ -329,6 +326,5 @@ a:hover {
 
 .catchToken {
     color: #5599ee;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 30px;
+    font-size: 40px;
 }
