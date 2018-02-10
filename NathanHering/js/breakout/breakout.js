@@ -587,27 +587,18 @@ function updateInfo() {
 }
 
 function updateToken() {
-    var collide = false;
-
     if (tokens.length > 0) {
         for (var i = 0; i < tokens.length; i++) {
-            var t = tokens[i];
-            //ball
-            //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
-
-            //token
-            // [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]Display on token, [7]Points, [8]Unique value
+            var t = tokens[i];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]Display on token, [7]Points, [8]Unique value
 
             //collide with paddle
-            if (collide == false && t[1] > (paddle.top - t[2])) {
-                if (t[0] > paddle.x && t[0] < (paddle.x + paddle.width && t[1] > paddle.top && t[1] < (paddle.top + paddle.height))) {
-                    catchToken(i);
-                } //hit top of paddle
+            if ((t[1] > (paddle.top - (t[2]/2))) && (t[0] > paddle.x) && (t[0] < paddle.x + paddle.width + t[2])) {
+                catchToken(i);
+                }
             }
             
             //move token
             t[1] += 5;
-        }
     }
 }
 
@@ -747,7 +738,18 @@ function releaseToken(i) {
 }
 
 function catchToken(i) {
-    alert('token!');
+    switch (tokens[i][6]) {
+        case 'T': //tries
+            break;
+        case 'S': //strength
+            break;
+        case 'E': //expand
+            break;
+        case 'B': //blockade
+            break;
+        case 'H': //hammer
+            break;
+    }
 }
 
 function newGame(){
