@@ -81,7 +81,7 @@ a:hover {
     margin: 10px 0px;
     padding: 5px 10px;
     color: #7e7e7e;
-    cursor: pointer;
+    cursor: default;
     height: 31px;
 }
 

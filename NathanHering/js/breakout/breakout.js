@@ -744,31 +744,31 @@ function catchToken(i) {
         case 'T': //tries
             game.score += t[7];
             game.tries += t[8];
-            showInfo('CatchTokenTries', 1000)
+            showInfo('CatchTokenTries', 1500)
             tokens.splice(i, 1);
             break;
         case 'S': //strength
             game.score += t[7];
             player.strength += t[8];
-            showInfo('CatchTokenStrength', 1000)
+            showInfo('CatchTokenStrength', 1500)
             tokens.splice(i, 1);
             break;
         case 'E': //expand
             game.score += t[7];
             bonus.expand += t[8];
-            showInfo('CatchTokenExpand', 1000)
+            showInfo('CatchTokenExpand', 1500)
             tokens.splice(i, 1);
             break;
         case 'B': //blockade
             game.score += t[7];
             bonus.blockade += t[8];
-            showInfo('CatchTokenBlockade', 1000)
+            showInfo('CatchTokenBlockade', 1500)
             tokens.splice(i, 1);
             break;
         case 'H': //hammertooltool
             game.score += t[7];
             bonus.hammer += t[8];
-            showInfo('CatchTokenHammer', 1000)
+            showInfo('CatchTokenHammer', 1500)
             tokens.splice(i, 1);
             break;
     }
