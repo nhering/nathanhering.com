@@ -597,7 +597,12 @@ function updateToken() {
                 catchToken(i);
             }//hit paddle
 
-            t[1] += 5;//move token
+            if (bonus.blockade > 0 &&
+                t[1] >= bonus.blockadeY - t[2]) {
+                t[1] = bonus.blockadeY - t[2]
+            } else {
+                t[1] += 5;
+            }//move token
         }
     }
 }
@@ -620,10 +625,11 @@ function _player() {
 
 function _bonus() {
     bonus.lastSecond = ':00'; //used to count down
+
     bonus.expand = 0;
 
-    bonus.blockade = 0;
-    bonus.blockadeX = 5;
+    bonus.blockade = 90;//time
+    bonus.blockadeX = 5;//left
     bonus.blockadeY = canvas.clientHeight - 10; //top
     bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
     bonus.blockadeHeight = 5;
@@ -636,6 +642,7 @@ function _bricks() {
     brick.height = 25;
     brick.color = '#dcdfdc';
     brick.health = game.level;
+    brick.rows = 8;
 }
 
 function initializeLevel() {
@@ -649,7 +656,7 @@ function initializeTokens() {
     _tokens();
     var selectedBrick = 0;
 
-    //need to figure out a better way of populating the token array using some kind of randomizer
+    //TODO: figure out a better way of populating the token array using some kind of randomizer (always three tokens: 1 will always be strength, other two are random between the five choices)
     tokens = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
 
     while (tokens.length >  0) {
@@ -673,13 +680,20 @@ function initializeBricks() {
     var screenSpacing = Math.floor((screenWidth - ((brick.width * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
     for (var row = 0; row < rows; row++) {
+        var rowNum = row
         for (var col = 0; col < columns; col++) {
             var x = col * (brickSpacing + brick.width);
             var y = row * (brickSpacing + brick.height);
-            bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '']);
+            bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '', rowNum]);
         }
     }
     return bricks;
+}
+
+function isColumnEmpty(rowNum) {
+    for (var r = 0; r < brick.rows; r++) {
+
+    }
 }
 
 function initializeBall() {
