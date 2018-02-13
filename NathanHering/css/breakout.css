@@ -325,6 +325,7 @@ a:hover {
 }
 
 .catchToken {
+    padding-left: 300px;
     color: #5599ee;
     font-size: 40px;
 }

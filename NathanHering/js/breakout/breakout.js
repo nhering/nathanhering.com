@@ -314,7 +314,7 @@ function update() {
             initializeBricks();
             break;
         case 'playing':
-            if (bricks.length == 0) { initializeLevel() }
+            if (bricks.length == 0) { initializeLevel() }//levelCleared() will be the new function to end a level
             game.time++;
             updateBall();
             updateBonus();
@@ -614,7 +614,7 @@ function updateToken() {
 function _tokens() {// [0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color,  [6]Display on token,    [7]Points,      [8]Unique value
     token.tries =       [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'T', 10, 1];//[8] amount added to tries
     token.strength =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'S', 10, 1];//[8] amount added to strength
-    token.expand =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'E', 20, 30];//[8] amount added to duration of bonus
+    token.expand =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'E', 30, 30];//[8] amount added to duration of bonus
     token.blockade =    [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'B', 40, 20];//[8] amount added to duration of bonus
     token.hammer =      [0, 0, 12, 0, 2 * Math.PI, '#55ccee', 'H', 80, 10];//[8] amount added to duration of bonus
 }
@@ -628,7 +628,7 @@ function _bonus() {
 
     bonus.expand = 0;
 
-    bonus.blockade = 90;//time
+    bonus.blockade = 0;//time
     bonus.blockadeX = 5;//left
     bonus.blockadeY = canvas.clientHeight - 10; //top
     bonus.blockadeWidth = canvas.clientWidth - (bonus.blockadeX * 2),
@@ -655,9 +655,12 @@ function initializeLevel() {
 
 function initializeTokens() {
     _tokens();
-
-    //TODO: figure out a better way of populating the token array using some kind of randomizer (always three tokens: 1 will always be strength, other two are random between the five choices)
-    tokens = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
+    var tokens = [token.strength];
+    var bin = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
+    
+    for (var i = 0; i < 2; i++) {
+        tokens.push(bin[getRandomInt(bin.length)]);
+    }
 
     while (tokens.length >  0) {
         var selectedBrick = getRandomInt(bricks.length);
@@ -680,29 +683,25 @@ function initializeBricks() {
     var screenSpacing = Math.floor((screenWidth - ((brick.width * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
 
     for (var row = 0; row < rows; row++) {
-        var rowNum = row
         for (var col = 0; col < columns; col++) {
             var x = col * (brickSpacing + brick.width);
             var y = row * (brickSpacing + brick.height);
-            bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '', rowNum]);
+            bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '', col]);
         }
     }
     return bricks;
 }
 
-function columnIsEmpty(rowNum) {
+function columnIsEmpty(columnNum) {
     var column = [];
     var count = 0;
 
     for (var c = 0; c < bricks.length; c++) {
-        if (bricks[c][7] == rowNum) {
+        if (bricks[c][7] == columnNum) {
             column.push(bricks[c][6])
-        }
-    }
-
-    for (var t = 0; t < column.length; t++) {
-        if (column[t] == '') {
-            count += 1;
+            if (bricks[c][6] == '') {
+                count++;
+            }
         }
     }
 
@@ -854,7 +853,7 @@ function showInfo(option, time) {
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
             break;
         case 'CatchTokenTries':
-            game.info[0] = "<span class='catchToken'>EXTRA TRY!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 300px;'>EXTRA TRY!</span>"
             break;
         case 'CatchTokenStrength':
             game.info[0] = "<span class='catchToken'>INCREASE STRENGTH!</span>"
