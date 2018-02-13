@@ -642,7 +642,8 @@ function _bricks() {
     brick.height = 25;
     brick.color = '#dcdfdc';
     brick.health = game.level;
-    brick.rows = 8;
+    brick.rows = 5;
+    brick.columns = 8;
 }
 
 function initializeLevel() {
@@ -654,14 +655,13 @@ function initializeLevel() {
 
 function initializeTokens() {
     _tokens();
-    var selectedBrick = 0;
 
     //TODO: figure out a better way of populating the token array using some kind of randomizer (always three tokens: 1 will always be strength, other two are random between the five choices)
     tokens = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
 
     while (tokens.length >  0) {
-        selectedBrick = getRandomInt(bricks.length);
-        if (bricks[selectedBrick][6] == '') {
+        var selectedBrick = getRandomInt(bricks.length);
+        if (columnIsEmpty(bricks[selectedBrick][7])) {
             tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2))//xCoord 
             tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2))//yCoord
             bricks[selectedBrick][6] = tokens[0];
@@ -690,9 +690,26 @@ function initializeBricks() {
     return bricks;
 }
 
-function isColumnEmpty(rowNum) {
-    for (var r = 0; r < brick.rows; r++) {
+function columnIsEmpty(rowNum) {
+    var column = [];
+    var count = 0;
 
+    for (var c = 0; c < bricks.length; c++) {
+        if (bricks[c][7] == rowNum) {
+            column.push(bricks[c][6])
+        }
+    }
+
+    for (var t = 0; t < column.length; t++) {
+        if (column[t] == '') {
+            count += 1;
+        }
+    }
+
+    if (count == brick.rows) {
+        return true;
+    } else {
+        return false;
     }
 }
 
