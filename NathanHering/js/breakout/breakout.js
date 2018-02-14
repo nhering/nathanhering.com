@@ -134,6 +134,9 @@ function draw() {
         case 'gameOver':
             drawStandardSet();
             break;
+        case 'levelCleared':
+            drawStandardSet();
+            break;
     }
 }
 
@@ -314,7 +317,8 @@ function update() {
             initializeBricks();
             break;
         case 'playing':
-            if (bricks.length == 0) { initializeLevel() }//levelCleared() will be the new function to end a level
+            //if (bricks.length == 0) { initializeLevel() }//levelCleared() will be the new function to end a level
+            updateLevel();
             game.time++;
             updateBall();
             updateBonus();
@@ -325,6 +329,9 @@ function update() {
             break;
         case 'counter':
             updateCount();
+            break;
+        case 'levelCleared':
+            initializeLevel()
             break;
     }
 }
@@ -607,6 +614,14 @@ function updateToken() {
     }
 }
 
+function updateLevel() {
+    if (bricks.length > 0) {
+        return;
+    } else {
+        initializeMessage(2000, 'Level ' + game.level + ' cleared!', 'levelCleared');
+    }
+}
+
 //----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------SUBROUTINES--
 //----------------------------------------------------------------------------------------
@@ -644,9 +659,12 @@ function _bricks() {
     brick.health = game.level;
     brick.rows = 5;
     brick.columns = 8;
+    brick.spacing = 8; //space between rows and columns of bricks
 }
 
 function initializeLevel() {
+    game.ball[0] = 375;
+    game.ball[1] = 245;
     game.level += 1;
     initializeBricks();
     initializeTokens();
@@ -676,16 +694,13 @@ function initializeTokens() {
 function initializeBricks() {
     _bricks();
     bricks = [];
-    var rows = 5;
-    var columns = 8;
-    var brickSpacing = 8; //space between rows and columns of bricks
     var screenWidth = canvas.clientWidth;
-    var screenSpacing = Math.floor((screenWidth - ((brick.width * columns) + (brickSpacing * (columns - 1)))) / 2); //space between edge of screen and bricks
+    var screenSpacing = Math.floor((screenWidth - ((brick.width * brick.columns) + (brick.spacing * (brick.columns - 1)))) / 2); //space between edge of screen and bricks
 
-    for (var row = 0; row < rows; row++) {
-        for (var col = 0; col < columns; col++) {
-            var x = col * (brickSpacing + brick.width);
-            var y = row * (brickSpacing + brick.height);
+    for (var row = 0; row < brick.rows; row++) {
+        for (var col = 0; col < brick.columns; col++) {
+            var x = col * (brick.spacing + brick.width);
+            var y = row * (brick.spacing + brick.height);
             bricks.push([(x + screenSpacing), (y + screenSpacing), brick.width, brick.height, brick.color, brick.health, '', col]);
         }
     }
@@ -752,7 +767,7 @@ function timer(time) {
 
 function lostBall() {
     var lostBallMessages = ['That one got away!', 'Oh no!', 'Ouch, that hurt!', 'Yikes!!', 'You lost one!', "It's gone!", 'Aw man!', 'Bummer...', 'Try harder.', 'What?!?', 'Get to llama school!']
-    var message = lostBallMessages[Math.floor((Math.random() * lostBallMessages.length))];
+    var message = lostBallMessages[getRandomInt(lostBallMessages.length)];
     if (game.tries > 0) {
         initializeMessage(1500, message, 'counter');
     } else {
