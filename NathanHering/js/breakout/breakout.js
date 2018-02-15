@@ -256,7 +256,7 @@ function drawMessage() {
 }
 
 function drawCount() {
-    document.getElementById('counter').style.display = 'block';
+    setStyle('display', 'block', ['counter']);
 }
 
 function drawInfo() {
@@ -310,6 +310,7 @@ function drawBonus() {
 //----------------------------------------------------------------------------------------
 
 function update() {
+    setInnerHTML(game.mode, 'statusInfo');
     updateInfo();
     switch (game.mode) {
         case 'ready':
@@ -317,7 +318,6 @@ function update() {
             initializeBricks();
             break;
         case 'playing':
-            //if (bricks.length == 0) { initializeLevel() }//levelCleared() will be the new function to end a level
             updateLevel();
             game.time++;
             updateBall();
@@ -583,6 +583,9 @@ function updateMessage() {
             case 'playing':
                 game.mode = 'playing';
                 break;
+            case 'levelCleared':
+                initializeMessage(1500, 'Begin level ' + game.level, 'counter');
+                break;
         }
     }
 }
@@ -659,7 +662,7 @@ function _bricks() {
     brick.health = game.level;
     brick.rows = 5;
     brick.columns = 8;
-    brick.spacing = 8; //space between rows and columns of bricks
+    brick.spacing = 10; //space between rows and columns of bricks
 }
 
 function initializeLevel() {
@@ -707,6 +710,30 @@ function initializeBricks() {
     return bricks;
 }
 
+function initializeBall() {
+    var b = game.ball;
+    var radians = ((Math.random() * 2.08) + 3.67) * -1; //set angle
+    b[6] = b[8] * Math.cos(radians);
+    b[7] = b[8] * Math.sin(radians);
+    b[0] = 375;
+    b[1] = 245;
+    //GOOD TO KNOW FOR REFERENCE
+    //radians = (angle * (Math.PI / 180));
+    //angle = (radians * (180 / Math.PI));
+}
+
+function initializeMessage(counter, message, nextMode) {
+    var nextMode = nextMode ? nextMode : 'playing';
+    game.counter = counter;
+    game.message = message;
+    game.mode = 'message';
+    game.nextMode = nextMode;
+}
+
+function transition() {
+
+}
+
 function columnIsEmpty(columnNum) {
     var column = [];
     var count = 0;
@@ -725,26 +752,6 @@ function columnIsEmpty(columnNum) {
     } else {
         return false;
     }
-}
-
-function initializeBall() {
-    var b = game.ball;
-    var radians = ((Math.random() * 2.08) + 3.67) * -1; //set angle to between 3.67 - 5.75 radians (210 - 330 degrees)
-    b[6] = b[8] * Math.cos(radians);
-    b[7] = b[8] * Math.sin(radians);
-    b[0] = 375;
-    b[1] = 245;
-    //GOOD TO KNOW FOR REFERENCE
-    //radians = (angle * (Math.PI / 180));
-    //angle = (radians * (180 / Math.PI));
-}
-
-function initializeMessage(counter, message, nextMode) {
-    var nextMode = nextMode ? nextMode : 'playing';
-    game.counter = counter;
-    game.message = message;
-    game.mode = 'message';
-    game.nextMode = nextMode;
 }
 
 function timer(time) {
@@ -766,7 +773,19 @@ function timer(time) {
 }
 
 function lostBall() {
-    var lostBallMessages = ['That one got away!', 'Oh no!', 'Ouch, that hurt!', 'Yikes!!', 'You lost one!', "It's gone!", 'Aw man!', 'Bummer...', 'Try harder.', 'What?!?', 'Get to llama school!']
+    var lostBallMessages = [
+         'That one got away!'
+        ,'Oh no!'
+        ,'Ouch'
+        ,'that hurt!'
+        ,'Yikes!!'
+        ,'You lost one!'
+        ,"It's gone!"
+        ,'Aw man!'
+        ,'Bummer...'
+        ,'Try harder.'
+        ,'What?!?'
+        ,'Get to llama school!']
     var message = lostBallMessages[getRandomInt(lostBallMessages.length)];
     if (game.tries > 0) {
         initializeMessage(1500, message, 'counter');
@@ -810,7 +829,7 @@ function catchToken(i) {
             showInfo('CatchTokenBlockade', 1500)
             tokens.splice(i, 1);
             break;
-        case 'H': //hammertooltool
+        case 'H': //hammer
             game.score += t[7];
             bonus.hammer += t[8];
             showInfo('CatchTokenHammer', 1500)
