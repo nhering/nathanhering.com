@@ -310,7 +310,6 @@ function drawBonus() {
 //----------------------------------------------------------------------------------------
 
 function update() {
-    setInnerHTML(game.mode, 'statusInfo');
     updateInfo();
     switch (game.mode) {
         case 'ready':
@@ -584,7 +583,7 @@ function updateMessage() {
                 game.mode = 'playing';
                 break;
             case 'levelCleared':
-                initializeMessage(1500, 'Begin level ' + game.level, 'counter');
+                initializeLevel();
                 break;
         }
     }
@@ -728,10 +727,6 @@ function initializeMessage(counter, message, nextMode) {
     game.message = message;
     game.mode = 'message';
     game.nextMode = nextMode;
-}
-
-function transition() {
-
 }
 
 function columnIsEmpty(columnNum) {
