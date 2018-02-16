@@ -673,26 +673,6 @@ function initializeLevel() {
     initializeMessage(1500, 'Begin level ' + game.level, 'counter');
 }
 
-function initializeTokens() {
-    _tokens();
-    var tokens = [token.strength];
-    var bin = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
-    
-    for (var i = 0; i < 2; i++) {
-        tokens.push(bin[getRandomInt(bin.length)]);
-    }
-
-    while (tokens.length >  0) {
-        var selectedBrick = getRandomInt(bricks.length);
-        if (columnIsEmpty(bricks[selectedBrick][7])) {
-            tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2))//xCoord 
-            tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2))//yCoord
-            bricks[selectedBrick][6] = tokens[0];
-            tokens.splice(0, 1);
-        }
-    }
-}
-
 function initializeBricks() {
     _bricks();
     bricks = [];
@@ -707,6 +687,28 @@ function initializeBricks() {
         }
     }
     return bricks;
+}
+
+function initializeTokens() {
+    _tokens();
+    var tokens = [];
+    var bin = [token.tries, token.strength, token.expand, token.blockade, token.hammer];
+    
+    for (var i = 0; i < 3; i++) {
+        var selectedToken = getRandomInt(bin.length);
+        tokens.push(bin[selectedToken]);
+        bin.splice(selectedToken, 1);
+    }
+
+    while (tokens.length >  0) {
+        var selectedBrick = getRandomInt(bricks.length);
+        if (columnIsEmpty(bricks[selectedBrick][7])) {
+            tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2))//xCoord 
+            tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2))//yCoord
+            bricks[selectedBrick][6] = tokens[0];
+            tokens.splice(0, 1);
+        }
+    }
 }
 
 function initializeBall() {
