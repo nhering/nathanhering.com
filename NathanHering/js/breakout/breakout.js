@@ -117,6 +117,7 @@ function draw() {
     drawInfo();
     switch (game.mode) {
         case 'ready':
+            testMode();
             drawStandardSet();
             break;
         case 'playing':
@@ -331,6 +332,8 @@ function update() {
             break;
         case 'levelCleared':
             initializeLevel()
+            break;
+        case 'gameOver':
             break;
     }
 }
@@ -600,6 +603,10 @@ function updateToken() {
         for (var i = 0; i < tokens.length; i++) {
             var t = tokens[i];//[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]Display on token, [7]Points, [8]Unique value
             
+            if (t[1] > canvas.clientHeight + t[2]) {
+                lostToken(i);
+            }//lost token
+
             if ((t[1] > (paddle.top - (t[2] / 2))) &&
                 (t[0] > paddle.x) &&
                 (t[0] < paddle.x + paddle.width + t[2])) {
@@ -788,7 +795,6 @@ function lostBall() {
         initializeMessage(1500, message, 'counter');
     } else {
         initializeMessage(2000, 'GAME OVER', 'gameOver');
-        game.mode = 'gameOver';
     }
 }
 
@@ -806,33 +812,54 @@ function catchToken(i) {
             game.score += t[7];
             game.tries += t[8];
             showInfo('CatchTokenTries', 1500)
-            tokens.splice(i, 1);
             break;
         case 'S': //strength
             game.score += t[7];
             player.strength += t[8];
             showInfo('CatchTokenStrength', 1500)
-            tokens.splice(i, 1);
             break;
         case 'E': //expand
             game.score += t[7];
             bonus.expand += t[8];
             showInfo('CatchTokenExpand', 1500)
-            tokens.splice(i, 1);
             break;
         case 'B': //blockade
             game.score += t[7];
             bonus.blockade += t[8];
             showInfo('CatchTokenBlockade', 1500)
-            tokens.splice(i, 1);
             break;
         case 'H': //hammer
             game.score += t[7];
             bonus.hammer += t[8];
             showInfo('CatchTokenHammer', 1500)
-            tokens.splice(i, 1);
             break;
     }
+
+    tokens.splice(i, 1);
+}
+
+function lostToken(i) {
+    var t = tokens[i];
+
+    switch (t[6]) {
+        case 'T': //tries
+            showInfo('LostTokenTries', 1500)
+            break;
+        case 'S': //strength
+            showInfo('LostTokenStrength', 1500)
+            break;
+        case 'E': //expand
+            showInfo('LostTokenExpand', 1500)
+            break;
+        case 'B': //blockade
+            showInfo('LostTokenBlockade', 1500)
+            break;
+        case 'H': //hammer
+            showInfo('LostTokenHammer', 1500)
+            break;
+    }
+
+    tokens.splice(i, 1);
 }
 
 function newGame(){
@@ -884,23 +911,42 @@ function showInfo(option, time) {
             game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
             break;
         case 'CatchTokenTries':
-            game.info[0] = "<span class='catchToken' style='padding-left: 300px;'>EXTRA TRY!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 270px;'>EXTRA TRY!</span>"
             break;
         case 'CatchTokenStrength':
-            game.info[0] = "<span class='catchToken'>INCREASE STRENGTH!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 190px;'>INCREASE STRENGTH!</span>"
             break;
         case 'CatchTokenExpand':
-            game.info[0] = "<span class='catchToken'>EXPAND!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>EXPAND!</span>"
             break;
         case 'CatchTokenBlockade':
-            game.info[0] = "<span class='catchToken'>BLOCKADE!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 290px;'>BLOCKADE!</span>"
             break;
         case 'CatchTokenHammer':
-            game.info[0] = "<span class='catchToken'>HAMMER!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>HAMMER!</span>"
+            break;
+        case 'LostTokenTries':
+            game.info[0] = "<span class='lostToken' style='padding-left: 120px;'>There goes an Extra Try token!</span>"
+            break;
+        case 'LostTokenStrength':
+            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Strength token!</span>"
+            break;
+        case 'LostTokenExpand':
+            game.info[0] = "<span class='lostToken' style='padding-left: 145px;'>There goes an Expand token!</span>"
+            break;
+        case 'LostTokenBlockade':
+            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Blockade token!</span>"
+            break;
+        case 'LostTokenHammer':
+            game.info[0] = "<span class='lostToken' style='padding-left: 150px;'>There goes a Hammer token!</span>"
             break;
     }
     game.info[1] = time;
     setStyle('opacity', 1, ['statusInfo']);
+}
+
+function testMode() {
+    //showInfo('LostTokenHammer', 20000)
 }
 
 function getRandomInt(max) {

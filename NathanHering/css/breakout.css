@@ -325,7 +325,12 @@ a:hover {
 }
 
 .catchToken {
-    padding-left: 300px;
     color: #5599ee;
     font-size: 40px;
+}
+
+.lostToken {
+    color: #d34b4b;
+    font-size: 40px;
+    text-shadow: 0px 2px 2px black;
 }
