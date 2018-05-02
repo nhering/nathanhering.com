@@ -20,9 +20,9 @@ function Breakout() {
     //[0]xCoord, [1]yCoord, [2]radius, [3]startAngle, [4]endAngle, [5]color, [6]xVelocity, [7]yVelocity, [8]speed
     game.ball = [375, 245, 7, 0, 2 * Math.PI, '#dcdfdc', 0, 0, 7];
 
-    game.player = [1, 0]
+    game.player = [1, 0];
     _player();
-    game.info = ["", 0]//[0]desctription, [1]timer
+    game.info = ["", 0];//[0]desctription, [1]timer
     game.mode = 'ready';
     game.nextMode = '';
     game.message = '';
@@ -38,7 +38,7 @@ function Breakout() {
     _bonus();
     drawScore();
     drawScreen();
-    window.addEventListener('keyup', function (e) { keyListener(e) }, false);
+    window.addEventListener('keyup', function (e) { keyListener(e); }, false);
     window.addEventListener('mousemove', function (e) { game.mouseX = e.clientX; }, false);
     game.timer = setInterval(function () { draw(); update(); }, game.refresh);
 }
@@ -67,7 +67,7 @@ function play() {
     var noPlay = ['playing', 'counter', 'message', 'gameOver', 'quit'];
     if (noPlay.indexOf(game.mode) > -1) return;
 
-    if (game.mode == 'pause') {
+    if (game.mode === 'pause') {
         resume();
     } else {
         newGame();
@@ -85,7 +85,7 @@ function pause() {
     var noPause = ['message', 'ready', 'counter', 'gameOver', 'quit'];
     if (noPause.includes(game.mode)) return;
 
-    if (game.mode == 'pause') resume();
+    if (game.mode === 'pause') resume();
     game.mode = 'pause';
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('continueButton').style.display = 'block';
@@ -97,7 +97,7 @@ function quit(option) {
     var noQuit = ['ready', 'gameOver', 'message', 'counter'];
     if (noQuit.indexOf(game.mode) > -1) return;
 
-    if (option == 'request') {
+    if (option === 'request') {
         game.mode = 'quit';
         setStyle('display', 'none', ['playButton', 'pauseButton', 'continueModal', 'continueButton']);
         setStyle('display', 'block', ['quitModal', 'disabledPauseButton']);
@@ -180,8 +180,8 @@ function drawPaddle() {
     paddle.height = 20;
     var right = canvas.clientWidth - paddle.width;
     paddle.x = game.mouseX - canvas.getBoundingClientRect().left - (paddle.width/2);
-    if (paddle.x <= 0) { paddle.x = 0 };
-    if (paddle.x >= right) { paddle.x = right };
+    if (paddle.x <= 0) { paddle.x = 0; }
+    if (paddle.x >= right) { paddle.x = right; }
     ctx.fillStyle = '#dcdfdc';
     ctx.fillRect(paddle.x, paddle.top, paddle.width, paddle.height);
 }
@@ -197,8 +197,8 @@ function drawBall() {
 
 function drawBricks() {
     for (var i = 0; i < bricks.length; i++) {
-        if (game.mode != 'ready') {
-            if (bricks[i][6] == '') {
+        if (game.mode !== 'ready') {
+            if (bricks[i][6] === '') {
                 ctx.fillStyle = bricks[i][4];
             } else {
                 ctx.fillStyle = bricks[i][6][5];
@@ -208,7 +208,7 @@ function drawBricks() {
         }
         ctx.fillRect(bricks[i][0], bricks[i][1], bricks[i][2], bricks[i][3]);
 
-        if (game.mode != 'ready') {
+        if (game.mode !== 'ready') {
             var fontSize = 12;
             var fontName = "Consolas";
             var message = bricks[i][5];
@@ -331,7 +331,7 @@ function update() {
             updateCount();
             break;
         case 'levelCleared':
-            initializeLevel()
+            initializeLevel();
             break;
         case 'gameOver':
             break;
@@ -339,7 +339,7 @@ function update() {
 }
 
 function updateBonus() {
-    if (document.getElementById('time').innerHTML != bonus.lastSecond) {
+    if (document.getElementById('time').innerHTML !== bonus.lastSecond) {
         bonus.lastSecond = document.getElementById('time').innerHTML;
         if (bonus.expand > 0) {
             bonus.expand -= 1;
@@ -379,7 +379,7 @@ function updateBall() {
 
     //---------------------------------WALLS---
     //-----------------------------------------
-    if (collide == false) {
+    if (collide === false) {
         if (b[0] <= b[2]) {
             b[0] = b[2];
             b[6] *= -1;
@@ -405,7 +405,7 @@ function updateBall() {
 
     //------------------------------BLOCKADE---
     //-----------------------------------------
-    if (collide == false && bonus.blockade > 0) {
+    if (collide === false && bonus.blockade > 0) {
         if (baB >= bonus.blockadeY) {
             b[7] *= -1;
             collide = true;
@@ -414,9 +414,9 @@ function updateBall() {
 
     //--------------------------------PADDLE---
     //-----------------------------------------
-    if (collide == false) {
+    if (collide === false) {
         if (baX >= pL && baX <= pR && baB >= pT && baB < pB) {
-            if (baB > pT) { b[1] = pT - b[2] };
+            if (baB > pT) { b[1] = pT - b[2]; }
             calculateAngle();
             b[7] *= -1;
             game.score += player.strength;
@@ -438,7 +438,7 @@ function updateBall() {
     //--------------------------------BRICKS---
     //-----------------------------------------
     //[0] = x, [1] = y, [2] = width, [3] = height, [4] = color, [5] = health, [6] = token
-    if (collide == false) {
+    if (collide === false) {
         for (var i = 0; i < bricks.length; i++) {
             if (b[6] > 0 && b[7] >= 0) {
                 if (hitTop(i)) {
@@ -476,7 +476,7 @@ function updateBall() {
             baB > bricks[i][1] &&
             baT < bricks[i][1]) {
             if (bonus.hammer <= 0) { b[7] *= -1; }
-            doDamage(i)
+            doDamage(i);
             return true;
         } else {
             return false;
@@ -489,7 +489,7 @@ function updateBall() {
             baL <= bricks[i][0] + bricks[i][2] &&
             baR >= bricks[i][0] + bricks[i][2]) {
             if (bonus.hammer <= 0) { b[6] *= -1; }
-            doDamage(i)
+            doDamage(i);
             return true;
         } else {
             return false;
@@ -502,7 +502,7 @@ function updateBall() {
             baT <= bricks[i][1] + bricks[i][3] &&
             baB >= bricks[i][1] + bricks[i][3]) {
             if (bonus.hammer <= 0) { b[7] *= -1; }
-            doDamage(i)
+            doDamage(i);
             return true;
         } else {
             return false;
@@ -515,7 +515,7 @@ function updateBall() {
             baR >= bricks[i][0] &&
             baL <= bricks[i][0]) {
             if (bonus.hammer <= 0) { b[6] *= -1; }
-            doDamage(i)
+            doDamage(i);
             return true;
         } else {
             return false;
@@ -530,7 +530,7 @@ function updateBall() {
             bricks.splice(i, 1);
             game.bricksDestroyed += 1;
         } else {
-            bricks[i][5] -= player.strength
+            bricks[i][5] -= player.strength;
             if (bricks[i][5] <= 0) {
                 bricks[i][5] = 0;
                 damageDone -= bricks[i][5];
@@ -615,7 +615,7 @@ function updateToken() {
 
             if (bonus.blockade > 0 &&
                 t[1] >= bonus.blockadeY - t[2]) {
-                t[1] = bonus.blockadeY - t[2]
+                t[1] = bonus.blockadeY - t[2];
             } else {
                 t[1] += 5;
             }//move token
@@ -710,8 +710,8 @@ function initializeTokens() {
     while (tokens.length >  0) {
         var selectedBrick = getRandomInt(bricks.length);
         if (columnIsEmpty(bricks[selectedBrick][7])) {
-            tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2))//xCoord 
-            tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2))//yCoord
+            tokens[0][0] = Number(bricks[selectedBrick][0] + (bricks[selectedBrick][2] / 2));//xCoord
+            tokens[0][1] = Number(bricks[selectedBrick][1] + (bricks[selectedBrick][3] / 2));//yCoord
             bricks[selectedBrick][6] = tokens[0];
             tokens.splice(0, 1);
         }
@@ -743,15 +743,15 @@ function columnIsEmpty(columnNum) {
     var count = 0;
 
     for (var c = 0; c < bricks.length; c++) {
-        if (bricks[c][7] == columnNum) {
-            column.push(bricks[c][6])
-            if (bricks[c][6] == '') {
+        if (bricks[c][7] === columnNum) {
+            column.push(bricks[c][6]);
+            if (bricks[c][6] === '') {
                 count++;
             }
         }
     }
 
-    if (count == brick.rows) {
+    if (count === brick.rows) {
         return true;
     } else {
         return false;
@@ -765,12 +765,12 @@ function timer(time) {
     var minute = 0;
 
     if (s < 10) { second = ('0' + s); }
-    else { second = s }
+    else { second = s; }
 
     if (m > 0) {
         minute = m;
     } else {
-        minute = ""
+        minute = "";
     }
 
     return (minute + ':' + second);
@@ -779,17 +779,17 @@ function timer(time) {
 function lostBall() {
     var lostBallMessages = [
          'That one got away!'
-        ,'Oh no!'
-        ,'Ouch'
-        ,'that hurt!'
-        ,'Yikes!!'
-        ,'You lost one!'
-        ,"It's gone!"
-        ,'Aw man!'
-        ,'Bummer...'
-        ,'Try harder.'
-        ,'What?!?'
-        ,'Get to llama school!']
+        , 'Oh no!'
+        , 'Ouch'
+        , 'that hurt!'
+        , 'Yikes!!'
+        , 'You lost one!'
+        , "It's gone!"
+        , 'Aw man!'
+        , 'Bummer...'
+        , 'Try harder.'
+        , 'What?!?'
+        , 'Get to llama school!'];
     var message = lostBallMessages[getRandomInt(lostBallMessages.length)];
     if (game.tries > 0) {
         initializeMessage(1500, message, 'counter');
@@ -799,7 +799,7 @@ function lostBall() {
 }
 
 function releaseToken(i) {
-    if (bricks[i][6] != '') {
+    if (bricks[i][6] !== '') {
         tokens.push(bricks[i][6]);
     }
 }
@@ -811,27 +811,27 @@ function catchToken(i) {
         case 'T': //tries
             game.score += t[7];
             game.tries += t[8];
-            showInfo('CatchTokenTries', 1500)
+            showInfo('CatchTokenTries', 1500);
             break;
         case 'S': //strength
             game.score += t[7];
             player.strength += t[8];
-            showInfo('CatchTokenStrength', 1500)
+            showInfo('CatchTokenStrength', 1500);
             break;
         case 'E': //expand
             game.score += t[7];
             bonus.expand += t[8];
-            showInfo('CatchTokenExpand', 1500)
+            showInfo('CatchTokenExpand', 1500);
             break;
         case 'B': //blockade
             game.score += t[7];
             bonus.blockade += t[8];
-            showInfo('CatchTokenBlockade', 1500)
+            showInfo('CatchTokenBlockade', 1500);
             break;
         case 'H': //hammer
             game.score += t[7];
             bonus.hammer += t[8];
-            showInfo('CatchTokenHammer', 1500)
+            showInfo('CatchTokenHammer', 1500);
             break;
     }
 
@@ -843,19 +843,19 @@ function lostToken(i) {
 
     switch (t[6]) {
         case 'T': //tries
-            showInfo('LostTokenTries', 1500)
+            showInfo('LostTokenTries', 1500);
             break;
         case 'S': //strength
-            showInfo('LostTokenStrength', 1500)
+            showInfo('LostTokenStrength', 1500);
             break;
         case 'E': //expand
-            showInfo('LostTokenExpand', 1500)
+            showInfo('LostTokenExpand', 1500);
             break;
         case 'B': //blockade
-            showInfo('LostTokenBlockade', 1500)
+            showInfo('LostTokenBlockade', 1500);
             break;
         case 'H': //hammer
-            showInfo('LostTokenHammer', 1500)
+            showInfo('LostTokenHammer', 1500);
             break;
     }
 
@@ -885,13 +885,13 @@ function newGame(){
 }
 
 function setStyle(style, value, ids) {
-    for (var i = 0; i < ids.length ; i++){
+    for (var i = 0; i < ids.length; i++){
         document.getElementById(ids[i]).style[style] = value;
     }
 }
 
 function setInnerHTML(value, id) {
-    document.getElementById(id).innerHTML = value
+    document.getElementById(id).innerHTML = value;
 }
 
 function changeClass(removeClass, addClass, id) {
@@ -902,43 +902,43 @@ function changeClass(removeClass, addClass, id) {
 function showInfo(option, time) {
     switch (option) {
         case 'ExpandDefinition':
-            game.info[0] = "<span class='bonusTitle'>EXPAND</span><span class='bonusDefinition'> makes your paddle wider. Making it easier to hit the ball.</span><br/><br/><span class='bonusTokenDefinition'>Catching an Expand token will give you this bonus for 30 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>EXPAND</span><span class='bonusDefinition'> makes your paddle wider. Making it easier to hit the ball.</span><br/><br/><span class='bonusTokenDefinition'>Catching an Expand token will give you this bonus for 30 seconds.</span>";
             break;
         case 'BlockadeDefinition':
-            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching a Blockade token will give you this bonus for 20 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>BLOCKADE</span><span class='bonusDefinition'> creates a wall at the bottom of the playing field that the ball will bounce off of. Making it imposible to loose a ball!</span><br/><span class='bonusTokenDefinition'>Catching a Blockade token will give you this bonus for 20 seconds.</span>";
             break;
         case 'HammerDefinition':
-            game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>"
+            game.info[0] = "<span class='bonusTitle'>HAMMER</span><span class='bonusDefinition'> makes your ball unstoppable. It will destroy all bricks in its path without bouncing off of them.</span><br/><span class='bonusTokenDefinition'>Catching a Hammer token will give you this bonus for 10 seconds.</span>";
             break;
         case 'CatchTokenTries':
-            game.info[0] = "<span class='catchToken' style='padding-left: 270px;'>EXTRA TRY!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 270px;'>EXTRA TRY!</span>";
             break;
         case 'CatchTokenStrength':
-            game.info[0] = "<span class='catchToken' style='padding-left: 190px;'>INCREASE STRENGTH!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 190px;'>INCREASE STRENGTH!</span>";
             break;
         case 'CatchTokenExpand':
-            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>EXPAND!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>EXPAND!</span>";
             break;
         case 'CatchTokenBlockade':
-            game.info[0] = "<span class='catchToken' style='padding-left: 290px;'>BLOCKADE!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 290px;'>BLOCKADE!</span>";
             break;
         case 'CatchTokenHammer':
-            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>HAMMER!</span>"
+            game.info[0] = "<span class='catchToken' style='padding-left: 310px;'>HAMMER!</span>";
             break;
         case 'LostTokenTries':
-            game.info[0] = "<span class='lostToken' style='padding-left: 120px;'>There goes an Extra Try token!</span>"
+            game.info[0] = "<span class='lostToken' style='padding-left: 120px;'>There goes an Extra Try token!</span>";
             break;
         case 'LostTokenStrength':
-            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Strength token!</span>"
+            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Strength token!</span>";
             break;
         case 'LostTokenExpand':
-            game.info[0] = "<span class='lostToken' style='padding-left: 145px;'>There goes an Expand token!</span>"
+            game.info[0] = "<span class='lostToken' style='padding-left: 145px;'>There goes an Expand token!</span>";
             break;
         case 'LostTokenBlockade':
-            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Blockade token!</span>"
+            game.info[0] = "<span class='lostToken' style='padding-left: 140px;'>There goes a Blockade token!</span>";
             break;
         case 'LostTokenHammer':
-            game.info[0] = "<span class='lostToken' style='padding-left: 150px;'>There goes a Hammer token!</span>"
+            game.info[0] = "<span class='lostToken' style='padding-left: 150px;'>There goes a Hammer token!</span>";
             break;
     }
     game.info[1] = time;
